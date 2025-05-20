@@ -2,25 +2,6 @@
 
 ##### BETA (0.0.1)
 
-## Misc.
-
-### Start virtual environment
-```zsh
-python3 -m venv venv
-source venv/bin/activate
-```
-
-### Publish test package
-```zsh
-python3 -m twine upload --repository testpypi dist/*
-```
-
-### Install test package
-```zsh
-python3 -m pip install --index-url https://test.pypi.org/simple/ --no-deps gatenet
-```
----
-
 ## Installation
 
 ```zsh
