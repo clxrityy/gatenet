@@ -32,3 +32,13 @@ jobs:
     
     - name: Run tests
       run: pytest
+
+    - name: Run tests with coverage
+      run: |
+        pytest --cov=src/gatenet --cov-report=term-missing --cov-report=xml src/tests
+
+    - name: Upload coverage report
+      uses: codecov/codecov-action@v4
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        files: ./coverage.xml
