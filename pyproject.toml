@@ -24,6 +24,11 @@ build-backend = "hatchling.build"
 
 [tool.hatch.build]
 sources = ["src"]
+include = [
+    "src/gatenet/**",
+    "README.md",
+    "LICENSE"
+]
 
 [tool.hatch.metadata]
 include = ["LICENSE"]
