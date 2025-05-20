@@ -1,0 +1,23 @@
+[project]
+name = "gatenet"
+version = "0.0.1"
+authors = [
+    { name="MJ Anglin", email="contact@mjanglin.com" },
+]
+description = "Python library for gateways, networks, and devices."
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+license = "MIT"
+license-files = ["LICENSE"]
+
+[project.urls]
+Homepage = "https://github.com/clxrityy/gatenet"
+Issues = "https://github.com/clxrityy/gatenet/issues"
+
+[build-system]
+requires = ["hatchling >= 1.26"]
+build-backend = "hatchling.build"
