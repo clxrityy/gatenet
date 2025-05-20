@@ -21,3 +21,9 @@ Issues = "https://github.com/clxrityy/gatenet/issues"
 [build-system]
 requires = ["hatchling >= 1.26"]
 build-backend = "hatchling.build"
+
+[tool.hatch.build]
+sources = ["src"]
+
+[tool.hatch.metadata]
+include = ["LICENSE"]
