@@ -9,3 +9,6 @@ __pycache__/
 dist/
 .env*
 .pytest*
+.vscode/
+.DS_Store
+.idea/
