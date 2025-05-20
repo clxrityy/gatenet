@@ -31,15 +31,19 @@ class TCPServer(BaseSocketServer):
         
         try:
             while self._is_running:
-                client, addr = self._sock.accept()
-                thread = threading.Thread(
-                    target=self._handle_client,
-                    args=(client, addr),
-                    daemon=True
-                )
-                thread.start()
-        except KeyboardInterrupt:
+                try:
+                    client, addr = self._sock.accept()
+                    thread = threading.Thread(
+                        target=self._handle_client,
+                        args=(client, addr),
+                        daemon=True
+                    )
+                    thread.start()
+                except socket.timeout:
+                    continue # Re-check is_running flag
+        finally:
             self.stop()
+        
             
     def _handle_client(self, client_socket: socket.socket, addr: tuple):
         """
