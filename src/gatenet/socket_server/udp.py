@@ -26,12 +26,19 @@ class UDPServer(BaseSocketServer):
         
         try:
             while True:
-                data, addr = self._sock.recvfrom(1024)
-                print(f"[UDPServer] Received from {addr}: {data.decode()}")
-                self._sock.sendto(b"Echo: " + data, addr)
-        except KeyboardInterrupt:
+                try:
+                    data, addr = self._sock.recvfrom(1024)
+                    print(f"[UDPServer] Received from {addr}: {data.decode()}")
+                    self._sock.sendto(b"Echo: " + data, addr)
+                except socket.timeout:
+                    continue
+        except OSError:
+            # Socket closed externally - expected on shutdown
+            pass
+        finally:
             self.stop()
-            
+        
+                           
     def stop(self):
         """
         Stop the UDP server and close the socket.

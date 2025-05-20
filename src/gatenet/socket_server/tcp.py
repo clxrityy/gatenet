@@ -41,6 +41,9 @@ class TCPServer(BaseSocketServer):
                     thread.start()
                 except socket.timeout:
                     continue # Re-check is_running flag
+        except OSError:
+            # Socket closed externally - expected on shutdown
+            pass
         finally:
             self.stop()
         
