@@ -1,6 +1,6 @@
 [project]
 name = "gatenet"
-version = "0.0.1"
+version = "0.1.0"
 authors = [
     { name="MJ Anglin", email="contact@mjanglin.com" },
 ]
