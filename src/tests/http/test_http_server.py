@@ -1,4 +1,3 @@
-import threading
 import time
 import requests
 from gatenet.http.base import HTTPServerComponent
