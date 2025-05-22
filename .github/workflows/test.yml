@@ -35,10 +35,14 @@ jobs:
 
     - name: Run tests with coverage
       run: |
-        pytest --cov=src/gatenet --cov-report=term-missing --cov-report=xml src/tests
+        pytest --cov --junitxml=junit.xml -o junit_family=legacy
 
     - name: Upload coverage report
       uses: codecov/codecov-action@v4
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
-        files: ./coverage.xml
+    - name: Upload test results to codecov
+      if: ${{ !cancled()}}
+      uses: codecov/test-results-action@v1
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
