@@ -1,7 +1,8 @@
 import time
 import requests
-from gatenet.http.base import HTTPServerComponent
+from gatenet.http.server import HTTPServerComponent
 from gatenet.utils.net import get_free_port
+import json
 
     
 def test_custom_route_json():
@@ -9,13 +10,13 @@ def test_custom_route_json():
     server = HTTPServerComponent("127.0.0.1", port)
     
     @server.route("/")
-    def root(_):
+    def root(req):
         return {
             "ok": True
         }
     
     @server.route("/ping")
-    def ping(_):
+    def ping(req):
         return {
             "pong": True
         }
@@ -38,10 +39,11 @@ def test_http_post_json_echo():
     server = HTTPServerComponent(host, port)
     
     @server.route("/echo", method="POST")
-    def echo(_req, data):
-        return {
-            "you_sent": data
-        }
+    def echo(req):
+        length = int(req.headers.get('Content-Length', 0))
+        body = req.rfile.read(length)
+        data = json.loads(body)
+        return { "you_sent": data }
     
     server.start()
     time.sleep(0.5) # Give the server a moment to start
