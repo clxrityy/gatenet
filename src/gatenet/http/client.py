@@ -35,7 +35,7 @@ class HTTPClient:
                 "error": str(e)
             }
 
-    def post(self, path: str, data: Dict[str, Any], headers: Optional[Dict[str, str]]) -> Dict[str, Any]:
+    def post(self, path: str, data: Dict[str, Any], headers: Optional[Dict[str, str]] = None) -> Dict[str, Any]:
         """
         Send a POST request with JSON body
         
@@ -46,11 +46,11 @@ class HTTPClient:
         url = f"{self.base_url}/{path.lstrip('/')}"
         final_headers = {"Content-Type": "application/json"}
         
-        if headers:
+        if headers is not None:
             final_headers.update(headers)
         
         encoded = json.dumps(data).encode()
-        req = request.Request(url, data=encoded, headers=headers, method="POST")
+        req = request.Request(url, data=encoded, headers=final_headers, method="POST")
 
         try:
             with request.urlopen(req, timeout=5) as response:
