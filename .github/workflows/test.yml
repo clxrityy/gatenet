@@ -42,7 +42,6 @@ jobs:
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
     - name: Upload test results to codecov
-      if: ${{ !canceled()}}
       uses: codecov/test-results-action@v1
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
