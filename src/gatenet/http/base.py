@@ -27,7 +27,7 @@ class HTTPServerComponent:
     - Runs in a background thread via `start()`.
     """
     
-    def __init__(self, host: str = "127.0.0.1", port: int = 8000):
+    def __init__(self, host: str = "127.0.0.1", port: int = 8000, handler_cls = None):
         """
         Initialize the HTTP server.
         
@@ -40,7 +40,7 @@ class HTTPServerComponent:
         self.host = host
         self.port = port
         self.handler_cls = RouteHTTPRequestHandler
-        self._server = HTTPServer((self.host, self.port), self.handler_cls)
+        self.server = HTTPServer((self.host, self.port), self.handler_cls)
         self._thread = None
         
     def route(self, path, method: str = "GET"):
@@ -61,7 +61,7 @@ class HTTPServerComponent:
         """
         def run():
             try:
-                self._server.serve_forever()
+                self.server.serve_forever()
             except Exception as e:
                 print(f"[HTTP] Server error: {e}")
         
@@ -72,6 +72,6 @@ class HTTPServerComponent:
         """
         Stop the server.
         """
-        if self._server:
-            self._server.shutdown()
-            self._server.server_close()
+        if self.server:
+            self.server.shutdown()
+            self.server.server_close()
