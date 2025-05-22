@@ -1,14 +1,27 @@
 # gatenet 🛰️
 
-##### BETA (0.1.0)
+##### BETA (0.1.2)
 
-[![CI](https://github.com/clxrityy/gatenet/actions/workflows/test.yml/badge.svg)](https://github.com/clxrityy/gatenet/actions/workflows/test.yml)
-[![codecov](https://codecov.io/gh/clxrityy/gatenet/graph/badge.svg?token=4644O5NGW9)](https://codecov.io/gh/clxrityy/gatenet)
-[![PyPI version](https://img.shields.io/pypi/v/gatenet)](https://pypi.org/project/gatenet/)
-[![Python](https://img.shields.io/pypi/pyversions/gatenet)](https://pypi.org/project/gatenet/)
-[![License](https://img.shields.io/github/license/clxrityy/gatenet)](LICENSE)
+![Changelog](https://img.shields.io/badge/changelog-log?logo=gitbook&logoColor=%23333333&color=%23BBDDE5&link=https%3A%2F%2Fgithub.com%2Fclxrityy%2Fgatenet%2Fblob%2Fmaster%2FCHANGELOG.md)
+
+| | |
+|---|---|
+| **Package** | [![PyPI](https://img.shields.io/pypi/v/gatenet)](https://pypi.org/project/gatenet/) |
+| **Python** | [![Python](https://img.shields.io/pypi/pyversions/gatenet)](https://pypi.org/project/gatenet/) |
+| **Tests** | [![CI](https://github.com/clxrityy/gatenet/actions/workflows/test.yml/badge.svg)](https://github.com/clxrityy/gatenet/actions/workflows/test.yml) [![codecov](https://codecov.io/gh/clxrityy/gatenet/graph/badge.svg?token=4644O5NGW9)](https://codecov.io/gh/clxrityy/gatenet) |
+| **License** | [![License](https://img.shields.io/github/license/clxrityy/gatenet)](LICENSE) |
 
 > Python networking toolkit for sockets, UDP, and HTTP microservices — modular and testable.
+
+- [Changelog](https://github.com/clxrityy/gatenet/blob/master/CHANGELOG.md)
+- [Installation](#installation)
+- [Features](#features)
+- [TCP](#tcp-server)
+- [UDP](#udp-server--client)
+- [HTTP](#http-server--client)
+- [Tests](#tests)
+
+---
 
 ## Installation
 
@@ -17,12 +30,15 @@ pip install gatenet
 ```
 
 ## Features
-- [x] [TCP Server](#tcp-server) for raw socket data
-- [x] [UDP Server & Client](#udp-server--client)
-- [x] [HTTP Server](#http-server)
+- [x] [TCP](#tcp-server) for raw socket data
+- [x] [UDP](#udp-server--client)
+- [x] [HTTP](#http-server)
     - [x] Route-based handling
     - [x] JSON responses
-    - [x] POST support
+    - [x] Dynamic request handling
+    - [x] Custom headers
+    - [x] Error handling
+    - [x] Timeout handling
 - Minimal, composable, Pythonic design
 
 ## TCP Server
@@ -72,7 +88,7 @@ print(response)
 ### HTTP Server
 
 ```python
-from gatenet.http.base import HTTPServerComponent
+from gatenet.http.server import HTTPServerComponent
 
 server = HTTPServerComponent(host="127.0.0.1", port=8080)
 
