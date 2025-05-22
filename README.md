@@ -3,7 +3,7 @@
 ##### BETA (0.1.0)
 
 [![CI](https://github.com/clxrityy/gatenet/actions/workflows/test.yml/badge.svg)](https://github.com/clxrityy/gatenet/actions/workflows/test.yml)
-[![codecov](https://codecov.io/gh/clxrityy/gatenet/branch/main/graph/badge.svg)](https://codecov.io/gh/clxrityy/gatenet)
+[![codecov](https://codecov.io/gh/clxrityy/gatenet/graph/badge.svg?token=4644O5NGW9)](https://codecov.io/gh/clxrityy/gatenet)
 [![PyPI version](https://img.shields.io/pypi/v/gatenet)](https://pypi.org/project/gatenet/)
 [![Python](https://img.shields.io/pypi/pyversions/gatenet)](https://pypi.org/project/gatenet/)
 [![License](https://img.shields.io/github/license/clxrityy/gatenet)](LICENSE)
