@@ -19,7 +19,7 @@ pip install gatenet
 ## Features
 - [x] [TCP Server](#tcp-server) for raw socket data
 - [x] [UDP Server & Client](#udp-server--client)
-- [x] [HTTP Server](#http-server-get--post)
+- [x] [HTTP Server](#http-server)
     - [x] Route-based handling
     - [x] JSON responses
     - [x] POST support
@@ -67,7 +67,9 @@ response = client.send("Hello, UDP!")
 print(response)
 ```
 
-## HTTP Server (GET + POST)
+## HTTP Server & Client
+
+### HTTP Server
 
 ```python
 from gatenet.http.base import HTTPServerComponent
@@ -89,14 +91,16 @@ def echo(_req, data):
 server.start()
 ```
 
-### Send a POST request
+### HTTP Client
 
 ```python
-import requests
+from gatenet.http.client import HTTPClient
 
-res = requests.post("http://127.0.0.1:8080/echo", json={"msg": "hi"})
-print(res.json()) # {'received': {'msg': 'hi'}}
+client = HTTPClient("http://127.0.0.1:8080")
+print(client.get("/status")) # {"ok": True}
+print(client.post("/echo", {"x": 1})) # {"received": {"x": 1}}
 ```
+
 
 ## Tests
 
