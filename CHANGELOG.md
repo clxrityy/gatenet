@@ -5,7 +5,7 @@
 - [v0](#v0) (BETA)
     - [0.1.0](#010)
     - [0.1.1](#011)
-    - [0.1.2](#012)
+    - [0.3.0](#030)
 
 # v0 (BETA)
 
@@ -34,7 +34,7 @@
 
 - Added code coverage support with `codecov`.
 
-## 0.1.2
+## 0.3.0
 
 - Built this changelog. 😏
 - Added **Dynamic Request Handling** for HTTP server. ([bf8658c](https://github.com/clxrityy/gatenet/commit/bf8658cb78f02cf7fdd2a0a0583f568eb99eb8e0))
@@ -58,4 +58,27 @@
 - Test cases for HTTP server/client updated. ([ef735bd](https://github.com/clxrityy/gatenet/commit/ef735bd60e86da12c812d38f969e325feefa0973)) & ([a2f896e](https://github.com/clxrityy/gatenet/commit/a2f896ef14121294c1f6d3b48821ca0c4394860e))
     - Uses only the `@route` decorators for route registration.
     - Verifies proper roundtrip of JSON data with `POST`.
-    - Verfies status routes, echo routes, and default error handling.
+    - Verifies status routes, echo routes, and default error handling.
+
+- Refactored the `HTTPClient` class to manage all HTTP methods (GET, POST, PUT, DELETE, PATCH) in a single method. ([2e4d986](https://github.com/clxrityy/gatenet/commit/2e4d98615c5ab3dce8986966bd00a891bad56746))
+    ```python
+    for m in ["get", "post", "put", "delete", "patch"]:
+        setattr(
+            #...
+        )
+    ```
+    - Add a wrapper method with docstrings and type hints.
+        ```python
+        def _generate_method(self, method: str):
+            def _method(
+                # ... arguments
+            )
+                return self._request(
+                    # ... arguments
+                )
+            _method.__name__ = method
+            _method.__doc__ = f"Send an HTTP {method.upper()} request"
+        return _method
+        ```
+    - Add support for custom headers, timeouts, and error handling.
+- Added some [examples](./examples/README.md) ([cce8f2d](https://github.com/clxrityy/gatenet/commit/cce8f2d3f94e2c8a33e5417203ef87d8c29060c6))

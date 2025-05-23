@@ -1,15 +1,15 @@
 # gatenet 🛰️
 
-##### BETA (0.1.2)
+##### BETA
 
 ![Changelog](https://img.shields.io/badge/changelog-log?logo=gitbook&logoColor=%23333333&color=%23BBDDE5&link=https%3A%2F%2Fgithub.com%2Fclxrityy%2Fgatenet%2Fblob%2Fmaster%2FCHANGELOG.md)
 
-| | |
-|---|---|
-| **Package** | [![PyPI](https://img.shields.io/pypi/v/gatenet)](https://pypi.org/project/gatenet/) |
-| **Python** | [![Python](https://img.shields.io/pypi/pyversions/gatenet)](https://pypi.org/project/gatenet/) |
-| **Tests** | [![CI](https://github.com/clxrityy/gatenet/actions/workflows/test.yml/badge.svg)](https://github.com/clxrityy/gatenet/actions/workflows/test.yml) [![codecov](https://codecov.io/gh/clxrityy/gatenet/graph/badge.svg?token=4644O5NGW9)](https://codecov.io/gh/clxrityy/gatenet) |
-| **License** | [![License](https://img.shields.io/github/license/clxrityy/gatenet)](LICENSE) |
+|             |                                                                                                                                                                                                                                                                                 |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Package** | [![PyPI](https://img.shields.io/pypi/v/gatenet)](https://pypi.org/project/gatenet/)                                                                                                                                                                                             |
+| **Python**  | [![Python](https://img.shields.io/pypi/pyversions/gatenet)](https://pypi.org/project/gatenet/)                                                                                                                                                                                  |
+| **Tests**   | [![CI](https://github.com/clxrityy/gatenet/actions/workflows/test.yml/badge.svg)](https://github.com/clxrityy/gatenet/actions/workflows/test.yml) [![codecov](https://codecov.io/gh/clxrityy/gatenet/graph/badge.svg?token=4644O5NGW9)](https://codecov.io/gh/clxrityy/gatenet) |
+| **License** | [![License](https://img.shields.io/github/license/clxrityy/gatenet)](LICENSE)                                                                                                                                                                                                   |
 
 > Python networking toolkit for sockets, UDP, and HTTP microservices — modular and testable.
 
@@ -20,6 +20,7 @@
 - [UDP](#udp-server--client)
 - [HTTP](#http-server--client)
 - [Tests](#tests)
+- [Examples](./examples/README.md)
 
 ---
 
@@ -30,15 +31,16 @@ pip install gatenet
 ```
 
 ## Features
+
 - [x] [TCP](#tcp-server) for raw socket data
 - [x] [UDP](#udp-server--client)
 - [x] [HTTP](#http-server)
-    - [x] Route-based handling
-    - [x] JSON responses
-    - [x] Dynamic request handling
-    - [x] Custom headers
-    - [x] Error handling
-    - [x] Timeout handling
+  - [x] Route-based handling
+  - [x] JSON responses
+  - [x] Dynamic request handling
+  - [x] Custom headers
+  - [x] Error handling
+  - [x] Timeout handling
 - Minimal, composable, Pythonic design
 
 ## TCP Server
@@ -109,14 +111,27 @@ server.start()
 
 ### HTTP Client
 
+All requests return a dictionary with the following structure:
+```python
+{
+    "ok": bool,   # True if the request was successful
+    "status": int,  # HTTP status code
+    "data": dict,  # Parsed JSON response data
+    "error": str   # Error message if the request failed
+}
+```
+
 ```python
 from gatenet.http.client import HTTPClient
 
 client = HTTPClient("http://127.0.0.1:8080")
-print(client.get("/status")) # {"ok": True}
-print(client.post("/echo", {"x": 1})) # {"received": {"x": 1}}
-```
 
+res = client.get("/status")
+if res["ok"]:
+    print("Success:", res["data"])
+else:
+    print("Error:", res["error"])
+```
 
 ## Tests
 
