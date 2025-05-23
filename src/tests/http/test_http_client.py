@@ -34,11 +34,11 @@ def test_http_client_basic_get_and_post():
 
     # Test GET
     res = client.get("/status")
-    assert res == {"ok": True}
+    assert {"ok": True} == res["data"]
 
     # Test POST with JSON body
     echo = client.post("/echo", {"foo": "bar"})
-    assert echo == {"received": {"foo": "bar"}}
+    assert {"received": {"foo": "bar"}} == echo["data"]
 
     server.stop()
 
