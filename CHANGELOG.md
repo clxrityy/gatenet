@@ -6,6 +6,7 @@
     - [0.1.0](#010)
     - [0.1.1](#011)
     - [0.3.0](#030)
+    - [0.3.2](#032)
 
 # v0 (BETA)
 
@@ -82,3 +83,18 @@
         ```
     - Add support for custom headers, timeouts, and error handling.
 - Added some [examples](./examples/README.md) ([cce8f2d](https://github.com/clxrityy/gatenet/commit/cce8f2d3f94e2c8a33e5417203ef87d8c29060c6))
+
+## 0.3.2
+
+- Added `BaseClient` class for TCP & UDP clients. ([e3bd9a3](https://github.com/clxrityy/gatenet/commit/e3bd9a3216dfd73f721cf50b90dc0eac1c82663a))
+- **TCP** & **UDP** clients now inherit from `BaseClient`. ([48bcb70](https://github.com/clxrityy/gatenet/commit/48bcb709b04b40f006c9cc91b9a27cdc13b8b490))
+    - Both classes now support a `timeout` parameter.
+    - Both classes now support a `buffsize` parameter within `send()`
+        - **UDP** client also accepts a `retries` parameter (3 by default).
+- Added `AsyncHTTPClient` class for asynchronous HTTP requests. ([7bfff14](https://github.com/clxrityy/gatenet/commit/7bfff14d62edaf2061a551aad042087920406929))
+    - Uses `aiohttp` for asynchronous HTTP requests.
+    - Supports GET & POST methods.
+    - Also added corresponding test & example files.
+- Added a polymorphic example for TCP & UDP clients. ([3bcff36](https://github.com/clxrityy/gatenet/commit/3bcff36e932c57afd997b19175b8b4ffa2133c73))
+- Freezed all requirements into `requirements.txt` ([45d860d](https://github.com/clxrityy/gatenet/commit/45d860d1c48f77fe868a023e44b1d8bdd685e761))
+- Added `.github/copilot-instructions.md` for GitHub Copilot instructions. ([e1fdb83](https://github.com/clxrityy/gatenet/commit/e1fdb83882cf4bad6186892b94458b95b17b7d08))
