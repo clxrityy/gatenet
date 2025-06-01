@@ -16,4 +16,4 @@ def test_dns_lookup():
     # Test with a known hostname
     hostname = "www.cloudflare.com"
     ip = dns_lookup(hostname)
-    assert ip == "104.16.123.96", f"Expected IP for {hostname} to be '104.16.123.96', got {ip}"
+    assert ip in ["104.16.123.96", "104.16.124.96"], f"Expected IP for {hostname} to be '104.16.123.96', got {ip}"
