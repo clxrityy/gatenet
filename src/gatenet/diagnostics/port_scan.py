@@ -1,6 +1,6 @@
 import socket
 from typing import List, Tuple
-from gatenet.utils.constants import COMMON_PORTS
+from gatenet.utils import COMMON_PORTS
 import asyncio
 
 def check_public_port(host: str = "1.1.1.1", port: int = 53, timeout: float = 2.0) -> bool:

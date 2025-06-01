@@ -1,7 +1,7 @@
 import threading
 import time
-from gatenet.socket.udp import UDPServer
-from gatenet.client.udp import UDPClient
+from gatenet.socket import UDPServer
+from gatenet.client import UDPClient
 
 def test_udp_client_echo():
     server = UDPServer("127.0.0.1", 9300)

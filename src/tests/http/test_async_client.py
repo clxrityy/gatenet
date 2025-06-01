@@ -1,7 +1,6 @@
 import pytest
-from gatenet.http.server import HTTPServerComponent
-from gatenet.http.async_client import AsyncHTTPClient
-from gatenet.utils.net import get_free_port
+from gatenet.http import HTTPServerComponent, AsyncHTTPClient
+from gatenet.utils import get_free_port
 import json
 import time
 

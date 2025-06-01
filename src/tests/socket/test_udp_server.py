@@ -2,7 +2,7 @@ import socket
 import threading
 import time
 import pytest
-from gatenet.socket.udp import UDPServer
+from gatenet.socket import UDPServer
 
 @pytest.fixture
 def udp_server():

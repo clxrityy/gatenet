@@ -1,4 +1,4 @@
-from gatenet.utils.net import get_free_port
+from gatenet.utils import get_free_port
 
 def test_get_free_port():
     port = get_free_port()

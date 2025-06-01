@@ -1,7 +1,7 @@
 import threading
 import time
-from gatenet.socket.tcp import TCPServer
-from gatenet.client.tcp import TCPClient
+from gatenet.socket import TCPServer
+from gatenet.client import TCPClient
 
 def test_tcp_client_echo():
     server = TCPServer("127.0.0.1", 9200)

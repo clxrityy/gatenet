@@ -1,6 +1,5 @@
 import json
 from http.server import HTTPServer, BaseHTTPRequestHandler
-from urllib.parse import urlparse
 import threading
     
 class HTTPServerComponent:

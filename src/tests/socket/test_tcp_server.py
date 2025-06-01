@@ -2,7 +2,7 @@ import socket
 import threading
 import time
 import pytest
-from gatenet.socket.tcp import TCPServer
+from gatenet.socket import TCPServer
 
 @pytest.fixture
 def tcp_server():
