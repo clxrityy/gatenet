@@ -20,7 +20,7 @@
 - [UDP](#udp-server--client)
 - [HTTP](#http-server--client)
 - [Tests](#tests)
-- [Examples](./examples/README.md)
+- [Examples](https://github.com/clxrityy/gatenet/tree/master/examples/README.md)
 
 ---
 

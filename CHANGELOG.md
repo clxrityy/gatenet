@@ -4,9 +4,10 @@
 
 - [v0](#v0) (BETA)
     - [0.1.0](#010)
-    - [0.1.1](#011)
+        - [0.1.1](#011)
     - [0.3.0](#030)
-    - [0.3.2](#032)
+        - [0.3.2](#032)
+    - [0.4.0](#040)
 
 # v0 (BETA)
 
@@ -98,3 +99,32 @@
 - Added a polymorphic example for TCP & UDP clients. ([3bcff36](https://github.com/clxrityy/gatenet/commit/3bcff36e932c57afd997b19175b8b4ffa2133c73))
 - Freezed all requirements into `requirements.txt` ([45d860d](https://github.com/clxrityy/gatenet/commit/45d860d1c48f77fe868a023e44b1d8bdd685e761))
 - Added `.github/copilot-instructions.md` for GitHub Copilot instructions. ([e1fdb83](https://github.com/clxrityy/gatenet/commit/e1fdb83882cf4bad6186892b94458b95b17b7d08))
+
+## 0.4.0
+
+> The diagnostics module has been added in this version, which includes various network diagnostics and test suites.
+
+- Added `gatenet.diagnostics` module for network diagnostics & test suites. ([0ce9629](https://github.com/clxrityy/gatenet/commit/0ce9629c3ebbff2b3bb918fbcb256dd1892175e3)), includes:
+    - **DNS**:
+        - `reverse_dns_lookup()` - DNS lookup for a given IP address.
+        - `dns_lookup()` - DNS lookup for a given domain name.
+    - **Ports**:
+        - `check_public_port()` - Check if a TCP port is publicly accessible. (Defaults to host `1.1.1.1` (Cloudflare DNS), and port `53` (DNS port))
+        - `scan_ports()` - Scan a list of ports on a given host, defaults to common ports.
+        - `check_port()` (**ASYNC**) - Utilizes `asyncio` to check if a port is open on a given host.
+        - `scan_ports_async()` (**ASYNC**) - Utilizes `asyncio` to scan a list of ports (defaults to common ports) on a given host.
+    - **Geo**:
+        - `get_geo_info()` - Get geographical information for a given IP address.
+- Also added `ping()` function to `gatenet.diagnostics` module for pinging a host. ([7fa243ea](https://github.com/clxrityy/gatenet/commit/7fa243ea1517d0c29b10d328725f3514a998c401))
+    - Uses `subprocess` to execute the `ping` command.
+    - Added tests.
+- Restructured the package to be more modular and organized. ([b3edf059](https://github.com/clxrityy/gatenet/commit/b3edf059482ac1b32e458339c2469e2fb0e175aa)).
+    - Added `__init__.py` files to each module.
+    ```py
+    # import before
+    from gatenet.http.server import HTTPServerComoonent
+
+    # import after
+    from gatenet.http import HTTPServerComponent
+    ```
+- Added [examples](https://github.com/clxrityy/gatenet/tree/master/examples/diagnostics) for the new diagnostics module. ([938514f](https://github.com/clxrityy/gatenet/commit/938514f8e8bf7a1edf1ea597c92187e9c7ab4f96))
