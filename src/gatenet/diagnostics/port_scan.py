@@ -19,6 +19,14 @@ def check_public_port(host: str = "1.1.1.1", port: int = 53, timeout: float = 2.
         return False
     
 def scan_ports(host: str, ports: List[int] = COMMON_PORTS, timeout: float = 2.0) -> List[Tuple[int, bool]]:
+    """
+    Scan a list of ports on a given host to check if they are open.
+    
+    :param host: The host to scan (IP address or domain name).
+    :param ports: A list of port numbers to scan. Defaults to COMMON_PORTS.
+    :param timeout: Timeout in seconds for each port check.
+    :return: A list of tuples where each tuple contains the port number and a boolean indicating if it is open.
+    """
     open_ports = []
     for port in ports:
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
