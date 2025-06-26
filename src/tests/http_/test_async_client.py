@@ -2,7 +2,6 @@ import pytest
 from gatenet.http_ import HTTPServerComponent, AsyncHTTPClient
 from gatenet.utils import get_free_port
 import json
-import time
 import asyncio
 
 @pytest.mark.asyncio

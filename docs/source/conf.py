@@ -41,9 +41,6 @@ autodoc_default_options = {
     'show-inheritance': True,
 }
 
-def setup(app):
-    app.add_css_file('style.css')
-
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
