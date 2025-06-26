@@ -4,6 +4,8 @@
 
 [![Changelog](https://img.shields.io/badge/changelog-log?logo=gitbook&logoColor=%23333333&color=%23BBDDE5&link=https%3A%2F%2Fgithub.com%2Fclxrityy%2Fgatenet%2Fblob%2Fmaster%2FCHANGELOG.md)](https://github.com/clxrityy/gatenet/blob/master/CHANGELOG.md)
 
+[![Static Badge](https://img.shields.io/badge/readthedocs-readme?style=social&logo=readthedocs&logoColor=%238CA1AF&link=https%3A%2F%2Fgatenet.readthedocs.io%2Fen%2Flatest%2F)](https://gatenet.readthedocs.io/en/latest/)
+
 |             |                                                                                                                                                                                                                                                                                 |
 | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Package** | [![PyPI](https://img.shields.io/pypi/v/gatenet)](https://pypi.org/project/gatenet/)                                                                                                                                                                                             |
@@ -112,6 +114,7 @@ server.start()
 ### HTTP Client
 
 All requests return a dictionary with the following structure:
+
 ```python
 {
     "ok": bool,   # True if the request was successful

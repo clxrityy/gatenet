@@ -18,7 +18,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Remove existing src/gatenet directory if present
+      - name: Remove existing src/ directory if present
         run: rm -rf src/
 
       - name: Set up Python
