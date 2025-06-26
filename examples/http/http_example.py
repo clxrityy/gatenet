@@ -1,8 +1,8 @@
 # HTTP Example
 # This example demonstrates how to use the HTTP server and client components in Gatenet.
 
-from gatenet.http.server import HTTPServerComponent
-from gatenet.http.client import HTTPClient
+from gatenet.http_.server import HTTPServerComponent
+from gatenet.http_.client import HTTPClient
 from gatenet.utils.net import get_free_port
 
 # 1. Create the HTTP server

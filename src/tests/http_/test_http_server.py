@@ -1,6 +1,6 @@
 import time
 import requests
-from gatenet.http import HTTPServerComponent
+from gatenet.http_ import HTTPServerComponent
 from gatenet.utils import get_free_port
 import json
 

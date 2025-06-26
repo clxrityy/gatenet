@@ -6,10 +6,6 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-import os
-import sys
-sys.path.insert(0, os.path.abspath('../../src'))
-
 
 project = 'gatenet'
 copyright = '2025, MJ Anglin'
@@ -24,7 +20,15 @@ extensions = [
     'sphinx.ext.napoleon',      # Supports Google-style and NumPy-style docstrings
     'sphinx.ext.viewcode',      # Adds links to highlighted source code
     'sphinx.ext.githubpages',   # For GitHub Pages (optional if you're not using it)
+    "sphinx_autodoc_typehints", # Adds type hints to the documentation
 ]
+
+import os
+import sys
+sys.path.insert(0, os.path.abspath('../../src/gatenet'))
+
+highlight_language = 'python'
+typehints_fully_qualified = False
 
 
 templates_path = ['_templates']
@@ -37,9 +41,20 @@ autodoc_default_options = {
     'show-inheritance': True,
 }
 
+def setup(app):
+    app.add_css_file('style.css')
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = 'alabaster'
+html_theme = 'furo'
 html_static_path = ['_static']
+
+html_favicon = "_static/logo.png"
+
+html_theme_options = {
+    "sidebar_hide_name": True,
+    "light_logo": "logo.png",
+    "dark_logo": "logo.png",
+}
+

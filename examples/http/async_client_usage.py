@@ -1,5 +1,5 @@
 import asyncio
-from gatenet.http.async_client import AsyncHTTPClient
+from gatenet.http_.async_client import AsyncHTTPClient
 
 async def main():
     client = AsyncHTTPClient("http://127.0.0.1:8000")

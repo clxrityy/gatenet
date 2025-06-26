@@ -1,24 +1,10 @@
-.. gatenet documentation master file, created by
-   sphinx-quickstart on Wed Jun 25 21:29:45 2025.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+.. Gatenet documentation master file
 
-gatenet
-====================================
+Welcome to Gatenet's documentation!
+===================================
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: Package Reference
 
-   http
-   client
-   socket
-   utils
-   diagnostics
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+   modules
