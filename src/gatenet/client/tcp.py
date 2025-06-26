@@ -28,9 +28,23 @@ class TCPClient(BaseClient):
         except socket.error as e:
             raise ConnectionError(f"Failed to connect: {e}")
         
-    def send(self, message: str, buffsize: int = 1024):
+    def send(self, message: str, buffsize: int = 1024, **kwargs):
         """
-        Send a message and receive the server response
+        Send a message and receive the server response.
+
+        Parameters
+        ----------
+        message : str
+            The message to send to the server.
+        buffsize : int, optional
+            The buffer size for receiving the response (default is 1024).
+        **kwargs
+            Additional keyword arguments (ignored in TCPClient).
+
+        Returns
+        -------
+        str
+            The response received from the server.
         """
         self._sock.sendall(message.encode())
         return self._sock.recv(buffsize).decode()

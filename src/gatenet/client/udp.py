@@ -17,13 +17,14 @@ class UDPClient(BaseClient):
         self._sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         self._sock.settimeout(timeout)  # Set a timeout for receiving data
 
-    def send(self, message: str, retries: int = 3, buffsize: int = 1024):
+    def send(self, message: str, retries: int = 3, buffsize: int = 1024, **kwargs):
         """
         Send a message and receive the server response.
         
         :param message: The message to send to the server.
         :param retries: The number of retries for receiving a response.
         :param buffsize: The buffer size for receiving the response.
+        :param kwargs: Additional keyword arguments (ignored).
         """
         for _ in range(retries):
             try:
