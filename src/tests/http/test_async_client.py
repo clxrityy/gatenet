@@ -3,6 +3,7 @@ from gatenet.http import HTTPServerComponent, AsyncHTTPClient
 from gatenet.utils import get_free_port
 import json
 import time
+import asyncio
 
 @pytest.mark.asyncio
 async def test_async_http_client_get_and_post():
@@ -25,9 +26,8 @@ async def test_async_http_client_get_and_post():
         return {
             "received": data,
         }
-        
     server.start()
-    time.sleep(0.3) # Wait for the server to start
+    await asyncio.sleep(0.3) # Wait for the server to start
     
     client = AsyncHTTPClient(f"http://{host}:{port}")
     
