@@ -1,43 +1,44 @@
 [project]
-name = "gatenet"
-version = "0.4.0"
 authors = [
-    { name="MJ Anglin", email="contact@mjanglin.com" },
+  {name = "MJ Anglin", email = "contact@mjanglin.com"},
+]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Operating System :: OS Independent",
 ]
 description = "Python library for gateways, networks, and devices."
-readme = "README.md"
-requires-python = ">=3.9"
-classifiers = [
-    "Programming Language :: Python :: 3",
-    "Operating System :: OS Independent",
-]
 license = "MIT"
 license-files = ["LICENSE"]
+name = "gatenet"
+readme = "README.md"
+requires-python = ">=3.9"
+version = "0.5.0"
 
 [project.urls]
 Homepage = "https://github.com/clxrityy/gatenet"
 Issues = "https://github.com/clxrityy/gatenet/issues"
 
 [build-system]
-requires = ["hatchling >= 1.26"]
 build-backend = "hatchling.build"
+requires = ["hatchling >= 1.26"]
 
 [tool.hatch.build]
-sources = ["src"]
 include = [
-    "src/gatenet/**",
-    "README.md",
-    "LICENSE",
-    "CHANGELOG.md"
+  "src/gatenet/**",
+  "README.md",
+  "LICENSE",
+  "CHANGELOG.md",
 ]
+sources = ["src"]
 
 [tool.hatch.metadata]
 include = ["LICENSE", "CHANGELOG.md", "README.md"]
 
 [project.optional-dependencies]
 dev = [
-    "pytest >=8.0.0",
-    "pytest-cov >=4.0.0",
-    "coverage >=7.0.0",
-    "requests",
+  "pytest >=8.0.0",
+  "pytest-cov >=4.0.0",
+  "coverage >=7.0.0",
+  "requests",
+  "pytest-asyncio >=1.0.0",
 ]
