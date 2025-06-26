@@ -69,7 +69,8 @@ def ping(host: str, count: int = 4, timeout: int = 2) -> Dict[str, Union[str, fl
         return {
             "host": host,
             "success": False,
-            "error": str(e)
+            "error": str(e),
+            "raw_output": ""
         }
         
 async def async_ping(
@@ -112,11 +113,13 @@ async def async_ping(
         return {
             "host": host,
             "success": False,
-            "error": f"Ping timed out after {timeout_seconds} seconds"
+            "error": f"Ping timed out after {timeout_seconds} seconds",
+            "raw_output": ""
         }
     except Exception as e:
         return {
             "host": host,
             "success": False,
-            "error": str(e)
+            "error": str(e),
+            "raw_output": ""
         }
