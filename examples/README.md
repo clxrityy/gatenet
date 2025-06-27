@@ -5,12 +5,19 @@ pip install gatenet
 ```
 
 - **HTTP**
-    - [GET & POST requests](./http/http_example.py)
-    - [Timeout & retry](./http/timeout_retry.py)
-    - [Asynchronous Client](./http/async_client_usage.py)
+  - [GET & POST requests](./http_/http_example.py)
+  - [Timeout & retry](./http_/timeout_retry.py)
+  - [Asynchronous Client](./http_/async_client_usage.py)
 - **TCP & UDP**
-    - [With polymorphism](./tcp_udp/polymorphism.py)
+  - [With polymorphism](./tcp_udp/polymorphism.py)
 - **Diagnostics**
-    - [DNS Lookup](./diagnostics/dns_lookup.py)
-    - [Port Scanning](./diagnostics/port_scanning.py)
-    - [Geo Information](./diagnostics/geo_info.py)
+  - [DNS Lookup](./diagnostics/dns_lookup.py)
+  - [Port Scanning](./diagnostics/port_scanning.py)
+  - [Geo Information](./diagnostics/geo_info.py)
+- **Discovery**
+  - [mDNS Discovery](./discovery/mdns_discovery.py)
+  - [SSDP Discovery](./discovery/ssdp_discovery.py)
+  - [Dashboard Example](./discovery/dashboard)
+    ```bash
+    python3 app.py
+    ```

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Gatenet Dashboard</title>
+        <style>
+        body { font-family: sans-serif; background: #121212; color: #f0f0f0; padding: 2em; }
+        h2 { color: #90cdf4; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 2em; }
+        th, td { padding: 0.5em; border: 1px solid #333; text-align: left; }
+        th { background: #222; }
+        tr:nth-child(even) { background: #1a1a1a; }
+    </style>
+    </head>
+    <body>
+        <h1>Gatenet Network Dashboard</h1>
+
+        <h2>Discovered mDNS Services</h2>
+        {% if mdns %}
+        <table>
+            <tr><th>Name</th><th>Type</th><th>Address</th><th>Port</th><th>Server</th><th>Properties</th></tr>
+            {% for service in mdns %}
+            <tr>
+                <td>{{ service.name }}</td>
+                <td>{{ service.type }}</td>
+                <td>{{ service.address }}</td>
+                <td>{{ service.port }}</td>
+                <td>{{ service.server }}</td>
+                <td>{{ service.properties }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+        <p>No mDNS services found.</p>
+        {% endif %}
+
+        <h2>Discovered SSDP Devices</h2>
+        {% if ssdp %}
+        <table>
+            <tr><th>Location</th><th>ST</th><th>USN</th><th>Server</th></tr>
+            {% for device in ssdp %}
+            <tr>
+                <td>{{ device.LOCATION }}</td>
+                <td>{{ device.ST }}</td>
+                <td>{{ device.USN }}</td>
+                <td>{{ device.SERVER }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+        <p>No SSDP devices found.</p>
+        {% endif %}
+    </body>
+</html>
