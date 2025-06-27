@@ -2,9 +2,7 @@ import platform
 import subprocess
 import asyncio
 import re
-from typing import Optional, Dict, Union
-
-from typing import Mapping
+from typing import Dict, Union
 
 def _parse_ping_output(output: str) -> Dict[str, Union[bool, int, float, str]]:
     if "unreachable" in output.lower() or "could not find host" in output.lower():
