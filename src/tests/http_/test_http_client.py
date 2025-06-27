@@ -31,12 +31,16 @@ def test_http_client_basic_get_and_post():
 
     client = HTTPClient(f"http://{host}:{port}")
 
+    # methods
+    get = client._generate_method("GET")
+    post = client._generate_method("POST")
+
     # Test GET
-    res = client.get("/status")
+    res = get("/status")
     assert {"ok": True} == res["data"]
 
     # Test POST with JSON body
-    echo = client.post("/echo", {"foo": "bar"})
+    echo = post("/echo", {"foo": "bar"})
     assert {"received": {"foo": "bar"}} == echo["data"]
 
     server.stop()
