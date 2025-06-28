@@ -9,9 +9,10 @@ Subpackages
 
    gatenet.client
    gatenet.diagnostics
-   gatenet.http
+   gatenet.http_
    gatenet.socket
    gatenet.utils
+   gatenet.discovery
 
 Module contents
 ---------------

@@ -3,7 +3,6 @@
 ##### BETA
 
 [![Changelog](https://img.shields.io/badge/changelog-log?logo=gitbook&logoColor=%23333333&color=%23BBDDE5&link=https%3A%2F%2Fgithub.com%2Fclxrityy%2Fgatenet%2Fblob%2Fmaster%2FCHANGELOG.md)](https://github.com/clxrityy/gatenet/blob/master/CHANGELOG.md)
-
 [![Static Badge](https://img.shields.io/badge/readthedocs-readme?style=social&logo=readthedocs&logoColor=%238CA1AF&link=https%3A%2F%2Fgatenet.readthedocs.io%2Fen%2Flatest%2F)](https://gatenet.readthedocs.io/en/latest/)
 
 |             |                                                                                                                                                                                                                                                                                 |
@@ -18,11 +17,13 @@
 - [Changelog](https://github.com/clxrityy/gatenet/blob/master/CHANGELOG.md)
 - [Installation](#installation)
 - [Features](#features)
-- [TCP](#tcp-server)
-- [UDP](#udp-server--client)
-- [HTTP](#http-server--client)
+- [Quickstart](#quickstart)
+- [Usage Examples](#usage-examples)
+- [Service Discovery](#service-discovery)
+- [Diagnostics](#diagnostics)
 - [Tests](#tests)
-- [Examples](https://github.com/clxrityy/gatenet/tree/master/examples/README.md)
+- [Contributing](#contributing)
+- [License](#license)
 
 ---
 
@@ -34,110 +35,138 @@ pip install gatenet
 
 ## Features
 
-- [x] [TCP](#tcp-server) for raw socket data
-- [x] [UDP](#udp-server--client)
-- [x] [HTTP](#http-server)
-  - [x] Route-based handling
-  - [x] JSON responses
-  - [x] Dynamic request handling
-  - [x] Custom headers
-  - [x] Error handling
-  - [x] Timeout handling
-- Minimal, composable, Pythonic design
+- **Modular**: Each component is modular and can be used independently.
+- **Testable**: Each component is designed to be testable with unit tests.
+- **Service Discovery**: Identify running services (SSH, HTTP, FTP, SMTP, etc.) using banners and ports.
+- **Diagnostics**: Tools for traceroute, latency, and bandwidth measurement.
+- **Socket Servers & Clients**: TCP, UDP, and HTTP server/client implementations.
+- **Async Support**: Asynchronous HTTP client and server.
+- **Extensible**: Strategy and chain-of-responsibility patterns for easy extension.
+- **Comprehensive Documentation**: With examples and usage guides.
 
-## TCP Server
+---
 
-```python
-from gatenet.socket.tcp import TCPServer
+## Quickstart
 
-server = TCPServer(host='127.0.0.1', port=8000)
-
-@server.on_receive
-def handle_data(data, addr):
-    print(f"[TCP] {addr} sent: {data}")
-    return f"Echo: {data}"
-
-server.start()
-```
-
-## UDP Server & Client
-
-### UDP Server
+### TCP Client
 
 ```python
-from gatenet.socket.udp import UDPServer
+from gatenet.client.tcp import TCPClient
 
-server = UDPServer(host="127.0.0.1", port=9000)
-
-@server.on_receive
-def handle_udp(data, addr):
-    print(f"[UDP] {addr} sent: {data}")
-    return f"Got your message: {data}"
-
-server.start()
-```
-
-### UDP Client
-
-```python
-from gatenet.socket.udp import UDPClient
-
-client = UDPClient(host="127.0.0.1", port=9000)
-response = client.send("Hello, UDP!")
+client = TCPClient(host="127.0.0.1", port=12345)
+client.connect()
+response = client.send("ping")
 print(response)
+client.close()
 ```
-
-## HTTP Server & Client
 
 ### HTTP Server
 
 ```python
-from gatenet.http.server import HTTPServerComponent
+from gatenet.http.server import HTTPServer
 
-server = HTTPServerComponent(host="127.0.0.1", port=8080)
+server = HTTPServer(host="0.0.0.0", port=8080)
 
 @server.route("/status", method="GET")
-def status(_req):
-    return {
-        "ok": True
-    }
+def status_handler(req):
+    return {"ok": True}
 
-@server.route("/echo", method="POST")
-def echo(_req, data):
-    return {
-        "received": data
-    }
-
-server.start()
+server.serve()
 ```
 
-### HTTP Client
+---
 
-All requests return a dictionary with the following structure:
+## Usage Examples
+
+### Service Discovery
+
+Identify a service by port and banner:
 
 ```python
-{
-    "ok": bool,   # True if the request was successful
-    "status": int,  # HTTP status code
-    "data": dict,  # Parsed JSON response data
-    "error": str   # Error message if the request failed
-}
+from gatenet.discovery.ssh import _identify_service
+
+service = _identify_service(22, "SSH-2.0-OpenSSH_8.9p1")
+print(service)  # Output: "OpenSSH 8.9p1"
 ```
+
+Use a specific detector:
 
 ```python
-from gatenet.http.client import HTTPClient
+from gatenet.discovery.ssh import HTTPDetector
 
-client = HTTPClient("http://127.0.0.1:8080")
-
-res = client.get("/status")
-if res["ok"]:
-    print("Success:", res["data"])
-else:
-    print("Error:", res["error"])
+detector = HTTPDetector()
+result = detector.detect(80, "apache/2.4.41")
+print(result)  # Output: "Apache HTTP Server"
 ```
+
+### Custom Service Detector
+
+```python
+from gatenet.discovery.ssh import ServiceDetector
+from typing import Optional
+
+class CustomDetector(ServiceDetector):
+    """Custom service detector implementation."""
+    def detect(self, port: int, banner: str) -> Optional[str]:
+        if 'myapp' in banner:
+            return "MyCustomApp"
+        return None
+```
+
+---
+
+## Service Discovery
+
+- **SSH, HTTP, FTP, SMTP, and more**: Uses a strategy pattern and chain of responsibility for extensible service detection.
+- **Banner and port-based detection**: Extracts service names and versions from banners and well-known ports.
+- **Fallback detection**: Always returns a result, even for unknown services.
+
+See [examples/discovery/ssh_discovery.py](examples/discovery/ssh_discovery.py) for more.
+
+---
+
+## Diagnostics
+
+- **Traceroute**: Trace the route to a host.
+- **Latency Measurement**: Measure round-trip time to a host.
+- **Bandwidth Measurement**: (Planned) Measure throughput to a host.
+
+Example traceroute:
+
+```python
+from gatenet.diagnostics.traceroute import traceroute
+
+hops = traceroute("google.com")
+for hop in hops:
+    print(hop)
+```
+
+---
 
 ## Tests
+
+Run all tests with:
 
 ```bash
 pytest
 ```
+
+- Uses `pytest` for all tests.
+- Includes unit and integration tests for all modules.
+- Use `get_free_port()` from `gatenet.utils.net` in tests to avoid port conflicts.
+
+---
+
+## Contributing
+
+Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+- Follow the code style and patterns used in the project.
+- Add tests for new features.
+- Update documentation as needed.
+
+---
+
+## License
+
+[MIT](LICENSE)

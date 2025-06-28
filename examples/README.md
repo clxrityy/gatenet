@@ -14,10 +14,16 @@ pip install gatenet
   - [DNS Lookup](./diagnostics/dns_lookup.py)
   - [Port Scanning](./diagnostics/port_scanning.py)
   - [Geo Information](./diagnostics/geo_info.py)
+  - [Traceroute](./diagnostics/traceroute.py)
 - **Discovery**
-  - [mDNS Discovery](./discovery/mdns_discovery.py)
-  - [SSDP Discovery](./discovery/ssdp_discovery.py)
-  - [Dashboard Example](./discovery/dashboard)
-    ```bash
-    python3 app.py
-    ```
+  - [mDNS Discovery](./discovery/mdns_discovery.py) & [SSDP Discovery](./discovery/ssdp_discovery.py)
+    - [Dashboard Example](./discovery/dashboard)
+  - [Bluetooth Discovery](./discovery/bluetooth_discovery.py) (Synchronous & Asynchronous)
+  - [SSH Discovery](./discovery/ssh_discovery.py)
+    - Basic service identification
+    - Individual detector examples
+    - Full discovery with multiple detectors
+    - Practical example with multiple detectors
+    - Case-sensitve demo
+    - Custom detector example
+    - Async usage example

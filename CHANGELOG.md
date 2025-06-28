@@ -9,6 +9,7 @@
     - [0.3.2](#032)
   - [0.4.0](#040)
   - [0.5.0](#050)
+  - [0.7.5](#075)
 
 # v0 (BETA)
 
@@ -137,3 +138,30 @@
 ## 0.5.0
 
 - Added `async_ping` to `gatenet.diagnostics` module for asynchronous pinging of a host. ([a552753](https://github.com/clxrityy/gatenet/commit/a552753f445bc80e35086be9bdc3854b78e22fcc))
+- Added docs
+
+## 0.7.5
+
+- Added `gatenet.discovery` module for service discoveries. ([7f43e31](https://github.com/clxrityy/gatenet/commit/7f43e31dea614b11c5e2dfe837b5285b3a65b8ee))
+  - Added support for mDNS service discovery.
+    - **`gatenet.discovery.mdns`** module for mDNS service discovery.
+    - `MDNSListener` class for listening to mDNS events.
+    - `discover_mdns_services()` function for discovering mDNS services.
+    - Added a test for mDNS service discovery.
+    - `add_service()` method to `MDNSListener` for adding discovered services.
+  - Added support for SSDP (UPnP) service discovery.
+    - **`gatenet.discovery.upnp`** module for SSDP service discovery.
+    - `discover_upnp_devices()` function for discovering UPnP devices.
+    - Added a test for SSDP service discovery.
+  - Added examples for mDNS and SSDP service discovery.
+    - `examples/discovery/mdns_example.py` for mDNS & `examples/discovery/upnp_example.py` for SSDP service discovery example. ([da73cf86](https://github.com/clxrityy/gatenet/commit/da73cf86f89354cdfebfb3a40f908120d9418867))
+    - Added `examples/discovery/dashboard` for a simple dashboard to display discovered services. ([f256dfb](https://github.com/clxrityy/gatenet/commit/f256dfb53687631bb050003f485974624daecb95))
+  - Added `gatenet.discovery.bluetooth` module for Bluetooth service discovery (Synchronous and Asynchronous) with corresponding tests and examples. ([ce15ec7](https://github.com/clxrityy/gatenet/commit/ce15ec7d46e7456e97d48a19a4dfcd6e54237faf))
+  - Added `gatenet.discovery.ssh` module for SSH service discovery. ([7cb84be0](https://github.com/clxrityy/gatenet/commit/7cb84be0ac2c6c8928d79fafff95cf821550984b))
+    - `SSHDetector` class for detecting SSH services.
+    - `HTTPDetector`, `FTPDetector`, `SMTPDetector`, `PortMappingDetector`, `BannerKeywordDetector`, and `GenericServiceDetector` classes for detecting various services over SSH.
+    - Added tests for SSH service discovery.
+    - Added examples for SSH service discovery.
+- Added **`traceroute()`** to `gatenet.diagnostics`. ([009e906](https://github.com/clxrityy/gatenet/commit/009e9060c8f506bb5f3fad53ba292dd3149cd457))
+  - Added corresponding example & test(s).
+- Added [CONTRIBUTING](https://github.com/clxrityy/gatenet/blob/master/CONTRIBUTING.md) and [CODE_OF_CONDUCT](https://github.com/clxrityy/gatenet/blob/master/CODE_OF_CONDUCT.md) files. ([9b56d5c](https://github.com/clxrityy/gatenet/commit/9b56d5ce9e601f566df4cb1cc38a9a183c126c3c))
