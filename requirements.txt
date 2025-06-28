@@ -37,10 +37,10 @@ packaging==25.0
 pluggy==1.6.0
 propcache==0.3.1
 Pygments==2.19.1
-# pyobjc-core==10.3.2
-# pyobjc-framework-Cocoa==10.3.2
-# pyobjc-framework-CoreBluetooth==10.3.2
-# pyobjc-framework-libdispatch==10.3.2
+pyobjc-core==10.3.2
+pyobjc-framework-Cocoa==10.3.2
+pyobjc-framework-CoreBluetooth==10.3.2
+pyobjc-framework-libdispatch==10.3.2
 pyproject_hooks==1.2.0
 pytest==8.3.5
 pytest-asyncio==1.0.0
