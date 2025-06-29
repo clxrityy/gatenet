@@ -12,6 +12,34 @@
 | **Tests**   | [![CI](https://github.com/clxrityy/gatenet/actions/workflows/test.yml/badge.svg)](https://github.com/clxrityy/gatenet/actions/workflows/test.yml) [![codecov](https://codecov.io/gh/clxrityy/gatenet/graph/badge.svg?token=4644O5NGW9)](https://codecov.io/gh/clxrityy/gatenet) |
 | **License** | [![License](https://img.shields.io/github/license/clxrityy/gatenet)](LICENSE)                                                                                                                                                                                                   |
 
+```mermaid
+mindmap
+  root(🛰️)
+    diagnostics/
+      dns
+      geo
+      ping
+      port_scan
+    client/
+      base
+        TCP
+        UDP
+    http_/
+        base
+            client
+            server
+            async_client
+    socket/
+        base
+            TCP
+            UDP
+    discovery/
+        MDNS
+        UPNP
+        SSH
+        bluetooth
+```
+
 > Python networking toolkit for sockets, UDP, and HTTP microservices — modular and testable.
 
 - [Changelog](https://github.com/clxrityy/gatenet/blob/master/CHANGELOG.md)

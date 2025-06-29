@@ -20,6 +20,20 @@ gatenet.discovery.upnp module
    :show-inheritance:
    :undoc-members:
 
+gatenet.discovery.ssh module
+----------------------------
+.. automodule:: gatenet.discovery.ssh
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+gatenet.discovery.bluetooth module
+-------------------------------
+.. automodule:: gatenet.discovery.bluetooth
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 Module contents
 ---------------
 

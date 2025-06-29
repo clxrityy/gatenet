@@ -10,7 +10,7 @@
 project = 'gatenet'
 copyright = '2025, MJ Anglin'
 author = 'MJ Anglin'
-release = '0.5.0'
+release = '0.8.5'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -25,7 +25,7 @@ extensions = [
 
 import os
 import sys
-sys.path.insert(0, os.path.abspath('../../src/gatenet'))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../../src')))
 
 highlight_language = 'python'
 typehints_fully_qualified = False
