@@ -39,7 +39,7 @@ def traceroute(
         # Create a raw socket to receive ICMP responses
         recv_sock = socket.socket(socket.AF_INET, socket.SOCK_RAW, socket.IPPROTO_ICMP)
         recv_sock.settimeout(timeout)
-        recv_sock.bind(("", port))
+        recv_sock.bind(("127.0.0.1", port))
 
         # Send a UDP packet to the destination
         start_time = time.time()
