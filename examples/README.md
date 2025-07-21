@@ -15,6 +15,7 @@ pip install gatenet
   - [Port Scanning](./diagnostics/port_scanning.py)
   - [Geo Information](./diagnostics/geo_info.py)
   - [Traceroute](./diagnostics/traceroute.py)
+  - [Bandwidth](./diagnostics/bandwidth.py)
 - **Discovery**
   - [mDNS Discovery](./discovery/mdns_discovery.py) & [SSDP Discovery](./discovery/ssdp_discovery.py)
     - [Dashboard Example](./discovery/dashboard)
