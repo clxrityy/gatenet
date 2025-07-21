@@ -29,15 +29,21 @@ gatenet.diagnostics.ping module
    :undoc-members:
 
 gatenet.diagnostics.port\_scan module
--------------------------------------
 
 .. automodule:: gatenet.diagnostics.port_scan
    :members:
    :show-inheritance:
    :undoc-members:
 
+gatenet.diagnostics.bandwidth module
+-------------------------------------
+
+.. automodule:: gatenet.diagnostics.bandwidth
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 Module contents
----------------
 
 .. automodule:: gatenet.diagnostics
    :members:
