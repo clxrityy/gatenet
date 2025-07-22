@@ -213,3 +213,14 @@ Diagnostics module improvements and new features.
   - Async port scan helpers now use timeout context managers for robust timeout handling (no timeout argument).
   - Handles edge cases and exceptions more gracefully.
 - Fixed and revamped all tests. ([d2a90a83](https://github.com/clxrityy/gatenet/commit/d2a90a83adeb662eeda99c13ff53f9f2827bf1fd))
+
+## 0.8.2
+
+Docstring improvements.
+
+- Updated README.
+- Updated `gatenet.client` modules with improved docstrings. ([153eb59a](https://github.com/clxrityy/gatenet/commit/153eb59a7550f6e56790d1e093ce8d6893c80d9e))
+- Updated `gatenet.socket` modules with improved docstrings. ([671e4fd1](https://github.com/clxrityy/gatenet/commit/671e4fd17a20fd0d0d31dbdc0c752a139521a9f0))
+- Updated `gatenet.http_` modules with improved docstrings. ([a77ce983](https://github.com/clxrityy/gatenet/commit/a77ce98383eb448f12072f17a4ca44ff2b3e9790))
+- Updated `gatenet.discovery` modules with improved docstrings. ([d1c84f19](https://github.com/clxrityy/gatenet/commit/d1c84f198bedac97add12a660a745c0b497bbc5b))
+- Updated `gatenet.utils` modules with improved docstrings. ([3d3a63a7](https://github.com/clxrityy/gatenet/commit/3d3a63a7e4676430f2aceabf8b2cfb3c8a65f405))
