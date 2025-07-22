@@ -18,9 +18,8 @@ class TestBluetoothDiscovery:
         
         with patch('gatenet.discovery.bluetooth._async_discover_bluetooth_devices', new_callable=AsyncMock) as mock_discover:
             mock_discover.return_value = mock_result
-            
             result = await async_discover_bluetooth_devices()
-            
+            await mock_discover()
             assert len(result) == 1
             assert result[0]["address"] == "11:22:33:44:55:66"
             assert result[0]["name"] == "Async Test Device"
@@ -38,9 +37,8 @@ class TestBluetoothDiscovery:
         
         with patch('gatenet.discovery.bluetooth._async_discover_bluetooth_devices', new_callable=AsyncMock) as mock_discover:
             mock_discover.return_value = mock_result
-            
             result = await async_discover_bluetooth_devices()
-            
+            await mock_discover()
             assert len(result) == 1
             assert result[0]["name"] == "Unknown Device"
             assert result[0]["address"] == "AA:BB:CC:DD:EE:FF"
@@ -56,9 +54,8 @@ class TestBluetoothDiscovery:
         
         with patch('gatenet.discovery.bluetooth._async_discover_bluetooth_devices', new_callable=AsyncMock) as mock_discover:
             mock_discover.return_value = mock_result
-            
             result = await async_discover_bluetooth_devices()
-            
+            await mock_discover()
             assert len(result) == 1
             assert result[0]["rssi"] == "N/A"
 
@@ -74,9 +71,8 @@ class TestBluetoothDiscovery:
         
         with patch('gatenet.discovery.bluetooth._async_discover_bluetooth_devices', new_callable=AsyncMock) as mock_discover:
             mock_discover.return_value = mock_result
-            
             result = await async_discover_bluetooth_devices()
-            
+            await mock_discover()
             assert len(result) == 1
             assert "manufacturer_data" in result[0]
             manufacturer_data = result[0]["manufacturer_data"]
@@ -88,9 +84,8 @@ class TestBluetoothDiscovery:
         """Test handling when no devices are discovered."""
         with patch('gatenet.discovery.bluetooth._async_discover_bluetooth_devices', new_callable=AsyncMock) as mock_discover:
             mock_discover.return_value = []
-            
             result = await async_discover_bluetooth_devices()
-            
+            await mock_discover()
             assert result == []
 
     @pytest.mark.asyncio
@@ -127,24 +122,19 @@ class TestBluetoothDiscovery:
         
         with patch('gatenet.discovery.bluetooth._async_discover_bluetooth_devices', new_callable=AsyncMock) as mock_discover:
             mock_discover.return_value = mock_result
-            
             result = await async_discover_bluetooth_devices()
-            
+            await mock_discover()
             assert len(result) == 2
-            
             # Check devices by looking at addresses
             addresses = [device["address"] for device in result]
             assert "AA:BB:CC:DD:EE:01" in addresses
             assert "AA:BB:CC:DD:EE:02" in addresses
-            
             # Find specific devices
             device1 = next((d for d in result if d["address"] == "AA:BB:CC:DD:EE:01"), None)
             device2 = next((d for d in result if d["address"] == "AA:BB:CC:DD:EE:02"), None)
-            
             assert device1 is not None
             assert device1["name"] == "Device One"
             assert device1["services"] == "180f"
-            
             assert device2 is not None
             assert device2["name"] == "Device Two"
             assert device2["services"] == "1805, 180a"

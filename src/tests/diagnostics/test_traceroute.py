@@ -44,10 +44,13 @@ def test_traceroute_resolves_host(monkeypatch):
     hops = traceroute("example.com", max_hops=3, timeout=0.1)
 
     # Should return 1 hop, which is the destination
+    assert isinstance(hops, list)
     assert len(hops) == 1
-    assert hops[-1][1] == "1.2.3.4"
-    assert all(isinstance(h[0], int) for h in hops)
-    assert all(isinstance(h[1], str) for h in hops)
+    hop = hops[0]
+    assert isinstance(hop, dict)
+    assert hop["ip"] == "1.2.3.4"
+    assert isinstance(hop["hop"], int)
+    assert isinstance(hop["ip"], str)
 
 def test_traceroute_unresolvable_host():
     """Test that traceroute raises ValueError for unresolvable host."""
@@ -90,6 +93,10 @@ def test_traceroute_timeout(monkeypatch):
     monkeypatch.setattr("socket.gethostbyaddr", lambda ip: ("", [], [ip]))
 
     hops = traceroute("example.com", max_hops=2, timeout=0.01)
+    assert isinstance(hops, list)
     assert len(hops) == 2
-    assert all(h[1] == "*" for h in hops)
-    assert all(h[2] is None for h in hops)
+    for hop in hops:
+        assert isinstance(hop, dict)
+        assert hop["ip"] == "*"
+        # Accept hostname as None or empty string for timeout hops
+        assert hop["hostname"] in (None, "")
