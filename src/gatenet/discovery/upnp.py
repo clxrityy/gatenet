@@ -43,7 +43,7 @@ def discover_upnp_devices(timeout: float = 3.0) -> List[Dict[str, str]]:
         try:
             if time.time() - start > timeout:
                 break
-            data, addr = sock.recvfrom(1024)
+            data, _ = sock.recvfrom(1024)
             response = data.decode(errors="ignore")
             devices.append(_parse_ssdp_response(response))
         except socket.timeout:
