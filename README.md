@@ -20,6 +20,7 @@ mindmap
       geo
       ping
       port_scan
+      bandwidth
     client/
       base
         TCP
@@ -40,7 +41,15 @@ mindmap
         bluetooth
 ```
 
-> Python networking toolkit for sockets, UDP, and HTTP microservices — modular and testable.
+> **Gatenet is a batteries-included Python networking toolkit for diagnostics, service discovery, and building robust socket, UDP, and HTTP microservices.**
+>
+> - **Diagnostics:** Traceroute, ping/latency, bandwidth, port scanning, geo IP, and more.
+> - **Service Discovery:** Identify running services (SSH, HTTP, FTP, SMTP, mDNS, SSDP, Bluetooth, etc.) using banners, ports, and extensible detectors.
+> - **Socket & HTTP:** Modular TCP/UDP/HTTP servers and clients, with async support.
+> - **Extensible:** Strategy and chain-of-responsibility patterns for easy extension and custom detection.
+> - **Comprehensive tests and documentation.**
+
+Gatenet is designed for developers who need reliable, extensible, and well-tested networking tools for diagnostics, automation, and microservice development.
 
 - [Changelog](https://github.com/clxrityy/gatenet/blob/master/CHANGELOG.md)
 - [Installation](#installation)
