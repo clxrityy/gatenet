@@ -2,7 +2,7 @@ import socket
 import time
 from typing import List, Tuple, Optional
 
-def _create_sockets(ttl: int, protocol: str, port: int, timeout: float):
+def _create_sockets(ttl: int, protocol: str, port: int, timeout: float, interface: str = "127.0.0.1"):
     if protocol == "udp":
         send_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
         send_sock.setsockopt(socket.SOL_IP, socket.IP_TTL, ttl)
@@ -14,7 +14,7 @@ def _create_sockets(ttl: int, protocol: str, port: int, timeout: float):
     except PermissionError:
         raise PermissionError("Raw sockets require admin/root privileges.")
     recv_sock.settimeout(timeout)
-    recv_sock.bind(("0.0.0.0", port))
+    recv_sock.bind((interface, port))
     return send_sock, recv_sock
 
 def _send_probe(send_sock, dest_addr, protocol, port):
@@ -132,4 +132,6 @@ def traceroute(
         if curr_addr == dest_addr:
             break
 
+    interface = "127.0.0.1"  # Replace with the desired interface IP address
+    send_sock, recv_sock = _create_sockets(ttl, protocol, port, timeout, interface)
     return result
