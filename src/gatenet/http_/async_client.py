@@ -2,9 +2,23 @@ import aiohttp
 from typing import Optional, Dict, Any
 
 class AsyncHTTPClient:
+    """
+    Asynchronous HTTP client for making requests using aiohttp.
+
+    Supports GET, POST, PUT, PATCH, and DELETE methods via async/await.
+    """
+
     def __init__(self, base_url: str):
+        """
+        Initialize the asynchronous HTTP client.
+
+        Parameters
+        ----------
+        base_url : str
+            The base URL (e.g. "http://127.0.0.1:8000").
+        """
         self.base_url = base_url.rstrip('/')
-        
+
     async def _request(
         self,
         method: str,
@@ -13,23 +27,30 @@ class AsyncHTTPClient:
         headers: Optional[Dict[str, str]] = None,
     ) -> Dict[str, Any]:
         """
-        Internal method to perform an HTTP request.
+        Internal method to perform an HTTP request asynchronously.
 
         Parameters
         ----------
         method : str
             HTTP method (GET, POST, etc.).
         path : str
-            Request path.
+            Request path (relative to base_url).
         data : dict, optional
             Data to send in the request body.
         headers : dict, optional
-            Additional headers.
+            Additional headers to include in the request.
 
         Returns
         -------
         dict
             Parsed JSON response or error information.
+
+        Raises
+        ------
+        asyncio.TimeoutError
+            If the request times out.
+        aiohttp.ClientError
+            For network or protocol errors.
         """
         import asyncio
 
