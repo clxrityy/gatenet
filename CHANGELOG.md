@@ -10,6 +10,7 @@
   - [0.4.0](#040)
   - [0.5.0](#050)
   - [0.7.5](#075)
+  - [0.8.0](#080)
 
 # v0 (BETA)
 
@@ -165,3 +166,50 @@
 - Added **`traceroute()`** to `gatenet.diagnostics`. ([009e906](https://github.com/clxrityy/gatenet/commit/009e9060c8f506bb5f3fad53ba292dd3149cd457))
   - Added corresponding example & test(s).
 - Added [CONTRIBUTING](https://github.com/clxrityy/gatenet/blob/master/CONTRIBUTING.md) and [CODE_OF_CONDUCT](https://github.com/clxrityy/gatenet/blob/master/CODE_OF_CONDUCT.md) files. ([9b56d5c](https://github.com/clxrityy/gatenet/commit/9b56d5ce9e601f566df4cb1cc38a9a183c126c3c))
+
+## 0.8.0
+
+Diagnostics module improvements and new features.
+
+- Added `gatenet.diagnostics.bandwidth` module for bandwidth measurement. ([16d477dd](https://github.com/clxrityy/gatenet/commit/16d477dd22ababa99c7a71c1bece0bfb75308970))
+  - Added examples for download and upload measurement.
+  - Added tests.
+- Made `gatenet.diagnostics.traceroute` module more robust and user-friendly. ([513524ab](https://github.com/clxrityy/gatenet/commit/513524ab145244e762190bb704fdeaef690d9215))
+  > - Supports both UDP and ICMP protocols (choose with the protocol argument).
+  > - Returns a list of dicts with hop, IP, hostname, and RTT.
+  > - Optionally prints output (print_output argument).
+  > - Improved docstring with a clear usage example.
+  > - Handles permission errors and host resolution gracefully.
+- `gatenet.diagnostics.ping` module improvements. ([0f165d8](https://github.com/clxrityy/gatenet/commit/0f165d8d16ddda822c7119c4ae916459cb66df95))
+  - Jitter calculatuon & RTT list:
+    - Both sync and async ping now return all individual RTTs and compute jitter.
+  - TCP ping support:
+    - Added TCP-based ping as a fallback or alternative to ICMP ping.
+  - Async improvements:
+    - Functions use per-ping and total-operation timeout context managers for robust timeout handling.
+    - Async TCP ping uses `asyncio` for non-blocking operations.
+  - Refactoring for readability and maintainability:
+    - Split into smaller functions for better organization.
+    - Improved error handling and logging.
+  - Cleaner API:
+    - The async helpers no longer take a timeout argument, as they use context managers.
+    - Ping functions return a structed results dict:
+      - min/avg/max/jitter
+      - all RTTs
+      - packet loss
+      - error info
+      - raw output
+  - Improved docstrings:
+    - Added/updated all and usage examples.
+  - Improved error and timeout handling.
+- `gatenet.diagnostics.geo` module improvements. ([e533c43](https://github.com/clxrityy/gatenet/commit/e533c43cd95080bdbf302eb2efc2a48dd8177bb7))
+  - Improved error handling and consistent return structure for geo lookups.
+  - Added Google-style docstrings and clarified API.
+  - Now always returns a dict with error info on failure.
+  - Example return and error cases documented in the function docstring.
+- `gatenet.diagnostics.port_scan` module improvements. ([f1a9deaf](https://github.com/clxrityy/gatenet/commit/f1a9deaf6a3fc19dfad170c9915d4b1957f88a0a))
+  - Improved error handling and consistent return structure for all port scan functions.
+  - Added Google-style docstrings and clarified API for all sync and async functions.
+  - Async port scan helpers now use timeout context managers for robust timeout handling (no timeout argument).
+  - Handles edge cases and exceptions more gracefully.
+- Fixed and revamped all tests. ([d2a90a83](https://github.com/clxrityy/gatenet/commit/d2a90a83adeb662eeda99c13ff53f9f2827bf1fd))
