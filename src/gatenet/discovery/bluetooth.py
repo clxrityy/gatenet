@@ -7,8 +7,20 @@ def discover_bluetooth_devices(timeout: float = 8.0) -> List[Dict[str, str]]:
     """
     Scan for nearby Bluetooth devices.
 
-    :param timeout: Time to scan in seconds.
-    :return: List of discovered device dictionaries.
+    Parameters
+    ----------
+    timeout : float, optional
+        Time to scan in seconds (default is 8.0).
+
+    Returns
+    -------
+    List[Dict[str, str]]
+        List of discovered device dictionaries.
+
+    Raises
+    ------
+    Exception
+        If an error occurs during Bluetooth discovery (caught and printed, returns empty list).
     """
     try:
         # Pass timeout to the async function via a closure or global if needed
@@ -21,7 +33,15 @@ async def _async_discover_bluetooth_devices() -> List[Dict[str, str]]:
     """
     Asynchronously scan for nearby Bluetooth devices using a timeout context manager.
 
-    :return: List of discovered device dictionaries.
+    Returns
+    -------
+    List[Dict[str, str]]
+        List of discovered device dictionaries.
+
+    Raises
+    ------
+    Exception
+        If an error occurs during async Bluetooth scan (caught and printed, returns empty list).
     """
     devices = []
     timeout = 8.0  # Default timeout, can be adjusted by caller if needed

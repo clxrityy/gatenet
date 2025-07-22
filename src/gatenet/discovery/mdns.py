@@ -3,13 +3,29 @@ import time
 from zeroconf import Zeroconf, ServiceBrowser, ServiceListener
 
 class MDNSListener(ServiceListener):
-    """Listener for mDNS service discovery."""
-    
+    """
+    Listener for mDNS service discovery.
+    """
+
     def __init__(self) -> None:
+        """
+        Initialize the mDNS listener.
+        """
         self.services: List[Dict[str, str]] = []
-    
+
     def add_service(self, zc: Zeroconf, type_: str, name: str) -> None:
-        """Called when a service is discovered."""
+        """
+        Called when a service is discovered.
+
+        Parameters
+        ----------
+        zc : Zeroconf
+            Zeroconf instance.
+        type_ : str
+            Service type.
+        name : str
+            Service name.
+        """
         try:
             info = zc.get_service_info(type_, name)
             if not info:
@@ -32,7 +48,19 @@ class MDNSListener(ServiceListener):
             print(f"Error processing service {name}: {e}")
 
     def _decode_properties(self, properties: Any) -> Dict[str, str]:
-        """Helper to decode service properties."""
+        """
+        Helper to decode service properties.
+
+        Parameters
+        ----------
+        properties : Any
+            Properties dictionary from Zeroconf.
+
+        Returns
+        -------
+        Dict[str, str]
+            Decoded properties as a dictionary.
+        """
         decoded = {}
         for key, value in properties.items():
             try:
@@ -46,21 +74,50 @@ class MDNSListener(ServiceListener):
             except (UnicodeDecodeError, AttributeError):
                 continue
         return decoded
-    
+
     def remove_service(self, zc: Zeroconf, type_: str, name: str) -> None:
-        """Called when a service is removed."""
+        """
+        Called when a service is removed.
+
+        Parameters
+        ----------
+        zc : Zeroconf
+            Zeroconf instance.
+        type_ : str
+            Service type.
+        name : str
+            Service name.
+        """
         pass
-    
+
     def update_service(self, zc: Zeroconf, type_: str, name: str) -> None:
-        """Called when a service is updated."""
+        """
+        Called when a service is updated.
+
+        Parameters
+        ----------
+        zc : Zeroconf
+            Zeroconf instance.
+        type_ : str
+            Service type.
+        name : str
+            Service name.
+        """
         pass
 
 def discover_mdns_services(timeout: float = 2.0) -> List[Dict[str, str]]:
     """
     Discover mDNS / Bonjour services on the local network.
-    
-    :param timeout: Time (in seconds) to wait for responses.
-    :return: List of discovered services.
+
+    Parameters
+    ----------
+    timeout : float, optional
+        Time in seconds to wait for service discovery (default is 2.0).
+
+    Returns
+    -------
+    List[Dict[str, str]]
+        List of discovered service dictionaries.
     """
     zeroconf = None
     try:

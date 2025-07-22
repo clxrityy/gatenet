@@ -3,37 +3,89 @@ from typing import Optional
 from abc import ABC, abstractmethod
 
 class ServiceDetector(ABC):
-    """Abstract base class for service detection strategies."""
-    
+    """
+    Abstract base class for service detection strategies.
+
+    All service detectors must implement the `detect` method.
+    """
+
     @abstractmethod
     def detect(self, port: int, banner: str) -> Optional[str]:
-        """Detect service from port and banner."""
+        """
+        Detect service from port and banner.
+
+        Parameters
+        ----------
+        port : int
+            The port number associated with the service.
+        banner : str
+            The banner string received from the service.
+
+        Returns
+        -------
+        Optional[str]
+            The detected service name/version, or None if not detected.
+        """
         pass
 
 class SSHDetector(ServiceDetector):
-    """Detects SSH services."""
-    
+    """
+    Service detector for SSH servers.
+    """
+
     def detect(self, port: int, banner: str) -> Optional[str]:
+        """
+        Detect SSH service from port and banner.
+
+        Parameters
+        ----------
+        port : int
+            The port number associated with the service.
+        banner : str
+            The banner string received from the service.
+
+        Returns
+        -------
+        Optional[str]
+            The detected SSH service name/version, or None if not detected.
+        """
         if port != 22 and 'ssh' not in banner:
             return None
-            
+
         if 'openssh' in banner:
             version_match = re.search(r'openssh[_\s]+([\d\.]+p?\d*)', banner)
             version = version_match.group(1) if version_match else 'unknown'
             return f"OpenSSH {version}"
-        
+
         if 'ssh' in banner:
             return "SSH Server"
-        
+
         return None
 
 class HTTPDetector(ServiceDetector):
-    """Detects HTTP services."""
-    
+    """
+    Service detector for HTTP servers.
+    """
+
     def detect(self, port: int, banner: str) -> Optional[str]:
+        """
+        Detect HTTP service from port and banner.
+
+        Parameters
+        ----------
+        port : int
+            The port number associated with the service.
+        banner : str
+            The banner string received from the service.
+
+        Returns
+        -------
+        Optional[str]
+            The detected HTTP service name/version, or None if not detected.
+        """
         if port not in [80, 8080, 8000, 443] and not banner.startswith('http'):
             return None
-            
+
         if 'apache' in banner:
             return "Apache HTTP Server"
         if 'nginx' in banner:
@@ -42,16 +94,33 @@ class HTTPDetector(ServiceDetector):
             return "Microsoft IIS"
         if banner.startswith('http'):
             return "HTTP Server"
-        
+
         return None
 
 class FTPDetector(ServiceDetector):
-    """Detects FTP services."""
-    
+    """
+    Service detector for FTP servers.
+    """
+
     def detect(self, port: int, banner: str) -> Optional[str]:
+        """
+        Detect FTP service from port and banner.
+
+        Parameters
+        ----------
+        port : int
+            The port number associated with the service.
+        banner : str
+            The banner string received from the service.
+
+        Returns
+        -------
+        Optional[str]
+            The detected FTP service name/version, or None if not detected.
+        """
         if port != 21 and 'ftp' not in banner:
             return None
-            
+
         if 'vsftpd' in banner:
             return "vsftpd FTP Server"
         if 'filezilla' in banner:

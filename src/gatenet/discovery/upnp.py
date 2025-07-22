@@ -11,9 +11,16 @@ SSDP_ST = "ssdp:all"
 def discover_upnp_devices(timeout: float = 3.0) -> List[Dict[str, str]]:
     """
     Discover UPnP devices using SSDP.
-    
-    :param timeout: Time in seconds to wait for responses.
-    :return: List of discovered device info dicts.
+
+    Parameters
+    ----------
+    timeout : float, optional
+        Time in seconds to wait for responses (default is 3.0).
+
+    Returns
+    -------
+    List[Dict[str, str]]
+        List of discovered device info dictionaries.
     """
     message = "\r\n".join([
         'M-SEARCH * HTTP/1.1',
@@ -49,7 +56,17 @@ def discover_upnp_devices(timeout: float = 3.0) -> List[Dict[str, str]]:
 
 def _parse_ssdp_response(response: str) -> Dict[str, str]:
     """
-    Parses an SSDP response into a dictionary of headers.
+    Parse an SSDP response into a dictionary of headers.
+
+    Parameters
+    ----------
+    response : str
+        The SSDP response string.
+
+    Returns
+    -------
+    Dict[str, str]
+        Dictionary of SSDP response headers.
     """
     headers = {}
     lines = response.split("\r\n")
