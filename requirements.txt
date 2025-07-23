@@ -13,6 +13,7 @@ certifi==2025.4.26
 charset-normalizer==3.4.2
 click==8.2.1
 coverage==7.8.0
+coverage-badge==1.1.2
 docutils==0.21.2
 Flask==3.1.1
 frozenlist==1.6.0
@@ -52,6 +53,7 @@ requests-toolbelt==1.0.0
 rfc3986==2.0.0
 rich==14.0.0
 roman-numerals-py==3.1.0
+setuptools==80.9.0
 snowballstemmer==3.0.1
 soupsieve==2.7
 Sphinx==8.2.3
