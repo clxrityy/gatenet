@@ -7,7 +7,7 @@ class BaseSocketServer(abc.ABC):
     All socket server implementations (TCP, UDP, etc.) should inherit from this class and implement `start` and `stop`.
     """
 
-    def __init__(self, host: str = "0.0.0.0", port: int = 8000):
+    def __init__(self, host: str = "127.0.0.1", port: int = 8000):
         """
         Initialize the server with host and port.
 
