@@ -2,7 +2,7 @@ import socket
 import time
 from typing import List, Tuple, Optional
 
-def _create_sockets(ttl: int, protocol: str, port: int, timeout: float):
+def _create_sockets(ttl: int, protocol: str, port: int, timeout: float, bind_ip: str = "127.0.0.1"):
     if protocol == "udp":
         send_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
         send_sock.setsockopt(socket.SOL_IP, socket.IP_TTL, ttl)
@@ -14,7 +14,7 @@ def _create_sockets(ttl: int, protocol: str, port: int, timeout: float):
     except PermissionError:
         raise PermissionError("Raw sockets require admin/root privileges.")
     recv_sock.settimeout(timeout)
-    recv_sock.bind(("0.0.0.0", port))
+    recv_sock.bind((bind_ip, port))
     return send_sock, recv_sock
 
 def _send_probe(send_sock, dest_addr, protocol, port):
@@ -51,7 +51,8 @@ def traceroute(
     max_hops: int = 30,
     timeout: float = 2.0,
     protocol: str = "udp",
-    print_output: bool = True
+    print_output: bool = True,
+    bind_ip: str = "127.0.0.1"
 ) -> List[dict]:
     """
     Perform a traceroute to the given host using UDP or ICMP.
@@ -132,3 +133,6 @@ def traceroute(
             break
 
     return result
+
+# Example usage:
+# traceroute("example.com", bind_ip="192.168.1.1")
