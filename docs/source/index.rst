@@ -25,6 +25,9 @@
          Issues
        </a>
      </div>
+     <div>
+       <img src="_static/coverage.svg" alt="Coverage Badge" class="hero-coverage-badge" />
+     </div>
      <div class="hero-animation">
        <!-- Animated Satellite SVG -->
        <div class="satellite-orbit">
