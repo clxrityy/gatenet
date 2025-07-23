@@ -14,6 +14,7 @@
     - [0.8.2](#082)
     - [0.8.4](#084)
     - [0.8.6](#086)
+    - [0.8.8](#088)
 
 # v0 (BETA)
 
@@ -253,3 +254,12 @@
 - Improved `gatenet.discovery.bluetooth`, `gatenet.discovery.mdns`, and `gatenet.discovery.upnp` modules with better error handling. ([ab9483c](https://github.com/clxrityy/gatenet/commit/ab9483c582fcecf62f366aa0f228393f72bba5fb))
   - All error handling now uses Python's built-in `logging` module instead of `print()`.
   - When an error occurs, the module logs the error message and returns an empty list instead of raising an exception.
+
+## 0.8.8
+
+> Documentation improvements and new features.
+
+- Added more customizations and meta data to the docs. ([75f8dc7](https://github.com/clxrityy/gatenet/commit/75f8dc72e8670e3b353950ad72a9fadd590d0eb2))
+  - Footer animation.
+- Added various styles and a hero section to the docs. ([911ecb4](https://github.com/clxrityy/gatenet/commit/911ecb416b6f7ab1ca731aac8a0ee9a57ddb90a0))
+- Ensured **every** module has proper docstrings and usage examples. ([71e6263](https://github.com/clxrityy/gatenet/commit/71e62638187df7516f973fce5985f46ab91ebade))
