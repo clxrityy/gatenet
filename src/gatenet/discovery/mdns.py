@@ -44,8 +44,8 @@ class MDNSListener(ServiceListener):
 
             self.services.append(service_data)
         except Exception as e:
-            # Log error but don't crash discovery
-            print(f"Error processing service {name}: {e}")
+            import logging
+            logging.error(f"Error processing service {name}: {e}")
 
     def _decode_properties(self, properties: Any) -> Dict[str, str]:
         """
@@ -119,18 +119,17 @@ def discover_mdns_services(timeout: float = 2.0) -> List[Dict[str, str]]:
     List[Dict[str, str]]
         List of discovered service dictionaries.
     """
+    import logging
     zeroconf = None
     try:
         zeroconf = Zeroconf()
         listener = MDNSListener()
         _ = ServiceBrowser(zeroconf, "_services._dns-sd._udp.local.", listener)
-        
         time.sleep(timeout)  # Allow time for discovery
-        
         return listener.services
     except Exception as e:
-        print(f"Error during mDNS discovery: {e}")
-        return []
+        logging.error(f"Error during mDNS discovery: {e}")
+        return [{"error": str(e)}]
     finally:
         if zeroconf:
             zeroconf.close()

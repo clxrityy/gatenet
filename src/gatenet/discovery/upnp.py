@@ -39,6 +39,7 @@ def discover_upnp_devices(timeout: float = 3.0) -> List[Dict[str, str]]:
     devices = []
     start = time.time()
 
+    import logging
     while True:
         try:
             if time.time() - start > timeout:
@@ -48,8 +49,9 @@ def discover_upnp_devices(timeout: float = 3.0) -> List[Dict[str, str]]:
             devices.append(_parse_ssdp_response(response))
         except socket.timeout:
             break
-        except Exception:
-            continue
+        except Exception as e:
+            logging.error(f"Error during SSDP/UPnP discovery: {e}")
+            devices.append({"error": str(e)})
     sock.close()
     return devices
 

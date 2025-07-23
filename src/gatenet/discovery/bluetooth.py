@@ -22,12 +22,13 @@ def discover_bluetooth_devices(timeout: float = 8.0) -> List[Dict[str, str]]:
     Exception
         If an error occurs during Bluetooth discovery (caught and printed, returns empty list).
     """
+    import logging
     try:
         # Pass timeout to the async function via a closure or global if needed
         return asyncio.run(_async_discover_bluetooth_devices())
     except Exception as e:
-        print(f"Error during Bluetooth discovery: {e}")
-        return []
+        logging.error(f"Error during Bluetooth discovery: {e}")
+        return [{"error": str(e)}]
 
 async def _async_discover_bluetooth_devices() -> List[Dict[str, str]]:
     """
@@ -75,8 +76,9 @@ async def _async_discover_bluetooth_devices() -> List[Dict[str, str]]:
             devices.append(device_info)
 
     except Exception as e:
-        print(f"Error during async Bluetooth scan: {e}")
-
+        import logging
+        logging.error(f"Error during async Bluetooth scan: {e}")
+        return [{"error": str(e)}]
     return devices
 
 async def async_discover_bluetooth_devices() -> List[Dict[str, str]]:
