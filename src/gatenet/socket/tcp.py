@@ -7,6 +7,13 @@ class TCPServer(BaseSocketServer):
     Multithreaded TCP server that accepts incoming connections and echoes back any data it receives.
 
     Each client connection is handled in a separate thread.
+
+    Example
+    -------
+    >>> from gatenet.socket.tcp import TCPServer
+    >>> server = TCPServer(host="127.0.0.1", port=9000)
+    >>> server.start()
+    # Now connect with a TCP client to 127.0.0.1:9000
     """
 
     def __init__(self, host: str = "0.0.0.0", port: int = 8000):

@@ -6,6 +6,17 @@ class AsyncHTTPClient:
     Asynchronous HTTP client for making requests using aiohttp.
 
     Supports GET, POST, PUT, PATCH, and DELETE methods via async/await.
+
+    Example
+    -------
+    >>> import asyncio
+    >>> from gatenet.http_.async_client import AsyncHTTPClient
+    >>> async def main():
+    ...     client = AsyncHTTPClient("http://127.0.0.1:8000")
+    ...     resp = await client.get("/status")
+    ...     print(resp)
+    >>> asyncio.run(main())
+    {'ok': True, 'status': 200, 'data': {'ok': True}, 'error': None}
     """
 
     def __init__(self, base_url: str):

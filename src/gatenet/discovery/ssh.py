@@ -31,9 +31,38 @@ class ServiceDetector(ABC):
 class SSHDetector(ServiceDetector):
     """
     Service detector for SSH servers.
+
+    Example
+    -------
+    >>> from gatenet.discovery.ssh import SSHDetector
+    >>> detector = SSHDetector()
+    >>> detector.detect(22, "SSH-2.0-OpenSSH_8.9p1")
+    'OpenSSH 8.9p1'
     """
 
     def detect(self, port: int, banner: str) -> Optional[str]:
+        """
+        Detect SSH service from port and banner string.
+
+        Parameters
+        ----------
+        port : int
+            The port number to check (typically 22).
+        banner : str
+            The banner string received from the service.
+
+        Returns
+        -------
+        Optional[str]
+            The detected SSH service/version, or None if not detected.
+
+        Example
+        -------
+        >>> from gatenet.discovery.ssh import SSHDetector
+        >>> detector = SSHDetector()
+        >>> detector.detect(22, "SSH-2.0-OpenSSH_8.9p1")
+        'OpenSSH 8.9p1'
+        """
         """
         Detect SSH service from port and banner.
 
@@ -64,6 +93,11 @@ class SSHDetector(ServiceDetector):
 
 class HTTPDetector(ServiceDetector):
     """
+    Example
+    -------
+    >>> from gatenet.discovery.ssh import _identify_service
+    >>> _identify_service(22, "SSH-2.0-OpenSSH_8.9p1")
+    'OpenSSH 8.9p1'
     Service detector for HTTP servers.
     """
 
@@ -240,6 +274,12 @@ def _identify_service(port: int, banner: str) -> str:
     -------
     str
         Identified service name and version.
+
+    Example
+    -------
+    >>> from gatenet.discovery.ssh import _identify_service
+    >>> _identify_service(22, "SSH-2.0-OpenSSH_8.9p1")
+    'OpenSSH 8.9p1'
     """
     # Defensive: handle None or non-str banner
     if banner is None:

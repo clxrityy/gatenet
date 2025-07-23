@@ -6,6 +6,21 @@ class TCPClient(BaseClient):
     TCP client for connecting to a server, sending messages, and receiving responses.
 
     Supports context manager usage for automatic connection management.
+
+    Examples
+    --------
+    Basic usage::
+
+        from gatenet.client.tcp import TCPClient
+        client = TCPClient(host="127.0.0.1", port=12345)
+        client.connect()
+        response = client.send("ping")
+        client.close()
+
+    With context manager::
+
+        with TCPClient(host="127.0.0.1", port=12345) as client:
+            response = client.send("ping")
     """
 
     def __init__(self, host: str, port: int, timeout: float = 5.0):

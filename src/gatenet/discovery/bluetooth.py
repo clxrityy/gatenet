@@ -21,6 +21,14 @@ def discover_bluetooth_devices(timeout: float = 8.0) -> List[Dict[str, str]]:
     ------
     Exception
         If an error occurs during Bluetooth discovery (caught and printed, returns empty list).
+
+    Example
+    -------
+    >>> from gatenet.discovery.bluetooth import discover_bluetooth_devices
+    >>> devices = discover_bluetooth_devices(timeout=4.0)
+    >>> for device in devices:
+    ...     print(device)
+    {'address': '00:1A:7D:DA:71:13', 'name': 'MyBluetoothDevice'}
     """
     import logging
     try:

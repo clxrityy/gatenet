@@ -1,7 +1,6 @@
 import socket
 import time
 from typing import List, Dict
-import re
 
 SSDP_MULTICAST_ADDRESS = "239.255.255.250"
 SSDP_PORT = 1900
@@ -10,6 +9,13 @@ SSDP_ST = "ssdp:all"
 
 def discover_upnp_devices(timeout: float = 3.0) -> List[Dict[str, str]]:
     """
+    Example
+    -------
+    >>> from gatenet.discovery.upnp import discover_upnp_devices
+    >>> devices = discover_upnp_devices(timeout=2.0)
+    >>> for device in devices:
+    ...     print(device)
+    {'LOCATION': 'http://192.168.1.1:1900/desc.xml', 'SERVER': 'Linux/3.14.0 UPnP/1.0 ...', ...}
     Discover UPnP devices using SSDP.
 
     Parameters
@@ -58,6 +64,12 @@ def discover_upnp_devices(timeout: float = 3.0) -> List[Dict[str, str]]:
 
 def _parse_ssdp_response(response: str) -> Dict[str, str]:
     """
+    Example
+    -------
+    >>> from gatenet.discovery.upnp import _parse_ssdp_response
+    >>> resp = 'LOCATION: http://192.168.1.1:1900/desc.xml\r\nSERVER: Linux/3.14.0 UPnP/1.0 ...\r\n\r\n'
+    >>> _parse_ssdp_response(resp)
+    {'LOCATION': 'http://192.168.1.1:1900/desc.xml', 'SERVER': 'Linux/3.14.0 UPnP/1.0 ...'}
     Parse an SSDP response into a dictionary of headers.
 
     Parameters

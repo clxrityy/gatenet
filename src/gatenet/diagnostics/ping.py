@@ -118,6 +118,8 @@ def ping(host: str, count: int = 4, timeout: int = 2, method: str = "icmp") -> D
     -------
     >>> from gatenet.diagnostics.ping import ping
     >>> result = ping("google.com", count=5, method="icmp")
+    >>> print(result)
+    {'success': True, 'rtt_min': 12.3, 'rtt_avg': 15.2, 'rtt_max': 18.7, 'jitter': 2.1, 'rtts': [12.3, 15.2, 18.7], 'packet_loss': 0, 'host': 'google.com', 'raw_output': '...'}
     >>> print(result["rtt_avg"])
     """
     system = platform.system()

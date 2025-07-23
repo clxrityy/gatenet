@@ -4,6 +4,13 @@ from gatenet.socket.base import BaseSocketServer
 class UDPServer(BaseSocketServer):
     """
     UDP server that listens for datagrams and echoes them back with an 'Echo: ' prefix.
+
+    Example
+    -------
+    >>> from gatenet.socket.udp import UDPServer
+    >>> server = UDPServer(host="127.0.0.1", port=9001)
+    >>> server.start()
+    # Now send a UDP datagram to 127.0.0.1:9001
     """
 
     def __init__(self, host: str = "0.0.0.0", port: int = 8001):

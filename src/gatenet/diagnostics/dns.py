@@ -2,6 +2,11 @@ import socket
 
 def reverse_dns_lookup(ip: str) -> str:
     """
+    Example
+    -------
+    >>> from gatenet.diagnostics.dns import reverse_dns_lookup
+    >>> reverse_dns_lookup("8.8.8.8")
+    'dns.google'
     Perform a reverse DNS lookup for a given IP address.
 
     :param ip: The IP address to look up.
@@ -16,6 +21,11 @@ def reverse_dns_lookup(ip: str) -> str:
 
 def dns_lookup(hostname: str) -> str:
     """
+    Example
+    -------
+    >>> from gatenet.diagnostics.dns import dns_lookup
+    >>> dns_lookup("google.com")
+    '8.8.8.8'
     Perform a DNS lookup for a given hostname.
 
     :param hostname: The hostname to look up.

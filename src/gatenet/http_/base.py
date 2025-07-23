@@ -3,6 +3,11 @@ from http.server import BaseHTTPRequestHandler
 class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
     """
     Basic HTTP request handler that responds to GET requests with a plain text message.
+
+    Example
+    -------
+    >>> from gatenet.http_.base import SimpleHTTPRequestHandler
+    >>> # Use with Python's HTTPServer for custom GET handling
     """
 
     def do_GET(self):

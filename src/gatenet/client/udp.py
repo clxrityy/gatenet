@@ -6,6 +6,20 @@ class UDPClient(BaseClient):
     UDP client for sending messages to a server and receiving responses.
 
     Supports context manager usage for automatic resource management.
+
+    Examples
+    --------
+    Basic usage::
+
+        from gatenet.client.udp import UDPClient
+        client = UDPClient(host="127.0.0.1", port=12345)
+        response = client.send("ping")
+        client.close()
+
+    With context manager::
+
+        with UDPClient(host="127.0.0.1", port=12345) as client:
+            response = client.send("ping")
     """
 
     def __init__(self, host: str, port: int, timeout: float = 2.0):

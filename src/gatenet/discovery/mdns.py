@@ -118,6 +118,14 @@ def discover_mdns_services(timeout: float = 2.0) -> List[Dict[str, str]]:
     -------
     List[Dict[str, str]]
         List of discovered service dictionaries.
+
+    Example
+    -------
+    >>> from gatenet.discovery.mdns import discover_mdns_services
+    >>> services = discover_mdns_services(service_type="_http._tcp.local.", timeout=1.0)
+    >>> for svc in services:
+    ...     print(svc)
+    {'name': 'My Service', 'address': '192.168.1.10', 'port': 8080, ...}
     """
     import logging
     zeroconf = None

@@ -5,6 +5,13 @@ class BaseSocketServer(abc.ABC):
     Abstract base class for socket servers.
 
     All socket server implementations (TCP, UDP, etc.) should inherit from this class and implement `start` and `stop`.
+
+    Example
+    -------
+    >>> from gatenet.socket.tcp import TCPServer
+    >>> server = TCPServer(host="127.0.0.1", port=9000)
+    >>> server.start()
+    # Now connect with a TCP client to 127.0.0.1:9000
     """
 
     def __init__(self, host: str = "127.0.0.1", port: int = 8000):

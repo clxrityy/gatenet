@@ -92,7 +92,6 @@ def traceroute(
     >>> for hop in hops:
     ...     print(hop)
     {'hop': 1, 'ip': '192.168.1.1', 'hostname': 'router.local', 'rtt_ms': 2.34}
-    ...
     """
     assert protocol in ("udp", "icmp"), "protocol must be 'udp' or 'icmp'"
     try:

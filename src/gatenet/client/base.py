@@ -5,6 +5,22 @@ class BaseClient(ABC):
     Abstract base class for network clients.
 
     All client implementations must provide methods to send messages and close the connection.
+
+    Examples
+    --------
+    Subclassing::
+
+        class MyClient(BaseClient):
+            def send(self, message: str, **kwargs) -> str:
+                return "response"
+            def close(self):
+                pass
+
+    Usage::
+
+        client = MyClient()
+        response = client.send("hello")
+        client.close()
     """
 
     @abstractmethod

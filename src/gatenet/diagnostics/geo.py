@@ -2,6 +2,11 @@ import requests
 
 def get_geo_info(ip: str) -> dict:
     """
+    Example
+    -------
+    >>> from gatenet.diagnostics.geo import get_geo_info
+    >>> get_geo_info("8.8.8.8")
+    {'status': 'success', 'country': 'United States', ...}
     Get geographical information for a given IP address using the ip-api.com service.
 
     Args:

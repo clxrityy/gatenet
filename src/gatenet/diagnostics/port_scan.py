@@ -5,6 +5,11 @@ import asyncio
 
 def check_public_port(host: str = "1.1.1.1", port: int = 53, timeout: float = 2.0) -> bool:
     """
+    Example
+    -------
+    >>> from gatenet.diagnostics.port_scan import check_public_port
+    >>> check_public_port("1.1.1.1", 53)
+    True
     Check if a TCP port is publicly reachable.
 
     Args:
@@ -23,6 +28,11 @@ def check_public_port(host: str = "1.1.1.1", port: int = 53, timeout: float = 2.
     
 def scan_ports(host: str, ports: List[int] = COMMON_PORTS, timeout: float = 2.0) -> List[Tuple[int, bool]]:
     """
+    Example
+    -------
+    >>> from gatenet.diagnostics.port_scan import scan_ports
+    >>> scan_ports("localhost", ports=[22, 80, 443])
+    [(22, False), (80, True), (443, True)]
     Scan a list of ports on a given host to check if they are open.
 
     Args:
@@ -48,6 +58,12 @@ import contextlib
 
 async def check_port(host: str, port: int) -> Tuple[int, bool]:
     """
+    Example
+    -------
+    >>> import asyncio
+    >>> from gatenet.diagnostics.port_scan import check_port
+    >>> asyncio.run(check_port("localhost", 22))
+    (22, False)
     Asynchronously check if a TCP port is open on a given host.
 
     Args:
@@ -68,6 +84,12 @@ async def check_port(host: str, port: int) -> Tuple[int, bool]:
     
 async def scan_ports_async(host: str, ports: List[int] = COMMON_PORTS) -> List[Tuple[int, bool]]:
     """
+    Example
+    -------
+    >>> import asyncio
+    >>> from gatenet.diagnostics.port_scan import scan_ports_async
+    >>> asyncio.run(scan_ports_async("localhost", ports=[22, 80]))
+    [(22, False), (80, True)]
     Asynchronously scan a list of ports on a given host.
 
     Args:

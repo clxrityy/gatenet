@@ -10,6 +10,16 @@ class HTTPServerComponent:
     - Uses Python's built-in HTTP server.
     - Runs in a background thread via `start()`.
     - Supports dynamic route registration via the `route` decorator.
+
+    Example
+    -------
+    >>> from gatenet.http_.server import HTTPServerComponent
+    >>> server = HTTPServerComponent(host="127.0.0.1", port=8080)
+    >>> @server.route("/status", method="GET")
+    ... def status_handler(req):
+    ...     return {"ok": True}
+    >>> server.start()
+    # Now visit http://127.0.0.1:8080/status
     """
 
     def __init__(self, host: str = "127.0.0.1", port: int = 8000):

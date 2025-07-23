@@ -9,6 +9,14 @@ class HTTPClient:
     Lightweight HTTP client for making requests using Python's built-in urllib.
 
     Supports GET, POST, PUT, PATCH, and DELETE methods via method chaining.
+
+    Example
+    -------
+    >>> from gatenet.http_.client import HTTPClient
+    >>> client = HTTPClient("http://127.0.0.1:8000")
+    >>> response = client.get("/status")
+    >>> print(response)
+    {'ok': True, 'status': 200, 'data': {'ok': True}, 'error': None}
     """
 
     def __init__(self, base_url: str):

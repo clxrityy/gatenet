@@ -17,6 +17,12 @@ from typing import Dict, Optional
 
 def measure_bandwidth(host: str, port: int = 5201, duration: float = 5.0, payload_size: int = 65536, direction: str = "download") -> Dict[str, float]:
     """
+    Example
+    -------
+    >>> from gatenet.diagnostics.bandwidth import measure_bandwidth
+    >>> result = measure_bandwidth("example.com", port=5201, duration=2.0)
+    >>> print(result)
+    {'bandwidth_mbps': 94.2, 'bytes_transferred': 2359296, 'duration': 2.0}
     Measure bandwidth to a target host using TCP sockets.
 
     Parameters
