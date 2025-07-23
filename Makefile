@@ -78,7 +78,7 @@ else
 endif
 
 # Full release: build, test, docs, publish
-release: build test docs publish
+release: clean build test docs publish
 	@echo "Release complete!"
 
 # Show and update project version in pyproject.toml and docs/source/conf.py

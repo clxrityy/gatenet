@@ -15,6 +15,7 @@
     - [0.8.4](#084)
     - [0.8.6](#086)
     - [0.8.8](#088)
+    - [0.8.9](#089)
 
 # v0 (BETA)
 
@@ -39,7 +40,7 @@
 - Added **HTTP** client class. ([812683b](https://github.com/clxrityy/gatenet/commit/812683bc93398ea9abba1c7ebd57a910e654cd45))
 - Added test for HTTP client. ([a352b48](https://github.com/clxrityy/gatenet/commit/a352b489106b00ccdfcf8901049be8a4af179df8))
 
-## 0.1.1
+### 0.1.1
 
 - Added code coverage support with `codecov`.
 
@@ -93,7 +94,7 @@
   - Add support for custom headers, timeouts, and error handling.
 - Added some [examples](./examples/README.md) ([cce8f2d](https://github.com/clxrityy/gatenet/commit/cce8f2d3f94e2c8a33e5417203ef87d8c29060c6))
 
-## 0.3.2
+### 0.3.2
 
 - Added `BaseClient` class for TCP & UDP clients. ([e3bd9a3](https://github.com/clxrityy/gatenet/commit/e3bd9a3216dfd73f721cf50b90dc0eac1c82663a))
 - **TCP** & **UDP** clients now inherit from `BaseClient`. ([48bcb70](https://github.com/clxrityy/gatenet/commit/48bcb709b04b40f006c9cc91b9a27cdc13b8b490))
@@ -220,7 +221,7 @@
   - Handles edge cases and exceptions more gracefully.
 - Fixed and revamped all tests. ([d2a90a83](https://github.com/clxrityy/gatenet/commit/d2a90a83adeb662eeda99c13ff53f9f2827bf1fd))
 
-## 0.8.2
+### 0.8.2
 
 > Docstring improvements.
 
@@ -231,7 +232,7 @@
 - Updated `gatenet.discovery` modules with improved docstrings. ([d1c84f19](https://github.com/clxrityy/gatenet/commit/d1c84f198bedac97add12a660a745c0b497bbc5b))
 - Updated `gatenet.utils` modules with improved docstrings. ([3d3a63a7](https://github.com/clxrityy/gatenet/commit/3d3a63a7e4676430f2aceabf8b2cfb3c8a65f405))
 
-## 0.8.4
+### 0.8.4
 
 > Additions and expansions to tests and examples.
 
@@ -242,7 +243,7 @@
   - Added edge case tests for TCP/UDP/HTTP clients and servers. ([0c0556f](https://github.com/clxrityy/gatenet/commit/0c0556fe39da8101c11802896633bbe5aaf5e1e7))
 - Added more examples. ([cf7be11](https://github.com/clxrityy/gatenet/commit/cf7be11d8ee8eae7c1c043509be45ede5a59ad9e))
 
-## 0.8.6
+### 0.8.6
 
 > Improve error handling and edge case coverage.
 
@@ -255,7 +256,7 @@
   - All error handling now uses Python's built-in `logging` module instead of `print()`.
   - When an error occurs, the module logs the error message and returns an empty list instead of raising an exception.
 
-## 0.8.8
+### 0.8.8
 
 > Documentation improvements and new features.
 
@@ -263,3 +264,22 @@
   - Footer animation.
 - Added various styles and a hero section to the docs. ([911ecb4](https://github.com/clxrityy/gatenet/commit/911ecb416b6f7ab1ca731aac8a0ee9a57ddb90a0))
 - Ensured **every** module has proper docstrings and usage examples. ([71e6263](https://github.com/clxrityy/gatenet/commit/71e62638187df7516f973fce5985f46ab91ebade))
+
+### 0.8.9
+
+> Coverage documentation & development automation.
+
+- Added dependencies for coverage reporting and documentation generation. ([ed753462](https://github.com/clxrityy/gatenet/commit/ed753462c32ca136a17cc01967b3cbd85943b967))
+- The docs now support and display the code coverage reports.
+- Added a **`Makefile`** for easier development automation through common task scripts. ([90d7a12](https://github.com/clxrityy/gatenet/commit/90d7a12de883733053388f57d2456b479156abe8))
+  ##### Main commands:
+  **`make help`** - Show all available commands.
+  **`make venv`** - Create a virtual environment.
+  **`make install`** - Install all dependencies.
+  **`make test`** - Run all tests.
+  **`make coverage`** - Generate a coverage report.
+  **`make docs`** - Generate the documentation.
+  **`make clean`** - Clean up the project build/dist directories/files.
+  **`make build`** - Build the package.
+  **`make release`** - Release the package.
+  **`make version`** - Display the current version and update the version within `pyproject.toml` & `docs/source/conf.py`.
