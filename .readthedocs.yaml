@@ -7,6 +7,15 @@ build:
   os: ubuntu-lts-latest
   tools:
     python: "3.13"
+  commands:
+    - pip install -r docs/requirements.txt
+    - pip install .
+    - pip install pytest pytest-cov coverage-badge
+    - pytest --cov=src/gatenet --cov-report=html
+    - coverage-badge -o docs/source/_static/coverage.svg
+    - mkdir -p docs/source/_static/htmlcov
+    - cp -r htmlcov/* docs/source/_static/htmlcov/
+    - sphinx-build -b html docs/source docs/build/html
 
 sphinx:
   configuration: docs/source/conf.py
