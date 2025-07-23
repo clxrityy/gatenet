@@ -3,13 +3,13 @@
 document.addEventListener("DOMContentLoaded", function () {
   // Mark JS as enabled for fallback hiding
   document.body.classList.add("js-enabled");
-  var footer = document.querySelector("footer, .footer");
+  const footer = document.querySelector("footer, .footer");
   if (!footer) return;
-  var container = document.createElement("div");
+  const container = document.createElement("div");
   container.id = "network-animation-footer";
 
   // SVG background: abstract purple wires
-  var wires = document.createElement("div");
+  const wires = document.createElement("div");
   wires.className = "network-wires-bg";
   wires.innerHTML = `
     <svg width="260" height="80" viewBox="0 0 260 80" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -61,8 +61,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Animate the blue lines to fade in/out at the nodes (electricity effect)
   function animateLines() {
-    var lines = container.querySelectorAll(".network-animation .line");
-    var t = Date.now() / 1000;
+    const lines = container.querySelectorAll(".network-animation .line");
+    const t = Date.now() / 1000;
     for (let i = 0; i < lines.length; ++i) {
       // Each line is active (bright) in a wave pattern
       let phase = t * 1.2 + i * 0.7;
