@@ -12,7 +12,8 @@
   - [0.7.5](#075)
   - [0.8.0](#080)
     - [0.8.2](#082)
-    - [0.8.4](#086)
+    - [0.8.4](#084)
+    - [0.8.6](#086)
 
 # v0 (BETA)
 
@@ -145,6 +146,8 @@
 
 ## 0.7.5
 
+> New module `gatenet.discovery`.
+
 - Added `gatenet.discovery` module for service discoveries. ([7f43e31](https://github.com/clxrityy/gatenet/commit/7f43e31dea614b11c5e2dfe837b5285b3a65b8ee))
   - Added support for mDNS service discovery.
     - **`gatenet.discovery.mdns`** module for mDNS service discovery.
@@ -171,7 +174,7 @@
 
 ## 0.8.0
 
-Diagnostics module improvements and new features.
+> Diagnostics module improvements and new features.
 
 - Added `gatenet.diagnostics.bandwidth` module for bandwidth measurement. ([16d477dd](https://github.com/clxrityy/gatenet/commit/16d477dd22ababa99c7a71c1bece0bfb75308970))
   - Added examples for download and upload measurement.
@@ -218,7 +221,7 @@ Diagnostics module improvements and new features.
 
 ## 0.8.2
 
-Docstring improvements.
+> Docstring improvements.
 
 - Updated README.
 - Updated `gatenet.client` modules with improved docstrings. ([153eb59a](https://github.com/clxrityy/gatenet/commit/153eb59a7550f6e56790d1e093ce8d6893c80d9e))
@@ -229,9 +232,24 @@ Docstring improvements.
 
 ## 0.8.4
 
+> Additions and expansions to tests and examples.
+
 - Added **integration** tests.
   - Created a new test suite for HTTP server/client integration. ([bbf252b](https://github.com/clxrityy/gatenet/commit/bbf252b05e68cc88f9ae96e5a67c0806077bc0bf))
   - Created a new test suite for TCP/UDP server/client integration. ([59b8272](https://github.com/clxrityy/gatenet/commit/59b82725679813f90e5e8e08207b41899474fc08))
   - Altered the `pytest.ini` file to include markers for integration tests and timeouts. ([607dafd](https://github.com/clxrityy/gatenet/commit/607dafd87db0f6b828f4947c464b2dfae4899fce))
   - Added edge case tests for TCP/UDP/HTTP clients and servers. ([0c0556f](https://github.com/clxrityy/gatenet/commit/0c0556fe39da8101c11802896633bbe5aaf5e1e7))
 - Added more examples. ([cf7be11](https://github.com/clxrityy/gatenet/commit/cf7be11d8ee8eae7c1c043509be45ede5a59ad9e))
+
+## 0.8.6
+
+> Improve error handling and edge case coverage.
+
+- Fixed security vulnerabilities in `gatenet.socket.base` module. ([f8a6f296](https://github.com/clxrityy/gatenet/commit/f8a6f296e082ec78e2b4001be197a225dc78d65b))
+- Added more DNS edge test cases. ([59cc4c2](https://github.com/clxrityy/gatenet/commit/59cc4c2cc5a8fffba48807781b4ea4b5aeae38f7))
+- Added a client test for TCP/UDP edge cases. ([9985aa91](https://github.com/clxrityy/gatenet/commit/9985aa91bc59a5ed184c285fd877745a578e6f77))
+- Added more tests for the `gatenet.discovery.ssh` module. ([8cc6513](https://github.com/clxrityy/gatenet/commit/8cc6513ca8a05b4d8ef772ca3b4b89d4ae66c027))
+  - Tests for ambiguous banners containing multiple service indicators (e.g., both SSH and HTTP, or FTP and HTTP) to ensure the detector chain prioritizes correctly.
+- Improved `gatenet.discovery.bluetooth`, `gatenet.discovery.mdns`, and `gatenet.discovery.upnp` modules with better error handling. ([ab9483c](https://github.com/clxrityy/gatenet/commit/ab9483c582fcecf62f366aa0f228393f72bba5fb))
+  - All error handling now uses Python's built-in `logging` module instead of `print()`.
+  - When an error occurs, the module logs the error message and returns an empty list instead of raising an exception.
