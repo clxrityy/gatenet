@@ -80,3 +80,4 @@
    :caption: API Reference
 
    modules
+   coverage
