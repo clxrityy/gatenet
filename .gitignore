@@ -13,3 +13,8 @@ dist/
 .DS_Store
 .idea/
 docs/build
+coverage.xml
+.coverage
+htmlcov/
+*.egg-info/
+*.egg
