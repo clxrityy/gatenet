@@ -241,8 +241,20 @@ def _identify_service(port: int, banner: str) -> str:
     str
         Identified service name and version.
     """
-    banner_lower = banner.lower().strip()
-    
+    # Defensive: handle None or non-str banner
+    if banner is None:
+        banner_lower = ""
+    elif not isinstance(banner, str):
+        banner_lower = str(banner).lower().strip()
+    else:
+        banner_lower = banner.lower().strip()
+
+    # Defensive: handle non-int port
+    try:
+        port_int = int(port)
+    except Exception:
+        port_int = -1
+
     # Chain of responsibility pattern with service detectors
     detectors = [
         SSHDetector(),
@@ -254,11 +266,11 @@ def _identify_service(port: int, banner: str) -> str:
         GenericServiceDetector(),
         FallbackDetector()  # Always returns a result
     ]
-    
+
     for detector in detectors:
-        result = detector.detect(port, banner_lower)
+        result = detector.detect(port_int, banner_lower)
         if result:
             return result
-    
+
     # This should never be reached due to FallbackDetector
-    return f"Unknown Service (Port {port})"
+    return f"Unknown Service (Port {port_int})"

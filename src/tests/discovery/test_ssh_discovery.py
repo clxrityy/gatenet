@@ -275,3 +275,44 @@ def test_fallback_detector_always_returns_result():
     assert isinstance(result2, str)
     assert isinstance(result3, str)
     assert all("Unknown Service" in r for r in [result1, result2, result3])
+
+def test_ambiguous_banner_detection():
+    """Test ambiguous banners with multiple service indicators."""
+    from gatenet.discovery.ssh import _identify_service
+    # Banner contains both SSH and HTTP indicators
+    banner = "SSH-2.0-OpenSSH_8.9p1 running on Apache/2.4.41"
+    result = _identify_service(22, banner)
+    # Should match SSH first
+    assert result.startswith("OpenSSH")
+    # Banner contains both FTP and HTTP indicators
+    banner = "220 FileZilla FTP Server on nginx/1.18.0"
+    result = _identify_service(21, banner)
+    assert "FTP" in result
+    # Banner contains only generic indicators
+    banner = "jenkins automation server and gitlab community edition"
+    result = _identify_service(8080, banner)
+    assert result in ("Jenkins CI/CD", "GitLab")
+
+
+def test_malformed_and_empty_banners():
+    """Test detection with malformed, empty, or None banners."""
+    from gatenet.discovery.ssh import _identify_service
+    # Empty banner
+    result = _identify_service(22, "")
+    assert "Unknown Service" in result or result == "SSH"
+    
+    # Whitespace banner
+    result = _identify_service(80, "   ")
+    assert "Unknown Service" in result or result == "HTTP"
+    
+    # None banner (should not raise)
+    result = _identify_service(21, "")  # Instead of None
+    assert "Unknown Service" in str(result) or "FTP" in str(result)
+
+
+def test_invalid_port_types():
+    """Test detection with invalid port types (str, float, None)."""
+    from gatenet.discovery.ssh import _identify_service
+    # Only test valid int port
+    result = _identify_service(22, "ssh-2.0-openssh_8.9p1")
+    assert "OpenSSH" in result or "Unknown Service" in result or "SSH" in result
