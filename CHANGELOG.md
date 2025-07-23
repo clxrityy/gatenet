@@ -11,6 +11,8 @@
   - [0.5.0](#050)
   - [0.7.5](#075)
   - [0.8.0](#080)
+    - [0.8.2](#082)
+    - [0.8.4](#086)
 
 # v0 (BETA)
 
@@ -224,3 +226,12 @@ Docstring improvements.
 - Updated `gatenet.http_` modules with improved docstrings. ([a77ce983](https://github.com/clxrityy/gatenet/commit/a77ce98383eb448f12072f17a4ca44ff2b3e9790))
 - Updated `gatenet.discovery` modules with improved docstrings. ([d1c84f19](https://github.com/clxrityy/gatenet/commit/d1c84f198bedac97add12a660a745c0b497bbc5b))
 - Updated `gatenet.utils` modules with improved docstrings. ([3d3a63a7](https://github.com/clxrityy/gatenet/commit/3d3a63a7e4676430f2aceabf8b2cfb3c8a65f405))
+
+## 0.8.4
+
+- Added **integration** tests.
+  - Created a new test suite for HTTP server/client integration. ([bbf252b](https://github.com/clxrityy/gatenet/commit/bbf252b05e68cc88f9ae96e5a67c0806077bc0bf))
+  - Created a new test suite for TCP/UDP server/client integration. ([59b8272](https://github.com/clxrityy/gatenet/commit/59b82725679813f90e5e8e08207b41899474fc08))
+  - Altered the `pytest.ini` file to include markers for integration tests and timeouts. ([607dafd](https://github.com/clxrityy/gatenet/commit/607dafd87db0f6b828f4947c464b2dfae4899fce))
+  - Added edge case tests for TCP/UDP/HTTP clients and servers. ([0c0556f](https://github.com/clxrityy/gatenet/commit/0c0556fe39da8101c11802896633bbe5aaf5e1e7))
+- Added more examples. ([cf7be11](https://github.com/clxrityy/gatenet/commit/cf7be11d8ee8eae7c1c043509be45ede5a59ad9e))
