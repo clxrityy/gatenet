@@ -8,7 +8,8 @@ def get_geo_info(ip: str) -> dict:
         ip (str): The IP address to look up.
 
     Returns:
-        dict: A dictionary containing geographical information. Example:
+        dict: A dictionary containing geographical information. Example::
+
             {
                 'status': 'success',
                 'country': 'United States',
@@ -16,7 +17,9 @@ def get_geo_info(ip: str) -> dict:
                 'city': 'Mountain View',
                 ...
             }
+
         If an error occurs, returns a dict with 'error' and 'message' keys.
+
     """
     url = f"http://ip-api.com/json/{ip}"
     try:
