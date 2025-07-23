@@ -1,3 +1,123 @@
+/* Duplicate .coverage-summary-container removed */
+
+
+
+/* Removed duplicate .coverage-summary-label selector */
+
+/* Duplicate .coverage-iframe-container selector removed. All properties are defined above. */
+
+.coverage-iframe-container iframe {
+    border-radius: 18px;
+    width: 100%;
+    min-height: 600px;
+    background: #fff;
+    border: none;
+    box-shadow: none;
+    /* Removed scrollbar-width for better browser compatibility */
+    /* Removed scrollbar-color for better browser compatibility */
+}
+
+/* Hide scrollbars by default, show on hover/focus */
+/* Hide scrollbars by default, show on hover/focus */
+/* Duplicate .coverage-iframe-container iframe::-webkit-scrollbar selector removed */
+
+/* Duplicate .coverage-iframe-container iframe:hover::-webkit-scrollbar selector removed */
+
+/* Duplicate .coverage-iframe-container iframe::-webkit-scrollbar-thumb selector removed */
+
+
+h1.coverage-title {
+    font-size: 2em;
+    margin-bottom: 0.5em;
+    color: #1976d2;
+    text-align: center;
+}
+
+.coverage-summary-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2em 0 1.5em 0;
+}
+
+.coverage-summary-bar-outer {
+    width: 340px;
+    height: 32px;
+    background: #ece9f7;
+    border-radius: 18px;
+    box-shadow: 0 2px 12px #8000ff22;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+.coverage-summary-bar-inner {
+    height: 100%;
+    background: linear-gradient(90deg, #1976d2 60%, #8000ff 100%);
+    border-radius: 18px 0 0 18px;
+    transition: width 0.7s cubic-bezier(.4, 0, .2, 1);
+    min-width: 0;
+    width: 0;
+    box-shadow: 0 0 12px #1976d288;
+}
+
+.coverage-summary-label {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: #23243a;
+    font-weight: 700;
+    font-size: 1.18em;
+    letter-spacing: 0.01em;
+    text-shadow: 0 2px 8px #8000ff22, 0 1px 0 #fff1;
+    pointer-events: none;
+}
+
+.coverage-iframe-container {
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 2px 24px #8000ff22;
+    margin: 0 auto 2em auto;
+    max-width: 100%;
+    background: #fff;
+    border: 1.5px solid #ece9f7;
+}
+
+/* Duplicate .coverage-iframe-container iframe selector removed */
+
+/* Hide scrollbars by default, show on hover/focus */
+.coverage-iframe-container iframe::-webkit-scrollbar {
+    width: 8px;
+    background: transparent;
+}
+
+.coverage-iframe-container iframe:hover::-webkit-scrollbar {
+    background: #ece9f7;
+}
+
+.coverage-iframe-container iframe::-webkit-scrollbar-thumb {
+    background: #8000ff88;
+    border-radius: 8px;
+}
+
+/* Style for badge in hero section */
+.hero-coverage-badge {
+    display: inline-block;
+    margin-top: 1.1em;
+    border-radius: 8px;
+    box-shadow: 0 2px 12px #8000ff22;
+    overflow: hidden;
+    border: 1.5px solid #ece9f7;
+    background: #fff;
+    transition: box-shadow 0.2s;
+}
+
+.hero-coverage-badge:hover {
+    box-shadow: 0 4px 24px #8000ff55;
+}
+
 .satellite-orbit {
     width: 120px;
     height: 60px;
