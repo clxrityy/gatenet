@@ -16,3 +16,10 @@ build:
     - mkdir -p docs/source/_static/htmlcov
     - cp -r htmlcov/* docs/source/_static/htmlcov/
     - sphinx-build -b html docs/source docs/build/html
+
+sphinx:
+  configuration: docs/source/conf.py
+
+python:
+  install:
+    - requirements: docs/requirements.txt

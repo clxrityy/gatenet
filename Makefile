@@ -60,6 +60,10 @@ coverage-doc:
 docs: coverage coverage-copy badge coverage-doc
 	cd docs && make html
 
+# Publish docs to readthedocs.io
+docs-build: venv
+	sphinx-build -b html docs/source docs/build/html
+
 # Clean build, dist, coverage, and doc artifacts
 clean:
 	rm -rf build dist *.egg-info .pytest_cache .coverage htmlcov
