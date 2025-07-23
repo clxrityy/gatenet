@@ -95,11 +95,11 @@ class TestBluetoothDiscovery:
         # This tests the exception handling within _async_discover_bluetooth_devices
         with patch('gatenet.discovery.bluetooth.BleakScanner.discover', new_callable=AsyncMock) as mock_discover:
             mock_discover.side_effect = Exception("Bluetooth scan failed")
-            
             result = await async_discover_bluetooth_devices()
-            
-            # The function should handle the exception and return an empty list
-            assert result == []
+            # The function should handle the exception and return a list with an error dict
+            assert isinstance(result, list)
+            assert result and "error" in result[0]
+            assert result[0]["error"] == "Bluetooth scan failed"
 
     @pytest.mark.asyncio
     async def test_async_discover_bluetooth_devices_multiple_devices(self):
@@ -161,10 +161,10 @@ class TestBluetoothDiscovery:
         """Test synchronous discovery handles exceptions gracefully."""
         with patch('gatenet.discovery.bluetooth.asyncio.run') as mock_asyncio_run:
             mock_asyncio_run.side_effect = Exception("Bluetooth adapter not found")
-            
             result = discover_bluetooth_devices()
-            
-            assert result == []
+            assert isinstance(result, list)
+            assert result and "error" in result[0]
+            assert result[0]["error"] == "Bluetooth adapter not found"
             mock_asyncio_run.assert_called_once()
 
     def test_discover_bluetooth_devices_default_timeout(self):
