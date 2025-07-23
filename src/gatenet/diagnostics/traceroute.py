@@ -51,8 +51,7 @@ def traceroute(
     max_hops: int = 30,
     timeout: float = 2.0,
     protocol: str = "udp",
-    print_output: bool = True,
-    bind_ip: str = "127.0.0.1"
+    print_output: bool = True
 ) -> List[dict]:
     """
     Perform a traceroute to the given host using UDP or ICMP.
