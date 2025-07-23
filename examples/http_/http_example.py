@@ -30,7 +30,8 @@ server.start()
 client = HTTPClient(f"http://127.0.0.1:{port}")
 
 ## 2.a Make a GET request
-res = client.get("/ping")
+get = getattr(client, "get")
+res = get("/ping")
 print("GET /ping ->", res)
 
 ## 2.b Make a POST request
@@ -38,7 +39,8 @@ payload = {
     "message": "Hello, Gatenet!",
     "count": 1
 }
-res = client.post("/echo", data=payload)
+post = getattr(client, "post")
+res = post("/echo", data=payload)
 print("POST /echo ->", res)
 
 # 3. Stop the server
