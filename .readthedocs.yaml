@@ -15,9 +15,10 @@ build:
     - echo "\n--- htmlcov directory after pytest ---" && ls -l htmlcov
     - coverage-badge -o docs/source/_static/coverage.svg
     - mkdir -p docs/source/_static/htmlcov
-    - cp -r htmlcov/* docs/source/_static/htmlcov/
+    - cp -a htmlcov/. docs/source/_static/htmlcov/
     - echo "\n--- _static/htmlcov directory after copy ---" && ls -l docs/source/_static/htmlcov
     - sphinx-build -b html docs/source docs/build/html
+    - echo "\n--- _static/htmlcov in built docs ---" && ls -l docs/build/html/_static/htmlcov || echo "not found"
 
 sphinx:
   configuration: docs/source/conf.py
