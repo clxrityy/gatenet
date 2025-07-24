@@ -6,10 +6,14 @@ Covers end-to-end request/response, diagnostics, and error handling.
 
 import time
 import pytest
+import shutil
 from gatenet.http_.server import HTTPServerComponent
 from gatenet.http_.client import HTTPClient
 from gatenet.diagnostics.ping import ping
 from gatenet.utils.net import get_free_port
+
+
+pytestmark = pytest.mark.skipif(shutil.which("ping") is None, reason="ping not available in environment")
 
 
 @pytest.mark.integration

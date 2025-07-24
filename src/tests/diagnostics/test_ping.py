@@ -1,5 +1,8 @@
 from gatenet.diagnostics import ping, async_ping
 import pytest
+import shutil
+
+pytestmark = pytest.mark.skipif(shutil.which("ping") is None, reason="ping not available in environment")
 
 @pytest.mark.parametrize("method", ["icmp", "tcp"])
 def test_ping_success(method):
