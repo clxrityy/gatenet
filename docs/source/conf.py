@@ -21,6 +21,7 @@ extensions = [
     'sphinx.ext.viewcode',      # Adds links to highlighted source code
     'sphinx.ext.githubpages',   # For GitHub Pages (optional if you're not using it)
     "sphinx_autodoc_typehints", # Adds type hints to the documentation
+    'sphinx_coverage',          # Adds coverage summary table
 ]
 
 import os

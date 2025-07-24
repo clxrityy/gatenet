@@ -1,6 +1,8 @@
 Test Coverage
 ==============
 
-.. raw:: html
+.. coverage:: ../../coverage.xml
+   :show_missing:
+   :ignore_errors:
 
-   <iframe src="coverage_html/index.html" width="100%" height="600px"></iframe>
+This table is generated from the latest test coverage report. For a fully interactive HTML report, see the badge or download the full report from your repository artifacts.
