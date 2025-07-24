@@ -83,4 +83,4 @@
    :caption: API Reference
 
    modules
-   coverage
+   coverage_summary

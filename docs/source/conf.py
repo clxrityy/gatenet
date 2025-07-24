@@ -21,7 +21,6 @@ extensions = [
     'sphinx.ext.viewcode',      # Adds links to highlighted source code
     'sphinx.ext.githubpages',   # For GitHub Pages (optional if you're not using it)
     "sphinx_autodoc_typehints", # Adds type hints to the documentation
-    'sphinx_coverage',          # Adds coverage summary table
 ]
 
 import os
@@ -77,10 +76,23 @@ html_theme_options = {
 }
 
 # Add custom CSS and webmanifest for further style tweaks and PWA support
+def run_coverage_summary(_):
+    """Generate coverage_summary.rst from coverage.xml before docs build."""
+    import subprocess
+    import pathlib
+    docs_dir = pathlib.Path(__file__).parent
+    script = docs_dir / "gen_coverage_table.py"
+    if script.exists():
+        try:
+            subprocess.run([sys.executable, str(script)], check=True)
+        except Exception as e:
+            print(f"[sphinx] Could not generate coverage summary: {e}")
+
 def setup(app):
     app.add_css_file('style.css')  # Place your custom CSS in _static/style.css
     app.add_js_file('site.webmanifest', type='application/manifest+json')
     app.add_js_file('network-footer.js')  # Adds animated networking footer
+    app.connect('builder-inited', run_coverage_summary)
 
 # Example: To use a custom template, add HTML files to _templates/ and reference them in your .rst files.
 

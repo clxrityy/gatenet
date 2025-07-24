@@ -47,17 +47,13 @@ coverage-copy:
 badge:
 	coverage-badge -o docs/source/_static/coverage.svg
 
-# Build a coverage docs page (if not present)
-coverage-doc:
-	@echo "Test Coverage" > docs/source/coverage.rst
-	@echo "==============" >> docs/source/coverage.rst
-	@echo "" >> docs/source/coverage.rst
-	@echo ".. raw:: html" >> docs/source/coverage.rst
-	@echo "" >> docs/source/coverage.rst
-	@echo "   <iframe src=\"_static/htmlcov/index.html\" width=\"100%\" height=\"600px\"></iframe>" >> docs/source/coverage.rst
+
+# Generate a coverage summary table for docs
+coverage-summary:
+	python3 docs/source/gen_coverage_table.py
 
 # Build Sphinx documentation (HTML)
-docs: coverage coverage-copy badge coverage-doc
+docs: coverage coverage-copy badge coverage-summary
 	cd docs && make html
 
 # Publish docs to readthedocs.io
