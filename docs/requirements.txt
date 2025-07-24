@@ -16,3 +16,4 @@ pytest-asyncio
 pytest-cov
 aiohttp
 zeroconf
+bleak
