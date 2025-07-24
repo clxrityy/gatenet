@@ -13,8 +13,8 @@ build:
     - pip install pytest pytest-cov coverage-badge
     - pytest --cov=src/gatenet --cov-report=html
     - coverage-badge -o docs/source/_static/coverage.svg
-    - mkdir -p docs/source/_static/htmlcov
-    - cp -a htmlcov/. docs/source/_static/htmlcov/
+    - mkdir -p docs/source/coverage_html
+    - cp -a htmlcov/. docs/source/coverage_html/
     - sphinx-build -b html docs/source docs/build/html
 
 sphinx:
