@@ -48,15 +48,17 @@ autodoc_default_options = {
 # -- HTML output options --
 
 html_theme = 'furo'  # Modern, clean theme. Alternatives: 'sphinx_rtd_theme', 'alabaster', etc.
-# Ensure htmlcov is included in the built docs if present
+# Ensure htmlcov and coverage_html are included in the built docs if present
 _static_htmlcov = os.path.join(os.path.dirname(__file__), '_static', 'htmlcov')
+_coverage_html = os.path.join(os.path.dirname(__file__), 'coverage_html')
+html_static_path = ['_static']
 if os.path.exists(_static_htmlcov):
-    html_static_path = ['_static', '_static/htmlcov']
-else:
-    html_static_path = ['_static']
+    html_static_path.append('_static/htmlcov')
+if os.path.exists(_coverage_html):
+    html_static_path.append('coverage_html')
 
-# Remove htmlcov from exclude_patterns if present
-exclude_patterns = [p for p in exclude_patterns if 'htmlcov' not in p]
+# Remove htmlcov and coverage_html from exclude_patterns if present
+exclude_patterns = [p for p in exclude_patterns if 'htmlcov' not in p and 'coverage_html' not in p]
 
 
 
