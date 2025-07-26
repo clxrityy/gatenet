@@ -2,44 +2,15 @@
 
 ##### BETA
 
-[![Changelog](https://img.shields.io/badge/changelog-log?logo=gitbook&logoColor=%23333333&color=%23BBDDE5&link=https%3A%2F%2Fgithub.com%2Fclxrityy%2Fgatenet%2Fblob%2Fmaster%2FCHANGELOG.md)](https://github.com/clxrityy/gatenet/blob/master/CHANGELOG.md)
+[![Changelog](https://img.shields.io/badge/changelog-log?logo=gitbook&logoColor=%23333333&color=%23BBDDE5&link=https%3A%2F%2Fgithub.com%2Fclxrityy%2Fgatenet%2Fblob%2Fmaster%2FCHANGELOG.md)](https://gatenet.readthedocs.io/en/latest/changelog.html)
 [![Static Badge](https://img.shields.io/badge/readthedocs-readme?style=social&logo=readthedocs&logoColor=%238CA1AF&link=https%3A%2F%2Fgatenet.readthedocs.io%2Fen%2Flatest%2F)](https://gatenet.readthedocs.io/en/latest/)
 
-|             |                                                                                                                                                                                                                                                                                 |
-| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Package** | [![PyPI](https://img.shields.io/pypi/v/gatenet)](https://pypi.org/project/gatenet/)                                                                                                                                                                                             |
-| **Python**  | [![Python](https://img.shields.io/pypi/pyversions/gatenet)](https://pypi.org/project/gatenet/)                                                                                                                                                                                  |
-| **Tests**   | [![CI](https://github.com/clxrityy/gatenet/actions/workflows/test.yml/badge.svg)](https://github.com/clxrityy/gatenet/actions/workflows/test.yml) [![codecov](https://codecov.io/gh/clxrityy/gatenet/graph/badge.svg?token=4644O5NGW9)](https://codecov.io/gh/clxrityy/gatenet) |
-| **License** | [![License](https://img.shields.io/github/license/clxrityy/gatenet)](LICENSE)                                                                                                                                                                                                   |
-
-```mermaid
-mindmap
-  root(🛰️)
-    diagnostics/
-      dns
-      geo
-      ping
-      port_scan
-      bandwidth
-    client/
-      base
-        TCP
-        UDP
-    http_/
-        base
-            client
-            server
-            async_client
-    socket/
-        base
-            TCP
-            UDP
-    discovery/
-        MDNS
-        UPNP
-        SSH
-        bluetooth
-```
+|             |                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Package** | [![PyPI](https://img.shields.io/pypi/v/gatenet)](https://pypi.org/project/gatenet/)                                                                                                                                                                                                                                                                                                                                                                                    |
+| **Python**  | [![Python](https://img.shields.io/pypi/pyversions/gatenet)](https://pypi.org/project/gatenet/)                                                                                                                                                                                                                                                                                                                                                                         |
+| **Tests**   | [![CI](https://github.com/clxrityy/gatenet/actions/workflows/test.yml/badge.svg)](https://github.com/clxrityy/gatenet/actions/workflows/test.yml) [![Coverage](https://img.shields.io/badge/coverage-Report-green?logo=readthedocs&logoColor=%238CA1AF&color=%2333CC99)](https://gatenet.readthedocs.io/en/latest/coverage_summary.html) [![codecov](https://codecov.io/gh/clxrityy/gatenet/graph/badge.svg?token=4644O5NGW9)](https://codecov.io/gh/clxrityy/gatenet) |
+| **License** | [![License](https://img.shields.io/github/license/clxrityy/gatenet)](LICENSE)                                                                                                                                                                                                                                                                                                                                                                                          |
 
 > **Gatenet is a batteries-included Python networking toolkit for diagnostics, service discovery, and building robust socket, UDP, and HTTP microservices.**
 >
@@ -51,7 +22,7 @@ mindmap
 
 Gatenet is designed for developers who need reliable, extensible, and well-tested networking tools for diagnostics, automation, and microservice development.
 
-- [Changelog](https://github.com/clxrityy/gatenet/blob/master/CHANGELOG.md)
+- [Changelog](https://gatenet.readthedocs.io/en/latest/changelog.html)
 - [Installation](#installation)
 - [Features](#features)
 - [Quickstart](#quickstart)
@@ -88,6 +59,7 @@ pip install gatenet
 ### TCP Client
 
 ```python
+# Synchronous usage
 from gatenet.client.tcp import TCPClient
 
 client = TCPClient(host="127.0.0.1", port=12345)
@@ -95,11 +67,25 @@ client.connect()
 response = client.send("ping")
 print(response)
 client.close()
+
+# --- Async usage ---
+from gatenet.client.tcp import AsyncTCPClient
+import asyncio
+
+async def main():
+    client = AsyncTCPClient(host="127.0.0.1", port=12345)
+    await client.connect()
+    response = await client.send("ping")
+    print(response)
+    await client.close()
+
+asyncio.run(main())
 ```
 
 ### HTTP Server
 
 ```python
+# Synchronous usage
 from gatenet.http.server import HTTPServer
 
 server = HTTPServer(host="0.0.0.0", port=8080)
@@ -109,6 +95,17 @@ def status_handler(req):
     return {"ok": True}
 
 server.serve()
+
+# --- Async usage ---
+from gatenet.http_.async_client import AsyncHTTPClient
+import asyncio
+
+async def main():
+    client = AsyncHTTPClient("http://localhost:8080")
+    response = await client.get("/status")
+    print(response)
+
+asyncio.run(main())
 ```
 
 ---
@@ -166,7 +163,7 @@ See [examples/discovery/ssh_discovery.py](examples/discovery/ssh_discovery.py) f
 
 - **Traceroute**: Trace the route to a host.
 - **Latency Measurement**: Measure round-trip time to a host.
-- **Bandwidth Measurement**: (Planned) Measure throughput to a host.
+- **Bandwidth Measurement**: Measure throughput to a host.
 
 Example traceroute:
 
@@ -176,6 +173,15 @@ from gatenet.diagnostics.traceroute import traceroute
 hops = traceroute("google.com")
 for hop in hops:
     print(hop)
+```
+
+Example bandwidth measurement:
+
+```python
+from gatenet.diagnostics.bandwidth import measure_bandwidth
+
+result = measure_bandwidth("google.com")
+print(f"Download: {result['download_mbps']} Mbps, Upload: {result['upload_mbps']} Mbps")
 ```
 
 ---

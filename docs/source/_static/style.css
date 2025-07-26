@@ -1,10 +1,12 @@
-/* Duplicate .coverage-summary-container removed */
+::-webkit-scrollbar {
+    width: 10px;
+    background: #232946;
+}
 
-
-
-/* Removed duplicate .coverage-summary-label selector */
-
-/* Duplicate .coverage-iframe-container selector removed. All properties are defined above. */
+::-webkit-scrollbar-thumb {
+    background: #1976d270;
+    border-radius: 5px;
+}
 
 .coverage-iframe-container iframe {
     border-radius: 18px;
@@ -13,18 +15,10 @@
     background: #fff;
     border: none;
     box-shadow: none;
-    /* Removed scrollbar-width for better browser compatibility */
-    /* Removed scrollbar-color for better browser compatibility */
 }
 
 /* Hide scrollbars by default, show on hover/focus */
 /* Hide scrollbars by default, show on hover/focus */
-/* Duplicate .coverage-iframe-container iframe::-webkit-scrollbar selector removed */
-
-/* Duplicate .coverage-iframe-container iframe:hover::-webkit-scrollbar selector removed */
-
-/* Duplicate .coverage-iframe-container iframe::-webkit-scrollbar-thumb selector removed */
-
 
 h1.coverage-title {
     font-size: 2em;

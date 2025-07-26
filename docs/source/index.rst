@@ -84,3 +84,5 @@
 
    modules
    coverage_summary
+   changelog
+   architecture

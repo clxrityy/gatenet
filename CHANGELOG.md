@@ -16,6 +16,7 @@
     - [0.8.6](#086)
     - [0.8.8](#088)
     - [0.8.9](#089)
+  - [0.9.0](#090)
 
 # v0 (BETA)
 
@@ -92,7 +93,7 @@
     return _method
     ```
   - Add support for custom headers, timeouts, and error handling.
-- Added some [examples](./examples/README.md) ([cce8f2d](https://github.com/clxrityy/gatenet/commit/cce8f2d3f94e2c8a33e5417203ef87d8c29060c6))
+- Added some examples ([cce8f2d](https://github.com/clxrityy/gatenet/commit/cce8f2d3f94e2c8a33e5417203ef87d8c29060c6))
 
 ### 0.3.2
 
@@ -283,3 +284,35 @@
   **`make build`** - Build the package.
   **`make release`** - Release the package.
   **`make version`** - Display the current version and update the version within `pyproject.toml` & `docs/source/conf.py`.
+
+## 0.9.0
+
+> Documentation SEO improvements and repository maintenance/necessities.
+
+- Updated the vital markdown files:
+  - `README.md` - Now includes async examples and a better reflection of the package's capabilities.
+  - `CONTRIBUTING.md` - Updated to provide clearer guidelines for contributing to the project.
+  - `.github/copilot-instructions.md` - Added instructions for using GitHub Copilot with the project.
+- Added a `SECURITY.md` file to outline the security policy and reporting guidelines.
+- Added more SEO support to the documentation.
+  - A sitemap will be generated automatically (through `sphinx-sitemap`).
+  - OpenGraph/meta tags and keywords are configured (through `sphinxext-opengraph`).
+  - Added a `robots.txt` file to point to the sitemap.
+- Integrated the changelog into the documentation.
+  - Installed `myst-parser` to parse the changelog markdown.
+  - Added a new section in the documentation to display the changelog.
+  ```zsh
+  make docs
+  ```
+- Added more sphinx extensions to slightly enhance the documentation.
+  - `sphinx_copybutton` - Adds "Copy" buttons to code blocks.
+  - `sphinx_inline_tabs` - Enables inline tabbed content.
+  - `sphinx_design` - Adds design elements and utilities.
+- Added more `.github/` files for repository maintenance.
+  - `ISSUE_TEMPLATE/` - Issue templates for bug reports and feature requests.
+    - `bug_report.md` - Template for reporting bugs.
+    - `feature_request.md` - Template for requesting new features.
+  - `pull_request_template.md` - Template for pull requests.
+- Added an **architecture diagram** to the documentation.
+  - The diagram is generated using `sphinxcontrib-mermaid`.
+  - It provides a visual representation of the package's structure and components using a mind map.

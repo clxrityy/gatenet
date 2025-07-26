@@ -1,61 +1,168 @@
 # Gatenet | Copilot Instructions
 
-Gatenet is a Python package for building and working with socket servers and clients, including TCP, UDP, and HTTP protocols. It provides a simple interface for creating servers and clients, handling requests, managing connections, and discovering network services.
+Gatenet is a modular Python networking toolkit for diagnostics, service discovery, and robust socket/HTTP microservices. It is designed for extensibility, testability, and modern async support.
 
-## Package Structure
+---
 
-- `src/`: Contains the main code.
-  - `gatenet/`: The main package directory.
-    - `__init__.py`: Initializes the package.
-    - `client/`: Contains the client implementations.
-      - `base.py`: Base client class.
-      - `tcp.py`: TCP client class.
-      - `udp.py`: UDP client class.
-    - `discovery/`: Contains network service discovery implementations.
-      - `ssh.py`: Service detection using strategy pattern (SSH, HTTP, FTP, SMTP, etc.).
-    - `http/`: Contains the HTTP client and server implementations.
-      - `base.py`: Contains `SimpleHTTPRequestHandler`
-      - `client.py`: HTTP client class.
-      - `server.py`: HTTP server component class.
-      - `async_client.py`: Asynchronous HTTP client class.
-    - `socket/`: Contains the socket server implementations.
-      - `base.py`: Base socket server class.
-      - `tcp.py`: TCP socket server class.
-      - `udp.py`: UDP socket server class.
-    - `utils/`: Contains utility functions and classes.
-      - `net.py`: Network utilities (`get_free_port()`, ...).
-  - `tests/`: Contains the test suite.
-    - `client/`: Tests for client classes.
-      - `test_tcp_client.py`: Tests for TCP client.
-      - `test_udp_client.py`: Tests for UDP client.
-    - `discovery/`: Tests for service discovery.
-      - `test_ssh_discovery.py`: Tests for service detection functionality.
-    - `http/`: Tests for HTTP client and server.
-      - `test_http_client.py`: Tests for HTTP client.
-      - `test_http_server.py`: Tests for HTTP server.
-      - `test_async_client.py`: Tests for asynchronous HTTP client.
-    - `socket/`: Tests for socket server classes.
-      - `test_tcp_server.py`: Tests for TCP socket server.
-      - `test_udp_server.py`: Tests for UDP socket server.
-    - `utils/`: Tests for utility functions.
-      - `test_net_utils.py`: Tests for network utilities.
-- `examples/`: Contains example scripts demonstrating usage.
-  - `discovery/`: Service discovery examples.
-    - `ssh_discovery.py`: Examples of service detection usage.
-- `CHANGELOG.md`: Contains the changelog for the package.
-- `README.md`: The main documentation file for the package.
-- `pyproject.toml`: Configuration file for the package.
-- `pytest.ini`: Configuration file for pytest.
-- `requirements.txt`: Contains the package dependencies.
-- `LICENSE`: The license file for the package.
+## Package Structure & Directory Layout
 
-### Folder roles
+- `src/gatenet/` — Main package code
+  - `client/` — TCP, UDP, and HTTP clients (sync and async)
+  - `socket/` — TCP and UDP socket servers (low-level, connection-oriented)
+  - `http_/` — HTTP server and client (sync and async, built on `http.server`, `urllib`, and `aiohttp`)
+  - `diagnostics/` — Tools for ping, traceroute, bandwidth, geo IP, DNS, port scanning
+  - `discovery/` — Service discovery using strategy and chain-of-responsibility patterns (SSH, HTTP, FTP, SMTP, mDNS, Bluetooth, UPNP, etc.)
+  - `utils/` — Utilities (e.g., `get_free_port()`)
+- `src/tests/` — Unit and integration tests, mirroring the main package structure
+- `examples/` — Example scripts for diagnostics, discovery, HTTP, TCP/UDP, and dashboard usage
+- `docs/` — Sphinx documentation, with automated coverage summary
+- `Makefile` — Automation for testing, coverage, docs, and release
 
-- `client/`: Only contains protocol specific clients (TCP, UDP, HTTP).
-- `socket/`: Contains protocol specific socket servers. These are low-level and connection-oriented.
-- `http/`: Handles HTTP server and clients - built on top of `http.server` and `urllib` or `aiohttp`.
-- `discovery/`: Network service discovery and identification using strategy and chain of responsibility patterns.
-- `utils/net.py`: Contains network utilities like `get_free_port()` for finding available ports.
+---
+
+## Design Patterns & Extensibility
+
+- **Strategy Pattern**: Used for service detectors (e.g., SSH, HTTP, FTP, SMTP)
+- **Chain of Responsibility**: Service identification tries detectors in sequence until one succeeds
+- **Abstract Base Classes (ABC)**: For extensible interfaces (clients, servers, detectors)
+- **Async/Await**: Async support for HTTP, ping, and more
+- **Method Chaining**: Fluent APIs for HTTP clients and other components
+
+---
+
+## Usage Patterns & Best Practices
+
+- Prefer method chaining for fluent APIs (e.g., HTTPClient)
+- Always include docstrings using Google-style or NumPy-style formatting
+- Use type hints for all public functions and classes
+- When returning JSON from HTTP routes, return a Python `dict` (not serialized JSON)
+- Use ABCs for extensible interfaces (see `BaseClient`, `BaseSocketServer`, `ServiceDetector`)
+- Use strategy and chain-of-responsibility for extensible functionality (as in service discovery)
+- Prefer async/await for new async features (see `AsyncHTTPClient`, `async_ping`)
+
+---
+
+## Example Usages
+
+**TCP Client (sync and async):**
+
+```python
+# Synchronous
+from gatenet.client.tcp import TCPClient
+client = TCPClient(host="127.0.0.1", port=12345)
+client.connect()
+response = client.send("ping")
+client.close()
+
+# Async
+from gatenet.client.tcp import AsyncTCPClient
+import asyncio
+async def main():
+    client = AsyncTCPClient(host="127.0.0.1", port=12345)
+    await client.connect()
+    response = await client.send("ping")
+    await client.close()
+asyncio.run(main())
+```
+
+**HTTP Server (sync and async):**
+
+```python
+# Synchronous
+from gatenet.http_.server import HTTPServerComponent
+server = HTTPServerComponent(host="0.0.0.0", port=8080)
+@server.route("/status", method="GET")
+def status_handler(req):
+    return {"ok": True}
+server.start()
+
+# Async client
+from gatenet.http_.async_client import AsyncHTTPClient
+import asyncio
+async def main():
+    client = AsyncHTTPClient("http://localhost:8080")
+    response = await client.get("/status")
+    print(response)
+asyncio.run(main())
+```
+
+**Service Discovery:**
+
+```python
+from gatenet.discovery.ssh import _identify_service, SSHDetector
+service = _identify_service(22, "SSH-2.0-OpenSSH_8.9p1")
+print(service)  # Output: "OpenSSH 8.9p1"
+ssh_detector = SSHDetector()
+result = ssh_detector.detect(22, "ssh-2.0-openssh_8.9p1")
+```
+
+**Custom Service Detector:**
+
+```python
+from gatenet.discovery.ssh import ServiceDetector
+from typing import Optional
+class CustomDetector(ServiceDetector):
+    def detect(self, port: int, banner: str) -> Optional[str]:
+        if 'myapp' in banner:
+            return "MyCustomApp"
+        return None
+```
+
+**Diagnostics (ping, traceroute, bandwidth, geo, DNS, port scan):**
+
+```python
+from gatenet.diagnostics.ping import ping, async_ping
+result = ping("1.1.1.1", count=3)
+import asyncio
+asyncio.run(async_ping("8.8.8.8", count=3))
+
+from gatenet.diagnostics.traceroute import traceroute
+hops = traceroute("google.com")
+
+from gatenet.diagnostics.bandwidth import measure_bandwidth
+result = measure_bandwidth("google.com")
+
+from gatenet.diagnostics.geo import get_geo_info
+geo = get_geo_info("8.8.8.8")
+
+from gatenet.diagnostics.dns import dns_lookup, reverse_dns_lookup
+ip = dns_lookup("google.com")
+host = reverse_dns_lookup("8.8.8.8")
+
+from gatenet.diagnostics.port_scan import scan_ports, check_public_port
+open_ports = scan_ports("127.0.0.1", ports=[22, 80, 443])
+is_open = check_public_port("1.1.1.1", 53)
+```
+
+---
+
+## Testing Guidelines
+
+- Use `pytest` and `assert` for all tests
+- Place tests in the appropriate subdirectory under `src/tests/`
+- Use `get_free_port()` from `gatenet.utils.net` to avoid port conflicts in tests
+- Use `pytest.mark.asyncio` for async tests
+- Mock network connections with `unittest.mock` or `pytest` fixtures
+- Test both positive and negative cases, including edge cases (timeouts, empty responses, case sensitivity)
+- Run `make test` before submitting a PR
+
+---
+
+## Coverage & Documentation
+
+- Coverage is measured with `pytest-cov` and summarized in the docs (see `make docs`)
+- Sphinx docs are in `docs/` and built with `make docs`
+- Examples are in `examples/` and should be kept up to date with new features
+
+---
+
+## General Best Practices
+
+- Keep code modular and extensible
+- Use ABCs and patterns for extensibility
+- Prefer async/await for new async features
+- Always document public APIs and provide usage examples
+- Keep tests and examples up to date with new features
 
 ---
 
