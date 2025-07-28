@@ -11,3 +11,4 @@ zeroconf
 fastapi
 uvicorn
 httpx
+pytest
