@@ -27,3 +27,4 @@ sphinxcontrib-mermaid
 gatenet
 fastapi
 uvicorn
+httpx
