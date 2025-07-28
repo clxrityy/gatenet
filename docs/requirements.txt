@@ -25,3 +25,5 @@ sphinx_inline_tabs
 sphinx_design
 sphinxcontrib-mermaid
 gatenet
+fastapi
+uvicorn
