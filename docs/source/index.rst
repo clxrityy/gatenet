@@ -83,6 +83,12 @@
    :caption: API Reference
 
    modules
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Project Overview
+
    coverage_summary
    changelog
    architecture
+   examples

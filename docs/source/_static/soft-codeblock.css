@@ -1,0 +1,22 @@
+.highlight,
+.literal-block,
+.code-block,
+pre,
+.highlight pre {
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.08), 0 1.5px 4px 0 rgba(0, 0, 0, 0.04);
+    border-radius: 8px;
+    transition: box-shadow 0.2s cubic-bezier(.4, 0, .2, 1), transform 0.2s cubic-bezier(.4, 0, .2, 1);
+    background: var(--color-background-secondary, #23272e);
+    position: relative;
+    z-index: 1;
+}
+
+.highlight:hover,
+.literal-block:hover,
+.code-block:hover,
+pre:hover,
+.highlight pre:hover {
+    box-shadow: 0 6px 24px 0 rgba(0, 0, 0, 0.13), 0 2.5px 8px 0 rgba(0, 0, 0, 0.07);
+    transform: translateY(-2px) scale(1.01);
+    z-index: 2;
+}

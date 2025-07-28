@@ -17,6 +17,7 @@
     - [0.8.8](#088)
     - [0.8.9](#089)
   - [0.9.0](#090)
+    - [0.9.5](#095)
 
 # v0 (BETA)
 
@@ -316,3 +317,34 @@
 - Added an **architecture diagram** to the documentation.
   - The diagram is generated using `sphinxcontrib-mermaid`.
   - It provides a visual representation of the package's structure and components using a mind map.
+
+### 0.9.5
+
+> Dashboard module addition & documentation improvements.
+
+- Added examples within the documentation.
+- Added `gatenet.dashboard` module for a modern FastAPI-based dashboard.
+- Provides a web UI and API endpoints for diagnostics (ping, traceroute, DNS lookup, port scan) and live output (SSE traceroute).
+- Usage:
+
+  ```python
+  from gatenet.dashboard import launch_dashboard
+
+  # Launch the dashboard (opens browser by default)
+  launch_dashboard(host="127.0.0.1", port=8000, open_browser=True)
+  # The dashboard will be available at http://127.0.0.1:8000
+  ```
+
+- The FastAPI `app` instance is also available for advanced integration:
+  ```python
+  from gatenet.dashboard.app import app
+  ```
+- Features:
+  - Interactive web UI for diagnostics (ping, traceroute, DNS lookup, port scan)
+  - Live traceroute output using Server-Sent Events (SSE)
+  - REST API endpoints for all diagnostics
+  - CORS enabled for local development
+- Test coverage:
+  - Added `src/tests/dashboard/test_dashboard_api.py` with pytest-based tests for all dashboard endpoints, including live SSE stream.
+- Updated the `gatenet.diagnostics.bandwidth` example to instruct the user to run an appropriate server before testing the bandwidth measurement.
+- Updated the documentation navigation and styles.

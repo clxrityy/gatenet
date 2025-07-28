@@ -10,7 +10,7 @@
 project = 'gatenet'
 copyright = '2025, MJ Anglin'
 author = 'MJ Anglin'
-release = '0.9.0'  # Update to the latest version
+release = '0.9.5'  # Update to the latest version
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -72,6 +72,9 @@ html_theme = 'furo'  # Modern, clean theme. Alternatives: 'sphinx_rtd_theme', 'a
 _static_htmlcov = os.path.join(os.path.dirname(__file__), '_static', 'htmlcov')
 _coverage_html = os.path.join(os.path.dirname(__file__), 'coverage_html')
 html_static_path = ['_static']
+html_css_files = [
+    'soft-codeblock.css',
+]
 if os.path.exists(_static_htmlcov):
     html_static_path.append('_static/htmlcov')
 if os.path.exists(_coverage_html):

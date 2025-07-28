@@ -8,3 +8,6 @@ pyobjc-framework-libdispatch
 requests
 yarl
 zeroconf
+fastapi
+uvicorn
+httpx

@@ -8,6 +8,10 @@
     border-radius: 5px;
 }
 
+.problematic {
+    color: inherit !important;
+}
+
 .coverage-iframe-container iframe {
     border-radius: 18px;
     width: 100%;
@@ -39,7 +43,7 @@ h1.coverage-title {
     height: 32px;
     background: #ece9f7;
     border-radius: 18px;
-    box-shadow: 0 2px 12px #8000ff22;
+    box-shadow: 0 2px 12px #1976d244;
     position: relative;
     overflow: hidden;
     display: flex;
@@ -48,7 +52,7 @@ h1.coverage-title {
 
 .coverage-summary-bar-inner {
     height: 100%;
-    background: linear-gradient(90deg, #1976d2 60%, #8000ff 100%);
+    background: linear-gradient(90deg, #1976d2 60%, #a34cfb33 100%);
     border-radius: 18px 0 0 18px;
     transition: width 0.7s cubic-bezier(.4, 0, .2, 1);
     min-width: 0;
@@ -72,7 +76,7 @@ h1.coverage-title {
 .coverage-iframe-container {
     border-radius: 18px;
     overflow: hidden;
-    box-shadow: 0 2px 24px #8000ff22;
+    box-shadow: 0 2px 24px #1976d244;
     margin: 0 auto 2em auto;
     max-width: 100%;
     background: #fff;
@@ -92,7 +96,7 @@ h1.coverage-title {
 }
 
 .coverage-iframe-container iframe::-webkit-scrollbar-thumb {
-    background: #8000ff88;
+    background: #b972ff88;
     border-radius: 8px;
 }
 
@@ -101,7 +105,7 @@ h1.coverage-title {
     display: inline-block;
     margin-top: 1.1em;
     border-radius: 8px;
-    box-shadow: 0 2px 12px #8000ff22;
+    box-shadow: 0 2px 12px #1976d244;
     overflow: hidden;
     border: 1.5px solid #ece9f7;
     background: #fff;
@@ -109,7 +113,7 @@ h1.coverage-title {
 }
 
 .hero-coverage-badge:hover {
-    box-shadow: 0 4px 24px #8000ff55;
+    box-shadow: 0 4px 18px #1976d244;
 }
 
 .satellite-orbit {
@@ -214,9 +218,7 @@ h1.coverage-title {
 
 .hero-btn:hover,
 .hero-btn:focus {
-    background: rgba(128, 0, 255, 0.3);
-    color: #8000ff;
-    border: 1.5px solid #8000ff;
+    border: 1.5px solid #1976d244;
     transform: translateY(-1px) scale(1.03);
 }
 
@@ -230,12 +232,6 @@ h1.coverage-title {
     /* No box-shadow, clean floating */
     box-shadow: none;
     position: static;
-}
-
-
-.highlight:hover,
-pre.literal-block:hover {
-    box-shadow: 0 4px 24px #8000ff55;
 }
 
 /* (This block is now merged above, so remove this duplicate entirely) */
@@ -255,12 +251,12 @@ h3 {
     margin-top: 2.2em;
     color: var(--color-foreground-primary, #23243a);
     letter-spacing: 0.01em;
-    text-shadow: 0 2px 8px #8000ff22, 0 1px 0 #fff1;
+    text-shadow: 0 2px 8px #1976d222, 0 1px 0 #fff1;
 }
 
 /* Admonition styling */
 .admonition {
-    border-left: 4px solid #8000ff;
+    border-left: 4px solid #1976d2;
     background: #f7f3ff;
     border-radius: 6px;
     padding: 0.8em 1.2em;

@@ -29,6 +29,14 @@ Test Coverage Summary
      - 23
      - 21
      - 91.3%
+   * - dashboard/__init__.py
+     - 2
+     - 2
+     - 100.0%
+   * - dashboard/app.py
+     - 61
+     - 46
+     - 75.4%
    * - diagnostics/__init__.py
      - 6
      - 6
@@ -55,8 +63,8 @@ Test Coverage Summary
      - 88.6%
    * - diagnostics/traceroute.py
      - 66
-     - 58
-     - 87.9%
+     - 60
+     - 90.9%
    * - discovery/__init__.py
      - 4
      - 4

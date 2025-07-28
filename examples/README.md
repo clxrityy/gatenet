@@ -19,7 +19,6 @@ pip install gatenet
   - [Ping](./diagnostics/ping.py)
 - **Discovery**
   - [mDNS Discovery](./discovery/mdns_discovery.py) & [SSDP Discovery](./discovery/ssdp_discovery.py)
-    - [Dashboard Example](./discovery/dashboard)
   - [Bluetooth Discovery](./discovery/bluetooth_discovery.py) (Synchronous & Asynchronous)
   - [SSH Discovery](./discovery/ssh_discovery.py)
     - Basic service identification
@@ -29,3 +28,6 @@ pip install gatenet
     - Case-sensitve demo
     - Custom detector example
     - Async usage example
+- **Dashboard**
+  - [Extended Dashboard](./dashboard/extend_dashboard.py)
+  - [Launching Dashboard](./dashboard/launch_dashboard.py)
