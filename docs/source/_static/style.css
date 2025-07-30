@@ -190,36 +190,46 @@ h1.coverage-title {
     font-weight: 400;
 }
 
-.hero-btn {
+
+/* Modern hero button style */
+.hero-btn-modern {
     display: inline-flex;
     align-items: center;
     gap: 0.5em;
-    margin: 0 0.5em;
-    padding: 0.65em 1.3em;
-    background: transparent;
-    color: #1976d2;
-    border-radius: 5px;
+    padding: 0.62em 1.3em;
+    background: #1a237e;
+    color: #fff;
+    border-radius: 6px;
     text-decoration: none;
     font-weight: 600;
-    border: 1.5px solid #e0d7f8;
+    border: none;
     outline: none;
-    box-shadow: none;
-    font-size: 1em;
-    transition: border 0.18s, color 0.18s, background 0.18s, transform 0.18s;
+    box-shadow: 0 2px 8px #23243a22;
+    font-size: 1.05em;
+    letter-spacing: 0.01em;
+    transition: background 0.18s, color 0.18s, box-shadow 0.18s, transform 0.18s;
+    cursor: pointer;
+    position: relative;
 }
 
-.hero-btn-icon {
-    display: flex;
-    align-items: center;
-    margin-right: 0.2em;
-    filter: drop-shadow(0 0 4px #1976d2aa);
+.hero-btn-modern svg {
+    margin-right: 0.5em;
+    vertical-align: middle;
+    filter: drop-shadow(0 0 2px #1976d2aa);
     transition: filter 0.18s;
 }
 
-.hero-btn:hover,
-.hero-btn:focus {
-    border: 1.5px solid #1976d244;
+.hero-btn-modern:hover,
+.hero-btn-modern:focus {
+    background: #283593;
+    color: #fff;
+    box-shadow: 0 4px 14px #23243a33;
     transform: translateY(-1px) scale(1.03);
+}
+
+.hero-btn-modern:hover svg,
+.hero-btn-modern:focus svg {
+    filter: drop-shadow(0 0 6px #1976d2cc) brightness(1.08);
 }
 
 .hero-animation {

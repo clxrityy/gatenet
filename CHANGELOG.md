@@ -18,6 +18,7 @@
     - [0.8.9](#089)
   - [0.9.0](#090)
     - [0.9.5](#095)
+    - [0.9.7](#097)
 
 # v0 (BETA)
 
@@ -348,3 +349,25 @@
   - Added `src/tests/dashboard/test_dashboard_api.py` with pytest-based tests for all dashboard endpoints, including live SSE stream.
 - Updated the `gatenet.diagnostics.bandwidth` example to instruct the user to run an appropriate server before testing the bandwidth measurement.
 - Updated the documentation navigation and styles.
+
+### 0.9.7
+
+> New service detection capabilities for additional protocols and services.
+
+- Added support for detecting the following protocols and services (`gatenet.service_detectors`):
+  - `HTTPDetector` for HTTP services
+  - `FTPDetector` for FTP services
+  - `SMTPDetector` for SMTP services
+  - `IMAPDetector` for IMAP services
+  - `POP3Detector` for POP3 services
+  - `SIPDetector` for SIP services
+  - `MQTTDetector` for MQTT services
+  - `CoAPDetector` for CoAP services
+  - `BannerKeywordDetector` for detecting services based on specific banner keywords
+  - `PortMappingDetector` for mapping ports to services
+  - `SSHDetector` for SSH services
+- Added `ServiceDiscovery` class (`gatenet.discovery.service_discovery`) for service detection.
+- Updated docs:
+  - Architecture diagram
+  - Hero design
+  - Improved API reference

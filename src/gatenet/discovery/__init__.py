@@ -1,14 +1,11 @@
 from .mdns import discover_mdns_services, MDNSListener
 from .upnp import discover_upnp_devices
 from .bluetooth import async_discover_bluetooth_devices, discover_bluetooth_devices
-from .ssh import (
-    ServiceDetector,
-    SSHDetector,
-    HTTPDetector,
-    FTPDetector,
-    SMTPDetector,
-    PortMappingDetector,
-    BannerKeywordDetector,
-    GenericServiceDetector,
-    FallbackDetector,
-)
+from gatenet.service_detectors.ssh import ServiceDetector, SSHDetector
+from gatenet.service_detectors.http import HTTPDetector
+from gatenet.service_detectors.ftp import FTPDetector
+from gatenet.service_detectors.smtp import SMTPDetector
+from gatenet.service_detectors.port_mapping import PortMappingDetector
+from gatenet.service_detectors.banner_keyword import BannerKeywordDetector
+from gatenet.service_detectors.generic import GenericServiceDetector
+from gatenet.service_detectors.fallback import FallbackDetector

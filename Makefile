@@ -50,15 +50,19 @@ coverage-copy:
 
 # Generate a coverage badge (SVG)
 badge:
+	rm -f docs/source/_static/coverage.svg
 	coverage-badge -o docs/source/_static/coverage.svg
-
 
 # Generate a coverage summary table for docs
 coverage-summary:
 	python3 docs/source/gen_coverage_table.py
 
+# Generate Sphinx documentation
+docs-copy: 
+	sphinx-apidoc -o docs/source/ src/gatenet
+
 # Build Sphinx documentation (HTML)
-docs: coverage coverage-copy badge coverage-summary
+docs: coverage coverage-copy badge coverage-summary docs-copy
 	cd docs && make html
 
 # Publish docs to readthedocs.io

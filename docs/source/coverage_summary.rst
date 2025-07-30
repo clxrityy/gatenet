@@ -66,8 +66,8 @@ Test Coverage Summary
      - 60
      - 90.9%
    * - discovery/__init__.py
-     - 4
-     - 4
+     - 11
+     - 11
      - 100.0%
    * - discovery/bluetooth.py
      - 34
@@ -77,6 +77,10 @@ Test Coverage Summary
      - 49
      - 36
      - 73.5%
+   * - discovery/service_discovery.py
+     - 18
+     - 18
+     - 100.0%
    * - discovery/ssh.py
      - 94
      - 87
@@ -105,6 +109,62 @@ Test Coverage Summary
      - 59
      - 49
      - 83.1%
+   * - service_detectors/__init__.py
+     - 6
+     - 5
+     - 83.3%
+   * - service_detectors/banner_keyword.py
+     - 9
+     - 9
+     - 100.0%
+   * - service_detectors/coap.py
+     - 9
+     - 9
+     - 100.0%
+   * - service_detectors/fallback.py
+     - 8
+     - 8
+     - 100.0%
+   * - service_detectors/ftp.py
+     - 13
+     - 12
+     - 92.3%
+   * - service_detectors/generic.py
+     - 10
+     - 10
+     - 100.0%
+   * - service_detectors/http.py
+     - 15
+     - 14
+     - 93.3%
+   * - service_detectors/imap.py
+     - 11
+     - 11
+     - 100.0%
+   * - service_detectors/mqtt.py
+     - 9
+     - 9
+     - 100.0%
+   * - service_detectors/pop3.py
+     - 10
+     - 10
+     - 100.0%
+   * - service_detectors/port_mapping.py
+     - 6
+     - 6
+     - 100.0%
+   * - service_detectors/sip.py
+     - 9
+     - 9
+     - 100.0%
+   * - service_detectors/smtp.py
+     - 14
+     - 13
+     - 92.9%
+   * - service_detectors/ssh.py
+     - 14
+     - 14
+     - 100.0%
    * - socket/__init__.py
      - 3
      - 3

@@ -11,3 +11,5 @@ gatenet
    gatenet.socket
    gatenet.utils
    gatenet.discovery
+   gatenet.dashboard
+   gatenet.service_detectors
