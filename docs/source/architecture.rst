@@ -16,11 +16,15 @@ Gatenet Architecture
      Gatenet --> socket
      Gatenet --> discovery
      Gatenet --> service_detectors
+     Gatenet --> cli
 
 
 
 Gatenet Core Modules
 --------------------
+
+**cli/**
+    Modular command-line interface for diagnostics, service discovery, and network utilities. Provides colorized output, robust error handling, and extensible command structure. Integrates with all core modules using only internal APIs.
 
 **diagnostics/**
     Network diagnostics tools: DNS, geo IP, ping, port scanning, bandwidth measurement, and more. Provides both sync and async APIs for robust network testing.

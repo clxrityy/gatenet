@@ -12,7 +12,7 @@ license-files = ["LICENSE"]
 name = "gatenet"
 readme = "README.md"
 requires-python = ">=3.9"
-version = "0.9.7"
+version = "0.9.9"
 
 [project.urls]
 Homepage = "https://github.com/clxrityy/gatenet"
@@ -42,3 +42,6 @@ dev = [
   "requests",
   "pytest-asyncio >=1.0.0",
 ]
+
+[project.scripts]
+gatenet = "gatenet.cli.main:main"

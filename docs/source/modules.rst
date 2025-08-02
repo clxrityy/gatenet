@@ -13,3 +13,4 @@ gatenet
    gatenet.discovery
    gatenet.dashboard
    gatenet.service_detectors
+   gatenet.cli

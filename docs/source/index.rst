@@ -5,8 +5,8 @@
        <h1>Gatenet</h1>
        <p>Async-first Python networking toolkit: sockets, HTTP, diagnostics, discovery, and microservices.</p>
        <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 1.5rem; gap: 0.5rem;">
-         <a class="hero-btn-modern" href="https://github.com/clxrityy/gatenet" target="_blank">
-           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle; margin-right: 0.5em;"><path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.49 2.87 8.3 6.84 9.64.5.09.68-.22.68-.48 0-.24-.01-.87-.01-1.7-2.78.62-3.37-1.36-3.37-1.36-.45-1.18-1.1-1.5-1.1-1.5-.9-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.7 0 0 .84-.28 2.75 1.05A9.38 9.38 0 0 1 12 6.8c.85.004 1.7.12 2.5.34 1.9-1.33 2.74-1.05 2.74-1.05.55 1.4.2 2.44.1 2.7.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.8-4.57 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.8 0 .26.18.57.69.48A10.01 10.01 0 0 0 22 12.26C22 6.58 17.52 2 12 2Z" fill="#fff"/></svg>
+         <a href="https://github.com/clxrityy/gatenet" target="_blank" style="display: inline-flex; align-items: center; gap: 0.5em; background: #f5f5f5; color: #24292f; border: 1px solid #d1d5da; border-radius: 5px; padding: 0.4em 1em; font-size: 1em; font-family: 'Fira Mono', 'Menlo', 'Consolas', monospace; text-decoration: none; box-shadow: none; transition: background 0.2s;">
+           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle; margin-right: 0.5em;"><path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.49 2.87 8.3 6.84 9.64.5.09.68-.22.68-.48 0-.24-.01-.87-.01-1.7-2.78.62-3.37-1.36-3.37-1.36-.45-1.18-1.1-1.5-1.1-1.5-.9-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.7 0 0 .84-.28 2.75 1.05A9.38 9.38 0 0 1 12 6.8c.85.004 1.7.12 2.5.34 1.9-1.33 2.74-1.05 2.74-1.05.55 1.4.2 2.44.1 2.7.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.8-4.57 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.8 0 .26.18.57.69.48A10.01 10.01 0 0 0 22 12.26C22 6.58 17.52 2 12 2Z" fill="#24292f"/></svg>
            GitHub
          </a>
          <pre class="hero-install-block" style="margin: 0.5em 0 0 0; background: #222b36; color: #fff; border-radius: 6px; padding: 0.5em 1em; font-size: 1.05em; font-family: 'Fira Mono', 'Menlo', 'Consolas', monospace; box-shadow: 0 2px 8px 0 rgba(30,40,60,0.07); border: 1px solid #232946;">pip install gatenet</pre>
@@ -78,4 +78,5 @@
    coverage_summary
    changelog
    architecture
+   cli
    examples

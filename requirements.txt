@@ -12,3 +12,5 @@ fastapi
 uvicorn
 httpx
 pytest
+psutil
+rich

@@ -13,6 +13,34 @@ Test Coverage Summary
      - 0
      - 0
      - 100.0%
+   * - cli/commands/__init__.py
+     - 7
+     - 7
+     - 100.0%
+   * - cli/commands/dns.py
+     - 62
+     - 39
+     - 62.9%
+   * - cli/commands/iface.py
+     - 52
+     - 33
+     - 63.5%
+   * - cli/commands/ping.py
+     - 34
+     - 20
+     - 58.8%
+   * - cli/commands/ports.py
+     - 34
+     - 24
+     - 70.6%
+   * - cli/commands/trace.py
+     - 52
+     - 28
+     - 53.8%
+   * - cli/commands/wifi.py
+     - 32
+     - 26
+     - 81.2%
    * - client/__init__.py
      - 3
      - 3
@@ -182,8 +210,8 @@ Test Coverage Summary
      - 23
      - 100.0%
    * - utils/__init__.py
-     - 2
-     - 2
+     - 3
+     - 3
      - 100.0%
    * - utils/constants.py
      - 1
@@ -193,5 +221,9 @@ Test Coverage Summary
      - 5
      - 5
      - 100.0%
+   * - utils/netinfo.py
+     - 89
+     - 51
+     - 57.3%
 
 Generated from coverage.xml.

@@ -19,6 +19,7 @@
   - [0.9.0](#090)
     - [0.9.5](#095)
     - [0.9.7](#097)
+    - [0.9.9](#099)
 
 # v0 (BETA)
 
@@ -371,3 +372,24 @@
   - Architecture diagram
   - Hero design
   - Improved API reference
+
+### 0.9.9
+
+- Initialized the `gatenet.cli` module for command-line interface functionality.
+  ```zsh
+  # Run locally
+  python -m gatenet.cli
+  # Or install the package and run
+  gatenet <command> [options]
+  ```
+  - Added commands:
+    - `iface` - List network interfaces and their details.
+    - `wifi` - Scan for available WiFi networks (SSID, signal, security).
+    - `ping` - Ping a host or IP address.
+    - `trace` - Perform a traceroute to a host.
+    - `dns` - Perform DNS lookups and reverse lookups.
+    - `ports` - Scan TCP/UDP ports on a host.
+- Updated documentation:
+  - Added CLI usage examples and command reference.
+  - Added CLI architecture diagram.
+- Added `gatenet.cli` tests for all commands.
