@@ -5,8 +5,22 @@ import re
 import time
 from typing import Dict, Union
 
-
+import ipaddress
+import re
 import statistics
+def _is_valid_host(host: str) -> bool:
+    """Validate that host is a valid IPv4/IPv6 address or DNS hostname."""
+    try:
+        ipaddress.ip_address(host)
+        return True
+    except ValueError:
+        # Validate DNS hostname (RFC 1035)
+        if len(host) > 253:
+            return False
+        hostname_regex = re.compile(
+            r"^(?=.{1,253}$)(?!-)[A-Za-z0-9-]{1,63}(?<!-)(\.(?!-)[A-Za-z0-9-]{1,63}(?<!-))*\.?$"
+        )
+        return bool(hostname_regex.match(host))
 
 def _parse_ping_output(output: str) -> Dict[str, Union[bool, int, float, str, list]]:
     if "unreachable" in output.lower() or "could not find host" in output.lower():
@@ -42,6 +56,13 @@ def _parse_ping_output(output: str) -> Dict[str, Union[bool, int, float, str, li
 
 def _tcp_ping_sync(host: str, count: int, timeout: int) -> Dict[str, Union[str, float, int, bool, list]]:
     import socket
+    if not _is_valid_host(host):
+        return {
+            "host": host,
+            "success": False,
+            "error": "Invalid host format",
+            "raw_output": ""
+        }
     rtts = []
     port = 80
     for _ in range(count):
@@ -74,6 +95,13 @@ def _tcp_ping_sync(host: str, count: int, timeout: int) -> Dict[str, Union[str, 
     return result
 
 def _icmp_ping_sync(host: str, count: int, timeout: int, system: str) -> Dict[str, Union[str, float, int, bool, list]]:
+    if not _is_valid_host(host):
+        return {
+            "host": host,
+            "success": False,
+            "error": "Invalid host format",
+            "raw_output": ""
+        }
     if system == "Windows":
         cmd = ["ping", "-n", str(count), "-w", str(timeout * 1000), host]
     else:
