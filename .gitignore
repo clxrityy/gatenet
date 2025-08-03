@@ -18,3 +18,4 @@ coverage.xml
 htmlcov/
 *.egg-info/
 *.egg
+.pypirc

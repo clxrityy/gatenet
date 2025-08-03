@@ -16,6 +16,7 @@ Gatenet Architecture
      Gatenet --> socket
      Gatenet --> discovery
      Gatenet --> service_detectors
+     Gatenet --> mesh
      Gatenet --> cli
 
 
@@ -43,5 +44,8 @@ Gatenet Core Modules
 
 **service_detectors/**
     Extensible protocol and service detection classes (e.g., SSHDetector, HTTPDetector, IMAPDetector, etc.). Supports custom detectors and fluent chaining for advanced service identification.
+
+**mesh/**
+    Modular mesh networking and radio interface. Includes MeshRadio (base), LoRaRadio, and ESPRadio for encrypted messaging, packet parsing, and topology mapping. Designed for extensibility and protocol-specific features. Supports both simulation and hardware integration.
 
 Each module is modular, extensible, and well-tested. See the API reference for details on each submodule and class.

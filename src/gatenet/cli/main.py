@@ -24,6 +24,13 @@ COMMANDS = {
 
 
 def main():
+    """
+    Entry point for the gatenet CLI.
+
+    Example:
+        $ python -m gatenet.cli ping 8.8.8.8 --output json
+        $ gatenet trace google.com --output table
+    """
     parser = argparse.ArgumentParser(
         prog="gatenet",
         description="Gatenet CLI — networking diagnostics, discovery, and tools"

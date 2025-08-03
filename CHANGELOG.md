@@ -20,6 +20,7 @@
     - [0.9.5](#095)
     - [0.9.7](#097)
     - [0.9.9](#099)
+  - [0.11.0](#0110)
 
 # v0 (BETA)
 
@@ -393,3 +394,49 @@
   - Added CLI usage examples and command reference.
   - Added CLI architecture diagram.
 - Added `gatenet.cli` tests for all commands.
+
+## 0.11.0
+
+##### Major changes
+
+- Added `gatenet.mesh` module for mesh networking capabilities.
+  - Provides modular mesh networking with support for LoRa, ESP, Wi-Fi, GPS, and SDR integration.
+  - Enables encrypted messaging, packet parsing, and topology mapping across mesh nodes.
+  - Supports logging GPS location and RF signal strength, tagging packets and mesh topology.
+  - Includes Wi-Fi SSID/device scanning and correlation (Raspberry Pi compatible).
+  - Hardware integration guides and CLI examples for mesh, radio, and protocol features.
+  - Extensible for new protocols and hardware (e.g., SDR, custom radios).
+- Added `gatenet.mesh` tests for all features.
+- The documentation now sets the following HTTP security headers for improved security and browser policy enforcement:
+  - `Content-Security-Policy`: Restricts sources to self, disables inline scripts, and limits external assets.
+  - `X-Frame-Options: SAMEORIGIN`: Prevents clickjacking by disallowing framing from other origins.
+  - `Permissions-Policy`: Disables geolocation, microphone, camera, and restricts fullscreen to self.
+  - `Access-Control-Allow-Origin: https://gatenet.readthedocs.io`: Restricts cross-origin requests to the official docs domain for secure CORS.
+
+##### Utility changes
+
+- Updated `Makefile` to include a new script for removing empty files (apart from `__init__.py` files).
+- Updated the official description.
+- Updated the architecture diagram to include the new `gatenet.mesh` module.
+- Added a sub-section on the documentation for _Additional Resources_.
+  - Includes hardware integration guides, protocol documentation, and CLI examples.
+    - Refactored all modules to improve docstrings to include usage examples and/or applicable references.
+    - Added more tests:
+      - Edge case tests for diagnostics modules:
+        - `test_ping_edge.py` and async ping edge cases
+        - `test_bandwidth_edge.py` for invalid host, zero duration, negative payload
+        - `test_port_scan_edge.py` for invalid hosts, empty port lists
+        - `test_dns_edge.py` for invalid domain/IP lookups
+        - `test_traceroute_edge.py` for invalid hosts, zero hops
+      - ABC and constructor tests:
+        - `test_base_socket_server.py` for `BaseSocketServer` ABC
+        - `test_base_client.py` for `BaseClient` ABC
+      - Repr and boundary tests:
+        - `test_tcp_udp_client_repr.py` for TCP/UDP client `__repr__`
+        - `test_constants_edge.py` for `COMMON_PORTS` type and nonempty
+        - `test_net_edge.py` for `get_free_port` uniqueness and type
+      - These tests improve coverage for error handling, edge cases, and abstract base classes across diagnostics, client, socket, and utils modules.
+- Updated all meta markdown files for consistency and clarity.
+- Added workflows:
+  - `release.yml` for automated release upon github release creation.
+  - `test-release.yml` for releasing to TestPyPI upon pushing to the `development` branch.

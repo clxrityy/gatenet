@@ -10,7 +10,7 @@
 project = 'gatenet'
 copyright = '2025, MJ Anglin'
 author = 'MJ Anglin'
-release = '0.9.9'  # Update to the latest version
+release = '0.11.0'  # Update to the latest version
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -119,6 +119,16 @@ def setup(app):
     app.add_js_file('site.webmanifest', type='application/manifest+json')
     app.add_js_file('network-footer.js')
     app.connect('builder-inited', run_coverage_summary)
+
+    # Add custom HTTP security headers for built docs (for hosting via Sphinx server or ReadTheDocs)
+    # These headers will be added if using a custom server or extension that supports them
+    app.add_config_value('html_extra_headers', {}, 'html')
+    app.config.html_extra_headers.update({
+        'Content-Security-Policy': "default-src 'self'; img-src 'self' data:; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; connect-src 'self';",
+        'X-Frame-Options': 'SAMEORIGIN',
+        'Permissions-Policy': 'geolocation=(), microphone=(), camera=(), fullscreen=(self)',
+        'Access-Control-Allow-Origin': 'https://gatenet.readthedocs.io',  # Restrict to your docs domain for security
+    })
 
 # Example: To use a custom template, add HTML files to _templates/ and reference them in your .rst files.
 

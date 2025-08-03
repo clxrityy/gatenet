@@ -22,6 +22,13 @@ class ServiceDiscovery:
         self.protocols: List[Dict] = []
 
     def register_protocol(self, name: str, ports: List[int], banner_keywords: List[str]):
+        """
+        Register a protocol for service discovery.
+
+        Example:
+            >>> sd = ServiceDiscovery()
+            >>> sd.register_protocol("LDAP", [389], ["LDAP server ready"])
+        """
         self.protocols.append({
             "name": name,
             "ports": set(ports),
@@ -29,6 +36,15 @@ class ServiceDiscovery:
         })
 
     def detect(self, port: int, banner: str) -> Optional[Dict]:
+        """
+        Detect the protocol based on port and banner.
+
+        Example:
+            >>> sd = ServiceDiscovery()
+            >>> sd.register_protocol("LDAP", [389], ["LDAP server ready"])
+            >>> result = sd.detect(389, "LDAP server ready")
+            >>> print(result["protocol"])
+        """
         banner_lc = (banner or "").lower()
         for proto in self.protocols:
             if port in proto["ports"] or any(kw in banner_lc for kw in proto["banner_keywords"]):

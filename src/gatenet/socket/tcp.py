@@ -36,6 +36,10 @@ class TCPServer(BaseSocketServer):
         """
         Start the TCP server, accept connections, and spawn a new thread for each client.
 
+        Example:
+            >>> server = TCPServer(host="127.0.0.1", port=9000)
+            >>> server.start()
+
         Raises
         ------
         OSError
@@ -86,6 +90,10 @@ class TCPServer(BaseSocketServer):
     def stop(self):
         """
         Stop the TCP server and release the socket.
+
+        Example:
+            >>> server = TCPServer(host="127.0.0.1", port=9000)
+            >>> server.stop()
 
         This method sets the running flag to False and closes the server socket.
         """

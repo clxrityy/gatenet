@@ -23,26 +23,22 @@ class UDPClient(BaseClient):
     """
 
     def __init__(self, host: str, port: int, timeout: float = 2.0):
-        """
-        Initialize the UDP client.
-
-        Parameters
-        ----------
-        host : str
-            The server's host IP address.
-        port : int
-            The server's port number.
-        timeout : float, optional
-            Timeout for receiving data in seconds (default is 2.0).
-        """
         self.host = host
         self.port = port
+        self.closed = False
         self._sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         self._sock.settimeout(timeout)
+
+    def __repr__(self):
+        return f"<UDPClient host={self.host} port={self.port} closed={self.closed}>"
 
     def send(self, message: str, retries: int = 3, buffsize: int = 1024, **kwargs) -> str:
         """
         Send a message to the server and receive the response.
+
+        Example:
+            >>> client = UDPClient(host="127.0.0.1", port=12345)
+            >>> response = client.send("ping")
 
         Parameters
         ----------
@@ -65,6 +61,8 @@ class UDPClient(BaseClient):
         TimeoutError
             If no response is received after the specified number of retries.
         """
+        if self.closed or self._sock is None:
+            raise RuntimeError("UDPClient socket is closed")
         for _ in range(retries):
             try:
                 self._sock.sendto(message.encode(), (self.host, self.port))
@@ -72,17 +70,28 @@ class UDPClient(BaseClient):
                 return data.decode()
             except socket.timeout:
                 continue
-        raise TimeoutError(f"Failed to receive response after {retries} retries.")
+        raise TimeoutError("No response received after retries")
 
     def close(self):
         """
-        Close the client socket and release resources.
+        Close the UDP client socket.
+
+        Example:
+            >>> client = UDPClient(host="127.0.0.1", port=12345)
+            >>> client.close()
         """
-        self._sock.close()
+        if hasattr(self, "_sock") and self._sock:
+            self._sock.close()
+            self._sock = None
+        self.closed = True
 
     def __enter__(self):
         """
         Enter the runtime context for the UDP client.
+
+        Example:
+            >>> with UDPClient(host="127.0.0.1", port=12345) as client:
+            ...     response = client.send("ping")
 
         Returns
         -------
@@ -94,6 +103,10 @@ class UDPClient(BaseClient):
     def __exit__(self, exc_type, exc_val, exc_tb):
         """
         Exit the runtime context and close the socket.
+
+        Example:
+            >>> with UDPClient(host="127.0.0.1", port=12345) as client:
+            ...     response = client.send("ping")
 
         Parameters
         ----------

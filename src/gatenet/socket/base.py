@@ -33,6 +33,10 @@ class BaseSocketServer(abc.ABC):
         """
         Start the server and begin handling incoming connections or data.
 
+        Example:
+            >>> server = TCPServer(host="127.0.0.1", port=9000)
+            >>> server.start()
+
         Raises
         ------
         NotImplementedError
@@ -44,6 +48,10 @@ class BaseSocketServer(abc.ABC):
     def stop(self):
         """
         Stop the server and clean up resources.
+
+        Example:
+            >>> server = TCPServer(host="127.0.0.1", port=9000)
+            >>> server.stop()
 
         Raises
         ------

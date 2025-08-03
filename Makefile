@@ -69,6 +69,13 @@ docs: coverage coverage-copy badge coverage-summary docs-copy
 docs-build: venv
 	sphinx-build -b html docs/source docs/build/html
 
+	rm -rf build dist *.egg-info .pytest_cache .coverage htmlcov
+	rm -rf docs/build docs/source/_static/htmlcov docs/source/_static/coverage.svg
+
+# Delete all empty files in the project
+delete-empty:
+	python3 scripts/delete_empty_files.py
+
 # Clean build, dist, coverage, and doc artifacts
 clean:
 	rm -rf build dist *.egg-info .pytest_cache .coverage htmlcov

@@ -2,9 +2,9 @@ name: Run gatenet tests
 
 on:
   push:
-    branches: [master, main]
+    branches: [master, main, development]
   pull_request:
-    branches: [master, main]
+    branches: [master, main, development]
 
 permissions:
   contents: read
