@@ -10,8 +10,12 @@ import re
 import statistics
 def _is_valid_host(host: str) -> bool:
     """Validate that host is a valid IPv4/IPv6 address or DNS hostname, and does not contain shell-special characters."""
-    # Reject hostnames containing spaces or shell-special characters
-    if not host or any(c in host for c in ' \t\n\r\x0b\x0c;&|$`\\\'"<>'):
+    # Reject hostnames containing spaces, shell-special characters, or any character not allowed in hostnames
+    if not host:
+        return False
+    # Only allow ASCII letters, digits, hyphens, and dots
+    allowed = set("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-.")
+    if any(c not in allowed for c in host):
         return False
     try:
         ipaddress.ip_address(host)
