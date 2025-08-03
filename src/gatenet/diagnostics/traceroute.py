@@ -56,42 +56,12 @@ def traceroute(
     """
     Perform a traceroute to the given host using UDP or ICMP.
 
-    Parameters
-    ----------
-    host : str
-        The target hostname or IP address.
-    max_hops : int, optional
-        Maximum number of hops to trace (default: 30).
-    timeout : float, optional
-        Timeout in seconds for each probe (default: 2.0).
-    protocol : {"udp", "icmp"}, optional
-        Protocol to use for traceroute (default: "udp").
-    print_output : bool, optional
-        Whether to print each hop to stdout (default: True).
-
-    Returns
-    -------
-    List[dict]
-        List of hop info dicts with keys:
-            - hop (int): The hop count (starting from 1).
-            - ip (str): The IP address of the hop (or '*').
-            - hostname (str): The resolved hostname (or '').
-            - rtt_ms (Optional[float]): The round-trip time in ms, or None if timed out.
-
-    Raises
-    ------
-    ValueError
-        If the host cannot be resolved.
-    PermissionError
-        If raw sockets cannot be created (requires admin/root).
-
-    Example
-    -------
-    >>> from gatenet.diagnostics.traceroute import traceroute
-    >>> hops = traceroute("google.com", protocol="udp", print_output=False)
-    >>> for hop in hops:
-    ...     print(hop)
-    {'hop': 1, 'ip': '192.168.1.1', 'hostname': 'router.local', 'rtt_ms': 2.34}
+    Example:
+        >>> from gatenet.diagnostics.traceroute import traceroute
+        >>> hops = traceroute("google.com", protocol="udp", print_output=False)
+        >>> for hop in hops:
+        ...     print(hop)
+        {'hop': 1, 'ip': '192.168.1.1', 'hostname': 'router.local', 'rtt_ms': 2.34}
     """
     assert protocol in ("udp", "icmp"), "protocol must be 'udp' or 'icmp'"
     try:

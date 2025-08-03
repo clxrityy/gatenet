@@ -12,9 +12,11 @@ Gatenet is a modular Python networking toolkit for diagnostics, service discover
   - `http_/` — HTTP server and client (sync and async, built on `http.server`, `urllib`, and `aiohttp`)
   - `diagnostics/` — Tools for ping, traceroute, bandwidth, geo IP, DNS, port scanning
   - `discovery/` — Service discovery using strategy and chain-of-responsibility patterns (SSH, HTTP, FTP, SMTP, mDNS, Bluetooth, UPNP, etc.)
+  - `mesh/` — Modular mesh networking (LoRa, ESP, Wi-Fi, GPS, SDR integration, encrypted messaging, topology mapping)
+  - `dashboard/` — FastAPI-based web dashboard for diagnostics and live output (SSE)
   - `utils/` — Utilities (e.g., `get_free_port()`)
 - `src/tests/` — Unit and integration tests, mirroring the main package structure
-- `examples/` — Example scripts for diagnostics, discovery, HTTP, TCP/UDP, and dashboard usage
+- `examples/` — Example scripts for diagnostics, discovery, HTTP, TCP/UDP, mesh, and dashboard usage
 - `docs/` — Sphinx documentation, with automated coverage summary
 - `Makefile` — Automation for testing, coverage, docs, and release
 

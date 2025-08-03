@@ -28,12 +28,14 @@ class BaseClient(ABC):
         """
         Send a message to the server and return a response.
 
-        Parameters
-        ----------
-        message : str
-            The message to send to the server.
-        **kwargs : dict
-            Additional keyword arguments for protocol-specific options.
+        Example:
+            >>> class MyClient(BaseClient):
+            ...     def send(self, message: str, **kwargs) -> str:
+            ...         return "response"
+            ...     def close(self):
+            ...         pass
+            >>> client = MyClient()
+            >>> response = client.send("hello")
 
         Returns
         -------
@@ -46,6 +48,10 @@ class BaseClient(ABC):
     def close(self):
         """
         Close the client connection.
+
+        Example:
+            >>> client = MyClient()
+            >>> client.close()
 
         This should release any resources and close the underlying socket or connection.
         """

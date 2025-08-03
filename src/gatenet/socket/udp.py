@@ -31,6 +31,10 @@ class UDPServer(BaseSocketServer):
         """
         Start the UDP server and listen for incoming datagrams.
 
+        Example:
+            >>> server = UDPServer(host="127.0.0.1", port=9001)
+            >>> server.start()
+
         Raises
         ------
         OSError
@@ -56,6 +60,10 @@ class UDPServer(BaseSocketServer):
     def stop(self):
         """
         Stop the UDP server and close the socket.
+
+        Example:
+            >>> server = UDPServer(host="127.0.0.1", port=9001)
+            >>> server.stop()
 
         This method closes the server socket and prints a shutdown message.
         """

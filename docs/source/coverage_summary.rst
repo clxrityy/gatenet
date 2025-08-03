@@ -50,13 +50,13 @@ Test Coverage Summary
      - 6
      - 75.0%
    * - client/tcp.py
-     - 23
-     - 20
-     - 87.0%
+     - 31
+     - 26
+     - 83.9%
    * - client/udp.py
-     - 23
-     - 21
-     - 91.3%
+     - 31
+     - 28
+     - 90.3%
    * - dashboard/__init__.py
      - 2
      - 2
@@ -87,8 +87,8 @@ Test Coverage Summary
      - 81.6%
    * - diagnostics/port_scan.py
      - 35
-     - 31
-     - 88.6%
+     - 35
+     - 100.0%
    * - diagnostics/traceroute.py
      - 66
      - 60
@@ -137,6 +137,22 @@ Test Coverage Summary
      - 59
      - 49
      - 83.1%
+   * - mesh/__init__.py
+     - 3
+     - 3
+     - 100.0%
+   * - mesh/esp.py
+     - 13
+     - 13
+     - 100.0%
+   * - mesh/lora.py
+     - 13
+     - 13
+     - 100.0%
+   * - mesh/radio.py
+     - 54
+     - 54
+     - 100.0%
    * - service_detectors/__init__.py
      - 6
      - 5

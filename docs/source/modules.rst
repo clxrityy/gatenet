@@ -14,3 +14,4 @@ gatenet
    gatenet.dashboard
    gatenet.service_detectors
    gatenet.cli
+   gatenet.mesh

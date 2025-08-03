@@ -98,29 +98,10 @@ def ping(host: str, count: int = 4, timeout: int = 2, method: str = "icmp") -> D
     """
     Ping a host and return detailed latency statistics, including jitter and all RTTs.
 
-    Parameters
-    ----------
-    host : str
-        The hostname or IP address to ping.
-    count : int, optional
-        Number of echo requests to send (default: 4).
-    timeout : int, optional
-        Timeout in seconds for each ping/request (default: 2).
-    method : {"icmp", "tcp"}, optional
-        Ping method: "icmp" (default, uses system ping) or "tcp" (TCP connect ping).
-
-    Returns
-    -------
-    dict
-        Dictionary with keys: success, rtt_min, rtt_avg, rtt_max, jitter, rtts (list), packet_loss, error, host, raw_output.
-
-    Example
-    -------
-    >>> from gatenet.diagnostics.ping import ping
-    >>> result = ping("google.com", count=5, method="icmp")
-    >>> print(result)
-    {'success': True, 'rtt_min': 12.3, 'rtt_avg': 15.2, 'rtt_max': 18.7, 'jitter': 2.1, 'rtts': [12.3, 15.2, 18.7], 'packet_loss': 0, 'host': 'google.com', 'raw_output': '...'}
-    >>> print(result["rtt_avg"])
+    Example:
+        >>> from gatenet.diagnostics.ping import ping
+        >>> result = ping("google.com", count=5, method="icmp")
+        >>> print(result["rtt_avg"])
     """
     system = platform.system()
     if method == "icmp":
@@ -220,26 +201,11 @@ async def async_ping(
     """
     Asynchronously ping a host and return detailed latency statistics, including jitter and all RTTs.
 
-    Parameters
-    ----------
-    host : str
-        The hostname or IP address to ping.
-    count : int, optional
-        Number of echo requests to send (default: 4).
-    method : {"icmp", "tcp"}, optional
-        Ping method: "icmp" (default, uses system ping) or "tcp" (TCP connect ping).
-
-    Returns
-    -------
-    dict
-        Dictionary with keys: success, rtt_min, rtt_avg, rtt_max, jitter, rtts (list), packet_loss, error, host, raw_output.
-
-    Example
-    -------
-    >>> from gatenet.diagnostics.ping import async_ping
-    >>> import asyncio
-    >>> result = asyncio.run(async_ping("google.com", count=5, method="icmp"))
-    >>> print(result["rtt_avg"])
+    Example:
+        >>> from gatenet.diagnostics.ping import async_ping
+        >>> import asyncio
+        >>> result = asyncio.run(async_ping("google.com", count=5, method="icmp"))
+        >>> print(result["rtt_avg"])
     """
     system = platform.system()
     try:
