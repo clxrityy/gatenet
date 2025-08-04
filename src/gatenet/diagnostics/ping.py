@@ -6,6 +6,9 @@ import time
 from typing import Dict, Union
 
 import ipaddress
+from gatenet.radio.sdr import SDRRadio
+from gatenet.radio.lora import LoRaRadio
+from gatenet.radio.esp import ESPRadio
 import re
 import statistics
 def _is_valid_host(host: str) -> bool:
@@ -16,17 +19,14 @@ def _is_valid_host(host: str) -> bool:
     # Disallow hosts that start with a dash (could be interpreted as an option)
     if host.startswith('-'):
         return False
-    # Only allow ASCII letters, digits, hyphens, and dots
     allowed = set("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-.")
     if any(c not in allowed for c in host):
         return False
-    # Try IP address validation
     try:
         ipaddress.ip_address(host)
         return True
     except ValueError:
         pass
-    # Try DNS hostname validation (RFC 1035)
     if len(host) > 253:
         return False
     hostname_regex = re.compile(
@@ -34,12 +34,45 @@ def _is_valid_host(host: str) -> bool:
     )
     if not hostname_regex.match(host):
         return False
-    # Try DNS resolution to ensure it's a valid hostname
     try:
         socket.gethostbyname(host)
         return True
     except Exception:
         return False
+def ping_with_rf(host: str, radio=None, count: int = 4, timeout: int = 2, method: str = "icmp") -> Dict[str, Union[str, float, int, bool, list]]:
+    """Ping a host and log RF signal info if radio is provided.
+
+    Args:
+        host (str): Host to ping
+        radio: SDRRadio, LoRaRadio, or ESPRadio instance
+        count (int): Number of pings
+        timeout (int): Timeout per ping
+        method (str): Ping method
+
+    Returns:
+        dict: Ping results, optionally with RF info
+
+    Example:
+        >>> from gatenet.diagnostics.ping import ping_with_rf
+        >>> from gatenet.radio.lora import LoRaRadio
+        >>> radio = LoRaRadio()
+        >>> result = ping_with_rf("8.8.8.8", radio=radio)
+    """
+    result = ping(host, count=count, timeout=timeout, method=method)
+    if radio:
+        rf_results = []
+        def handler(info):
+            rf_results.append(info)
+        radio.on_signal(handler)
+        # Use appropriate scan range for each radio type
+        if isinstance(radio, SDRRadio):
+            radio.scan_frequencies(433_000_000, 434_000_000, 10)
+        elif isinstance(radio, LoRaRadio):
+            radio.scan_frequencies(868_000_000, 869_000_000, 125)
+        elif isinstance(radio, ESPRadio):
+            radio.scan_frequencies(2400_000_000, 2483_500_000, 1000)
+        result["rf"] = rf_results
+    return result
 
 def _parse_ping_output(output: str) -> Dict[str, Union[bool, int, float, str, list]]:
     if "unreachable" in output.lower() or "could not find host" in output.lower():
@@ -121,12 +154,16 @@ def _icmp_ping_sync(host: str, count: int, timeout: int, system: str) -> Dict[st
             "error": "Invalid host format",
             "raw_output": ""
         }
+    # Only allow validated host, never pass user input directly to subprocess
+    safe_args = ["ping"]
     if system == "Windows":
-        cmd = ["ping", "-n", str(count), "-w", str(timeout * 1000), host]
+        safe_args += ["-n", str(count), "-w", str(timeout * 1000)]
     else:
-        cmd = ["ping", "-c", str(count), "-W", str(timeout), host]
+        safe_args += ["-c", str(count), "-W", str(timeout)]
+    # Host is strictly validated, but never allow shell=True or untrusted args
+    safe_args.append(host)
     try:
-        result = subprocess.run(cmd, capture_output=True, text=True, check=False)
+        result = subprocess.run(safe_args, capture_output=True, text=True, check=False, shell=False)
         stats = _parse_ping_output(result.stdout)
         stats.update({
             "host": host,

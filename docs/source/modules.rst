@@ -15,3 +15,4 @@ gatenet
    gatenet.service_detectors
    gatenet.cli
    gatenet.mesh
+   gatenet.radio

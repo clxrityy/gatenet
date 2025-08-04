@@ -17,6 +17,7 @@ Gatenet Architecture
      Gatenet --> discovery
      Gatenet --> service_detectors
      Gatenet --> mesh
+     Gatenet --> radio
      Gatenet --> cli
 
 
@@ -47,5 +48,8 @@ Gatenet Core Modules
 
 **mesh/**
     Modular mesh networking and radio interface. Includes MeshRadio (base), LoRaRadio, and ESPRadio for encrypted messaging, packet parsing, and topology mapping. Designed for extensibility and protocol-specific features. Supports both simulation and hardware integration.
+
+**radio/**
+    Standalone radio frequency (RF) detection and integration module. Provides SDR, LoRa, and ESP classes for frequency scanning, signal decoding, event-driven callbacks, and seamless mesh integration. Supports hardware and simulation, GPS tagging, and extensible event handling for RF signals.
 
 Each module is modular, extensible, and well-tested. See the API reference for details on each submodule and class.

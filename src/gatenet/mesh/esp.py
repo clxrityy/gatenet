@@ -25,20 +25,20 @@ class ESPRadio(MeshRadio):
         >>> esp.send_message('Status', dest='node5')
         >>> packets = esp.receive_packets()
     """
-    def send_message(self, msg: str, dest: str, channel: Optional[int] = None) -> bool:
+    def send_message(self, msg: str, dest: str, rf_signal=None, channel: Optional[int] = None) -> bool:
         """
-        Send a message to a destination node using ESP protocol.
+        Send a message to a destination node using ESP protocol, optionally with RF info.
 
         Example:
-            >>> esp = ESPRadio()
-            >>> esp.send_message('Status', dest='node5', channel=6)
+            >>> esp.send_message('Status', dest='node5', rf_signal={"freq": 2400000000}, channel=6)
         """
         packet = {
             "src": "self",
             "dest": dest,
             "msg": self._encrypt(msg),
             "channel": channel or 1,
-            "timestamp": random.randint(100000, 999999)
+            "timestamp": random.randint(100000, 999999),
+            "rf_signal": rf_signal
         }
         self.packets.append(packet)
         self._update_topology(dest)

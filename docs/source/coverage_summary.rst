@@ -66,8 +66,8 @@ Test Coverage Summary
      - 46
      - 75.4%
    * - diagnostics/__init__.py
-     - 6
-     - 6
+     - 9
+     - 9
      - 100.0%
    * - diagnostics/bandwidth.py
      - 25
@@ -82,9 +82,9 @@ Test Coverage Summary
      - 9
      - 81.8%
    * - diagnostics/ping.py
-     - 125
-     - 102
-     - 81.6%
+     - 175
+     - 131
+     - 74.9%
    * - diagnostics/port_scan.py
      - 35
      - 35
@@ -146,13 +146,33 @@ Test Coverage Summary
      - 13
      - 100.0%
    * - mesh/lora.py
-     - 13
-     - 13
+     - 11
+     - 11
      - 100.0%
    * - mesh/radio.py
-     - 54
-     - 54
+     - 68
+     - 67
+     - 98.5%
+   * - radio/__init__.py
+     - 1
+     - 1
      - 100.0%
+   * - radio/base.py
+     - 14
+     - 11
+     - 78.6%
+   * - radio/esp.py
+     - 17
+     - 14
+     - 82.4%
+   * - radio/lora.py
+     - 17
+     - 14
+     - 82.4%
+   * - radio/sdr.py
+     - 28
+     - 24
+     - 85.7%
    * - service_detectors/__init__.py
      - 6
      - 5

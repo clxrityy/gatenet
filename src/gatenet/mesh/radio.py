@@ -2,6 +2,36 @@ import time
 from typing import List, Dict
 
 class MeshRadio:
+    def sync_logs(self, file_path: str = "mesh_radio_logs.json") -> bool:
+        """
+        Sync mesh radio logs (packets, topology, GPS, RF, Wi-Fi) to a file (base node or Mini PC).
+
+        Args:
+            file_path (str): Path to save logs (default: mesh_radio_logs.json)
+
+        Returns:
+            bool: True if successful, False otherwise
+
+        Example:
+            >>> radio = MeshRadio()
+            >>> radio.sync_logs()
+            >>> radio.sync_logs("/mnt/base_node/mesh_radio_logs.json")
+        """
+        import json
+        try:
+            logs = {
+                "packets": self.packets,
+                "topology": self.topology,
+                "gps_location": self.gps_location,
+                "rf_signal": self.rf_signal,
+                "wifi_networks": self.wifi_networks
+            }
+            with open(file_path, "w") as f:
+                json.dump(logs, f, indent=2)
+            return True
+        except Exception as e:
+            print(f"Error syncing logs: {e}")
+            return False
     """
     MeshRadio base class for mesh packet parsing, encrypted messaging, and topology mapping.
 
@@ -72,24 +102,34 @@ class MeshRadio:
         self.gps_location = (lat, lon)
         self.topology["locations"].append({"node": "self", "lat": lat, "lon": lon})
 
-    def log_rf_signal(self, signal_strength: float):
+    def log_rf_signal(self, signal_info):
         """
-        Log RF signal strength for the mesh node.
+        Log RF signal info (strength, freq, type, etc) and propagate as mesh event.
+
+        Args:
+            signal_info (float or dict): RF info (can be just strength or full dict)
 
         Example:
             >>> radio = MeshRadio()
-            >>> radio.log_rf_signal(-55.0)
+            >>> radio.log_rf_signal({"freq": 868000000, "power": 24, "type": "lora"})
         """
-        self.rf_signal = signal_strength
-        self.topology["signals"].append({"node": "self", "signal": signal_strength})
+        self.rf_signal = signal_info
+        self.topology["signals"].append({"node": "self", "signal": signal_info})
+        handler = getattr(self, "on_rf_event", None)
+        if callable(handler):
+            handler(signal_info)
 
-    def send_message(self, msg: str, dest: str) -> bool:
+    def send_message(self, msg: str, dest: str, rf_signal=None) -> bool:
         """
-        Send an encrypted message to a destination node.
+        Send encrypted message to mesh node, optionally attaching RF signal info.
+
+        Args:
+            msg (str): Message to send
+            dest (str): Destination node
+            rf_signal (optional): RF info from radio module
 
         Example:
-            >>> radio = MeshRadio()
-            >>> radio.send_message("Hello", "node2")
+            >>> radio.send_message("alert", "node2", rf_signal={"freq": 868000000})
         """
         packet = {
             "src": "self",
@@ -97,7 +137,7 @@ class MeshRadio:
             "msg": self._encrypt(msg),
             "timestamp": time.time(),
             "gps": self.gps_location,
-            "rf_signal": self.rf_signal
+            "rf_signal": rf_signal if rf_signal is not None else self.rf_signal
         }
         self.packets.append(packet)
         self._update_topology(dest)

@@ -167,6 +167,7 @@ Dashboard
    results = discover_bluetooth()
    print(results)
 
+
 **SSH Discovery**
 
 .. code-block:: python
@@ -186,3 +187,50 @@ Dashboard
            if 'myapp' in banner:
                return "MyCustomApp"
            return None
+
+Radio & Mesh
+------------
+
+**Basic RF Scanning**
+
+.. code-block:: python
+
+   from gatenet.radio import SDRRadio, LoRaRadio, ESPRadio
+   sdr = SDRRadio()
+   lora = LoRaRadio()
+   esp = ESPRadio()
+   # Scan a frequency range
+   sdr.scan_frequencies(433_000_000, 434_000_000, 10)
+   lora.scan_frequencies(868_000_000, 869_000_000, 125)
+   esp.scan_frequencies(2400_000_000, 2483_500_000, 1000)
+
+**Event-driven RF Integration**
+
+.. code-block:: python
+
+   from gatenet.radio import SDRRadio
+   from gatenet.mesh import MeshNode
+
+   radio = SDRRadio()
+   mesh = MeshNode()
+
+   def handle_signal(info):
+       print("Signal found:", info)
+       mesh.send(info)  # Relay signal data over mesh
+
+   radio.on_signal(handle_signal)
+   radio.scan_frequencies(433_000_000, 434_000_000, 10)
+
+**GPS Tagging for RF Events**
+
+.. code-block:: python
+
+   from gatenet.radio import SDRRadio
+   radio = SDRRadio()
+
+   def handle_signal(info):
+       info["gps"] = {"lat": 37.7749, "lon": -122.4194}
+       print("Signal with GPS:", info)
+
+   radio.on_signal(handle_signal)
+   radio.scan_frequencies(433_000_000, 434_000_000, 10)

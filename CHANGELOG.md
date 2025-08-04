@@ -21,6 +21,7 @@
     - [0.9.7](#097)
     - [0.9.9](#099)
   - [0.11.0](#0110)
+    - [0.11.1](#0111)
 
 # v0 (BETA)
 
@@ -440,3 +441,31 @@
 - Added workflows:
   - `release.yml` for automated release upon github release creation.
   - `test-release.yml` for releasing to TestPyPI upon pushing to the `development` branch.
+
+### 0.11.1
+
+- Added `gatenet.radio` module for radio frequency (RF) detection and event-driven mesh integration.
+  - Supports SDR, LoRa, and ESP hardware for RF signal propagation.
+  - Enables encrypted messaging, diagnostics, and robust topology mapping.
+  - Includes `MeshRadio`, `LoRaRadio`, and `ESPRadio` classes for RF event handling and packet tagging.
+  - Provides a unified interface for RF detection and mesh networking.
+- Improved diagnostics module with:
+  - `ping_with_rf` for RF-based pinging.
+  - Enhanced host validation and error handling.
+  - Removed unreachable code for reliability.
+- Fixed method signature mismatches and unreachable code in mesh, radio, and diagnostics modules.
+- Updated docstrings and usage examples for mesh, radio, and diagnostics modules to clarify APIs and extensibility.
+- Resolved all recent errors and lint issues; added event handler safety checks for mesh/radio integration.
+- Validated codebase for compatibility, extensibility, and robust event-driven networking.
+- Added standalone `gatenet.radio` module with SDR, LoRa, and ESP classes for RF detection and event-driven mesh integration.
+- Mesh and radio modules now support RF signal propagation, encrypted messaging, and diagnostics enhancements.
+- MeshRadio, LoRaRadio, ESPRadio classes propagate RF events and support robust topology mapping and packet tagging.
+- Diagnostics module improved: added `ping_with_rf`, enhanced host validation, and removed unreachable code for reliability.
+- Fixed method signature mismatches and unreachable code in mesh, radio, and diagnostics modules for error-free integration.
+- Updated docstrings and usage examples for mesh, radio, and diagnostics modules to clarify APIs and extensibility.
+- All recent errors and lint issues resolved; event handler safety checks added to mesh/radio integration.
+- CHANGELOG and documentation updated to reflect new architecture, integration points, and expanded test coverage.
+- Codebase validated for compatibility, extensibility, and robust event-driven networking.
+- Improved security by validating all user inputs and using safe subprocess handling.
+- Added radio event examples on the documentation.
+- MeshRadio now supports log archival via `sync_logs()`, enabling mesh packet, topology, GPS, RF, and Wi-Fi logs to be saved to a file for base node or Mini PC integration.
