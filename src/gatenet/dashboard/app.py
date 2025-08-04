@@ -16,6 +16,7 @@ import time
 from fastapi import Query
 from fastapi.middleware.cors import CORSMiddleware
 
+import logging
 app = FastAPI(title="Gatenet Dashboard", docs_url="/docs")
 
 # Allow CORS for local development
@@ -162,7 +163,8 @@ def api_traceroute(host: str = Query(..., description="Host to traceroute")):
         hops = traceroute(host)
         return {"ok": True, "hops": hops}
     except Exception as e:
-        return {"ok": False, "error": str(e)}
+        logging.exception("Error in /api/traceroute endpoint")
+        return {"ok": False, "error": "An internal error has occurred."}
 
 def launch_dashboard(host: str = "127.0.0.1", port: int = 8000, open_browser: bool = True) -> None:
     """
