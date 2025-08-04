@@ -10,24 +10,36 @@ import re
 import statistics
 def _is_valid_host(host: str) -> bool:
     """Validate that host is a valid IPv4/IPv6 address or DNS hostname, and does not contain shell-special characters."""
-    # Reject hostnames containing spaces, shell-special characters, or any character not allowed in hostnames
+    import socket
     if not host:
+        return False
+    # Disallow hosts that start with a dash (could be interpreted as an option)
+    if host.startswith('-'):
         return False
     # Only allow ASCII letters, digits, hyphens, and dots
     allowed = set("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-.")
     if any(c not in allowed for c in host):
         return False
+    # Try IP address validation
     try:
         ipaddress.ip_address(host)
         return True
     except ValueError:
-        # Validate DNS hostname (RFC 1035)
-        if len(host) > 253:
-            return False
-        hostname_regex = re.compile(
-            r"^(?=.{1,253}$)(?!-)[A-Za-z0-9-]{1,63}(?<!-)(\.(?!-)[A-Za-z0-9-]{1,63}(?<!-))*\.?$"
-        )
-        return bool(hostname_regex.match(host))
+        pass
+    # Try DNS hostname validation (RFC 1035)
+    if len(host) > 253:
+        return False
+    hostname_regex = re.compile(
+        r"^(?=.{1,253}$)(?!-)[A-Za-z0-9-]{1,63}(?<!-)(\.(?!-)[A-Za-z0-9-]{1,63}(?<!-))*\.?$"
+    )
+    if not hostname_regex.match(host):
+        return False
+    # Try DNS resolution to ensure it's a valid hostname
+    try:
+        socket.gethostbyname(host)
+        return True
+    except Exception:
+        return False
 
 def _parse_ping_output(output: str) -> Dict[str, Union[bool, int, float, str, list]]:
     if "unreachable" in output.lower() or "could not find host" in output.lower():
