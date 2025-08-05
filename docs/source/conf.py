@@ -10,7 +10,7 @@
 project = 'gatenet'
 copyright = '2025, MJ Anglin'
 author = 'MJ Anglin'
-release = '0.11.1'  # Update to the latest version
+release = '0.11.2'  # Update to the latest version
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration

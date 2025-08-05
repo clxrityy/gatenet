@@ -62,9 +62,9 @@ Test Coverage Summary
      - 2
      - 100.0%
    * - dashboard/app.py
-     - 61
-     - 46
-     - 75.4%
+     - 70
+     - 57
+     - 81.4%
    * - diagnostics/__init__.py
      - 9
      - 9
@@ -82,9 +82,9 @@ Test Coverage Summary
      - 9
      - 81.8%
    * - diagnostics/ping.py
-     - 175
-     - 131
-     - 74.9%
+     - 181
+     - 147
+     - 81.2%
    * - diagnostics/port_scan.py
      - 35
      - 35
@@ -150,9 +150,9 @@ Test Coverage Summary
      - 11
      - 100.0%
    * - mesh/radio.py
-     - 68
-     - 67
-     - 98.5%
+     - 70
+     - 69
+     - 98.6%
    * - radio/__init__.py
      - 1
      - 1

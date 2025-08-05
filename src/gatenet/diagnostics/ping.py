@@ -160,7 +160,13 @@ def _icmp_ping_sync(host: str, count: int, timeout: int, system: str) -> Dict[st
         safe_args += ["-n", str(count), "-w", str(timeout * 1000)]
     else:
         safe_args += ["-c", str(count), "-W", str(timeout)]
-    # Host is strictly validated, but never allow shell=True or untrusted args
+    # Validate host: must be IPv4, IPv6, or valid hostname
+    import re
+    ipv4_re = re.compile(r"^(?:\d{1,3}\.){3}[0-9]{1,3}$")
+    ipv6_re = re.compile(r"^([0-9a-fA-F]{0,4}:){2,7}[0-9a-fA-F]{0,4}$")
+    hostname_re = re.compile(r"^(?!-)[A-Za-z0-9-]{1,63}(?<!-)(\.[A-Za-z0-9-]{1,63})*$")
+    if not (ipv4_re.match(host) or ipv6_re.match(host) or hostname_re.match(host)):
+        raise ValueError(f"Invalid host: {host}")
     safe_args.append(host)
     try:
         result = subprocess.run(safe_args, capture_output=True, text=True, check=False, shell=False)

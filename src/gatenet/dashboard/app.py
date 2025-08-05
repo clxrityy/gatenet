@@ -19,6 +19,8 @@ from fastapi.middleware.cors import CORSMiddleware
 import logging
 app = FastAPI(title="Gatenet Dashboard", docs_url="/docs")
 
+error_message = "An internal error occurred. Please try again later."
+
 # Allow CORS for local development
 app.add_middleware(
     CORSMiddleware,
@@ -114,22 +116,26 @@ def index():
 @app.get("/api/dns_lookup")
 def api_dns_lookup(host: str = Query(..., description="Host to resolve")):
     """DNS lookup for a host."""
+    import logging
     try:
         ip = dns_lookup(host)
         return {"ok": True, "ip": ip}
-    except Exception as e:
-        return {"ok": False, "error": str(e)}
+    except Exception:
+        logging.exception("Error in api_dns_lookup")
+        return {"ok": False, "error": error_message}
 
 
 @app.get("/api/port_scan")
 def api_port_scan(host: str = Query(..., description="Host to scan"), ports: str = Query(..., description="Comma-separated ports")):
     """Scan ports on a host."""
+    import logging
     try:
         port_list = [int(p.strip()) for p in ports.split(",") if p.strip().isdigit()]
         open_ports = scan_ports(host, ports=port_list)
         return {"ok": True, "open_ports": open_ports}
-    except Exception as e:
-        return {"ok": False, "error": str(e)}
+    except Exception:
+        logging.exception("Error in api_port_scan")
+        return {"ok": False, "error": error_message}
 
 
 # SSE endpoint for live traceroute
@@ -150,11 +156,13 @@ def api_traceroute_stream(host: str = Query(..., description="Host to traceroute
 @app.get("/api/ping")
 def api_ping(host: str = Query(..., description="Host to ping"), count: int = Query(3, ge=1, le=10)):
     """Ping a host and return the result."""
+    import logging
     try:
         result = ping(host, count=count)
         return {"ok": True, "result": result}
-    except Exception as e:
-        return {"ok": False, "error": str(e)}
+    except Exception:
+        logging.exception("Error in api_ping")
+        return {"ok": False, "error": error_message}
 
 @app.get("/api/traceroute")
 def api_traceroute(host: str = Query(..., description="Host to traceroute")):
@@ -162,7 +170,7 @@ def api_traceroute(host: str = Query(..., description="Host to traceroute")):
     try:
         hops = traceroute(host)
         return {"ok": True, "hops": hops}
-    except Exception as e:
+    except Exception:
         logging.exception("Error in /api/traceroute endpoint")
         return {"ok": False, "error": "An internal error has occurred."}
 

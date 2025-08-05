@@ -22,6 +22,7 @@
     - [0.9.9](#099)
   - [0.11.0](#0110)
     - [0.11.1](#0111)
+    - [0.11.2](#0112)
 
 # v0 (BETA)
 
@@ -469,3 +470,27 @@
 - Improved security by validating all user inputs and using safe subprocess handling.
 - Added radio event examples on the documentation.
 - MeshRadio now supports log archival via `sync_logs()`, enabling mesh packet, topology, GPS, RF, and Wi-Fi logs to be saved to a file for base node or Mini PC integration.
+
+### 0.11.2
+
+##### Security improvements
+
+- The ping command is now protected against command injection:
+  - It validates the host argument using strict regex for IPv4, IPv6, or valid hostnames before passing to subprocess. This blocks malicious input and follows CodeQL/OWASP recommendations.
+- Sensitive exception details are now hidden in the DNS and port scan endpoints.
+  - Errors are logged server-side, and users receive a generic message:
+    Sensitive exception details are now hidden in the DNS and port scan endpoints.
+    > "An internal error occurred. Please try again later."
+
+##### Additional tests
+
+- Added new tests for untested elements in `gatenet.dashboard`:
+  - Error handling for invalid host/ports on all endpoints.
+  - SSE error path in `/api/traceroute/stream`.
+  - CORS headers
+  - The `launch_dashboard()` function.
+- Additional integration test:
+  - MeshRadio GPS, RF, and Wi-Fi logging.
+  - Integration with `ping_with_rf`
+  - Sending/receiving messages with RF info
+  - Topology updates

@@ -2,6 +2,12 @@ import time
 from typing import List, Dict
 
 class MeshRadio:
+    def on_signal(self, handler):
+        """
+        Register a signal handler (no-op for MeshRadio, for diagnostics integration compatibility).
+        """
+        # MeshRadio does not emit RF events, so this is a no-op
+        pass
     def sync_logs(self, file_path: str = "mesh_radio_logs.json") -> bool:
         """
         Sync mesh radio logs (packets, topology, GPS, RF, Wi-Fi) to a file (base node or Mini PC).

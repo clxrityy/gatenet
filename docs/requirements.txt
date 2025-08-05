@@ -29,3 +29,5 @@ fastapi
 uvicorn
 httpx
 rich
+numpy
+matplotlib
