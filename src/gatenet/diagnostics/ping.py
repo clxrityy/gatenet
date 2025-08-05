@@ -161,7 +161,14 @@ def _icmp_ping_sync(host: str, count: int, timeout: int, system: str) -> Dict[st
         safe_args += ["-n", str(count), "-w", str(timeout * 1000)]
     else:
         safe_args += ["-c", str(count), "-W", str(timeout)]
-    # At this point, host is guaranteed safe
+    # Enforce strict allowlist for host before subprocess
+    if not _is_valid_host(host):
+        return {
+            "host": host,
+            "success": False,
+            "error": "Invalid host format",
+            "raw_output": ""
+        }
     safe_args.append(host)
     try:
         result = subprocess.run(safe_args, capture_output=True, text=True, check=False, shell=False)
