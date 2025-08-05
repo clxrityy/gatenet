@@ -147,6 +147,7 @@ def _tcp_ping_sync(host: str, count: int, timeout: int) -> Dict[str, Union[str, 
     return result
 
 def _icmp_ping_sync(host: str, count: int, timeout: int, system: str) -> Dict[str, Union[str, float, int, bool, list]]:
+    # Harden host validation: only allow valid IPv4, IPv6, or DNS hostnames (no shell metacharacters)
     if not _is_valid_host(host):
         return {
             "host": host,
@@ -154,19 +155,13 @@ def _icmp_ping_sync(host: str, count: int, timeout: int, system: str) -> Dict[st
             "error": "Invalid host format",
             "raw_output": ""
         }
-    # Only allow validated host, never pass user input directly to subprocess
+    # Only allow validated host, never pass unchecked user input to subprocess
     safe_args = ["ping"]
     if system == "Windows":
         safe_args += ["-n", str(count), "-w", str(timeout * 1000)]
     else:
         safe_args += ["-c", str(count), "-W", str(timeout)]
-    # Validate host: must be IPv4, IPv6, or valid hostname
-    import re
-    ipv4_re = re.compile(r"^(?:\d{1,3}\.){3}[0-9]{1,3}$")
-    ipv6_re = re.compile(r"^([0-9a-fA-F]{0,4}:){2,7}[0-9a-fA-F]{0,4}$")
-    hostname_re = re.compile(r"^(?!-)[A-Za-z0-9-]{1,63}(?<!-)(\.[A-Za-z0-9-]{1,63})*$")
-    if not (ipv4_re.match(host) or ipv6_re.match(host) or hostname_re.match(host)):
-        raise ValueError(f"Invalid host: {host}")
+    # At this point, host is guaranteed safe
     safe_args.append(host)
     try:
         result = subprocess.run(safe_args, capture_output=True, text=True, check=False, shell=False)

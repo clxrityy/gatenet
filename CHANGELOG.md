@@ -23,6 +23,7 @@
   - [0.11.0](#0110)
     - [0.11.1](#0111)
     - [0.11.2](#0112)
+    - [0.11.3](#0113)
 
 # v0 (BETA)
 
@@ -494,3 +495,11 @@
   - Integration with `ping_with_rf`
   - Sending/receiving messages with RF info
   - Topology updates
+
+### 0.11.3
+
+Fixed security vulnerabilities in the ping command.
+
+- Host validation uses a strict allowlist (`_is_valid_host`) before any subprocess call.
+- No unchecked user input is ever passed to the command line.
+- All shell metacharacters and invalid formats are rejected before execution.

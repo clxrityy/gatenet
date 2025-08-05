@@ -63,8 +63,8 @@ Test Coverage Summary
      - 100.0%
    * - dashboard/app.py
      - 70
-     - 57
-     - 81.4%
+     - 54
+     - 77.1%
    * - diagnostics/__init__.py
      - 9
      - 9
@@ -82,9 +82,9 @@ Test Coverage Summary
      - 9
      - 81.8%
    * - diagnostics/ping.py
-     - 181
-     - 147
-     - 81.2%
+     - 175
+     - 146
+     - 83.4%
    * - diagnostics/port_scan.py
      - 35
      - 35

@@ -16,7 +16,6 @@ import time
 from fastapi import Query
 from fastapi.middleware.cors import CORSMiddleware
 
-import logging
 app = FastAPI(title="Gatenet Dashboard", docs_url="/docs")
 
 error_message = "An internal error occurred. Please try again later."
@@ -116,25 +115,26 @@ def index():
 @app.get("/api/dns_lookup")
 def api_dns_lookup(host: str = Query(..., description="Host to resolve")):
     """DNS lookup for a host."""
-    import logging
     try:
         ip = dns_lookup(host)
         return {"ok": True, "ip": ip}
     except Exception:
-        logging.exception("Error in api_dns_lookup")
+        # Log internally, but never expose details to user
+        import logging
+        logging.error("Error in api_dns_lookup")
         return {"ok": False, "error": error_message}
 
 
 @app.get("/api/port_scan")
 def api_port_scan(host: str = Query(..., description="Host to scan"), ports: str = Query(..., description="Comma-separated ports")):
     """Scan ports on a host."""
-    import logging
     try:
         port_list = [int(p.strip()) for p in ports.split(",") if p.strip().isdigit()]
         open_ports = scan_ports(host, ports=port_list)
         return {"ok": True, "open_ports": open_ports}
     except Exception:
-        logging.exception("Error in api_port_scan")
+        import logging
+        logging.error("Error in api_port_scan")
         return {"ok": False, "error": error_message}
 
 
@@ -148,20 +148,21 @@ def api_traceroute_stream(host: str = Query(..., description="Host to traceroute
             for hop in hops:
                 yield f"data: {hop}\n\n"
                 time.sleep(0.2)  # Simulate delay for demo
-        except Exception as e:
-            yield f"data: ERROR: {str(e)}\n\n"
+        except Exception:
+            # Never leak exception details to SSE client
+            yield "data: ERROR: An internal error occurred.\n\n"
     return StreamingResponse(event_stream(), media_type="text/event-stream")
 
 
 @app.get("/api/ping")
 def api_ping(host: str = Query(..., description="Host to ping"), count: int = Query(3, ge=1, le=10)):
     """Ping a host and return the result."""
-    import logging
     try:
         result = ping(host, count=count)
         return {"ok": True, "result": result}
     except Exception:
-        logging.exception("Error in api_ping")
+        import logging
+        logging.error("Error in api_ping")
         return {"ok": False, "error": error_message}
 
 @app.get("/api/traceroute")
@@ -171,8 +172,9 @@ def api_traceroute(host: str = Query(..., description="Host to traceroute")):
         hops = traceroute(host)
         return {"ok": True, "hops": hops}
     except Exception:
-        logging.exception("Error in /api/traceroute endpoint")
-        return {"ok": False, "error": "An internal error has occurred."}
+        import logging
+        logging.error("Error in /api/traceroute endpoint")
+        return {"ok": False, "error": error_message}
 
 def launch_dashboard(host: str = "127.0.0.1", port: int = 8000, open_browser: bool = True) -> None:
     """
