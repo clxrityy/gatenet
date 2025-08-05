@@ -106,13 +106,15 @@ def _parse_ping_output(output: str) -> Dict[str, Union[bool, int, float, str, li
     return stats
 
 
+PING_INVALID_HOST_ERROR = "Invalid host format"
+
 def _tcp_ping_sync(host: str, count: int, timeout: int) -> Dict[str, Union[str, float, int, bool, list]]:
     import socket
     if not _is_valid_host(host):
         return {
             "host": host,
             "success": False,
-            "error": "Invalid host format",
+            "error": PING_INVALID_HOST_ERROR,
             "raw_output": ""
         }
     rtts = []
@@ -152,10 +154,12 @@ def _icmp_ping_sync(host: str, count: int, timeout: int, system: str) -> Dict[st
         return {
             "host": host,
             "success": False,
-            "error": "Invalid host format",
+            "error": PING_INVALID_HOST_ERROR,
             "raw_output": ""
         }
     # Only allow the system ping command and validated arguments
+    # Only allow a validated host (IPv4, IPv6, DNS) and never pass unchecked user input to subprocess
+    # This is safe: host is strictly validated, and only appended as a positional argument
     PING_COMMANDS = {
         "Windows": ["ping"],
         "Linux": ["ping"],
@@ -166,6 +170,7 @@ def _icmp_ping_sync(host: str, count: int, timeout: int, system: str) -> Dict[st
         cmd += ["-n", str(count), "-w", str(timeout * 1000)]
     else:
         cmd += ["-c", str(count), "-W", str(timeout)]
+    # Host is only appended after passing allowlist validation
     cmd.append(host)
     try:
         result = subprocess.run(cmd, capture_output=True, text=True, check=False, shell=False)
