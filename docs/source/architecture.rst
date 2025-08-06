@@ -18,6 +18,7 @@ Gatenet Architecture
      Gatenet --> service_detectors
      Gatenet --> mesh
      Gatenet --> radio
+     Gatenet --> hotspot
      Gatenet --> cli
 
 
@@ -51,5 +52,8 @@ Gatenet Core Modules
 
 **radio/**
     Standalone radio frequency (RF) detection and integration module. Provides SDR, LoRa, and ESP classes for frequency scanning, signal decoding, event-driven callbacks, and seamless mesh integration. Supports hardware and simulation, GPS tagging, and extensible event handling for RF signals.
+
+**hotspot/**
+    Wi-Fi access point creation and management module. Provides cross-platform hotspot creation with comprehensive security configuration (WPA2, WPA3, WEP, Open). Includes integrated DHCP server management, real-time device monitoring, and robust password generation. Supports Linux (hostapd/dnsmasq) and macOS (Internet Sharing) with automated network configuration.
 
 Each module is modular, extensible, and well-tested. See the API reference for details on each submodule and class.

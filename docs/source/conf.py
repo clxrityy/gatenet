@@ -10,7 +10,7 @@
 project = 'gatenet'
 copyright = '2025, MJ Anglin'
 author = 'MJ Anglin'
-release = '0.11.3'  # Update to the latest version
+release = '0.12.0'  # Update to the latest version
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -95,6 +95,7 @@ html_favicon = "_static/favicon.ico"
 html_theme_options = {
     "sidebar_hide_name": True,
     "navigation_with_keys": True,
+    "announcement": f'<a href="changelog.html#id22" style="color: white; text-decoration: none;">📦 Latest Release: v{release} - New Hotspot Module Available!</a>',
     # Add more Furo options here as needed
 }
 
@@ -114,10 +115,12 @@ def run_coverage_summary(_):
 def setup(app):
     # Add as many CSS files as you want here (must be in _static/)
     app.add_css_file('style.css')
+    app.add_css_file('sandbox.css')
     # app.add_css_file('animations.css')
     # Add JS and manifest as before
     app.add_js_file('site.webmanifest', type='application/manifest+json')
     app.add_js_file('network-footer.js')
+    app.add_js_file('sandbox.js')
     app.connect('builder-inited', run_coverage_summary)
 
     # Add custom HTTP security headers for built docs (for hosting via Sphinx server or ReadTheDocs)

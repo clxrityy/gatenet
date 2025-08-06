@@ -72,6 +72,9 @@ docs-build: venv
 	rm -rf build dist *.egg-info .pytest_cache .coverage htmlcov
 	rm -rf docs/build docs/source/_static/htmlcov docs/source/_static/coverage.svg
 
+docs-quick:
+	make -C docs html
+
 # Delete all empty files in the project
 delete-empty:
 	python3 scripts/delete_empty_files.py
@@ -97,15 +100,17 @@ endif
 release: clean build test docs publish
 	@echo "Release complete!"
 
-# Show and update project version in pyproject.toml and docs/source/conf.py
+# Show and update project version in pyproject.toml, docs/source/conf.py, and src/gatenet/__init__.py
 version:
 	@echo "Current version in pyproject.toml: $$(grep '^[[:space:]]*version' pyproject.toml | head -1 | sed -E 's/^[[:space:]]*version[[:space:]]*=[[:space:]]*[\"'\'']([^\"'\'']+)[\"'\''].*/\1/')"
 	@echo "Current version in docs/source/conf.py: $$(grep '^[[:space:]]*release' docs/source/conf.py | head -1 | sed -E "s/^[[:space:]]*release[[:space:]]*=[[:space:]]*['\"]([^'\"]+)['\"].*/\1/")"
+	@echo "Current version in src/gatenet/__init__.py: $$(grep '^__version__' src/gatenet/__init__.py | head -1 | sed -E 's/^__version__[[:space:]]*=[[:space:]]*[\"'\'']([^\"'\'']+)[\"'\''].*/\1/')"
 	@read -p "Enter new version (or leave blank to skip): " v; \
 	if [ "$$v" != "" ]; then \
 		sed -i '' -E "s/^[[:space:]]*version[[:space:]]*=[[:space:]]*[\"'\''][^\"'\'']*[\"'\'']/version = \"$$v\"/" pyproject.toml; \
 		sed -i '' -E "s/^[[:space:]]*release[[:space:]]*=[[:space:]]*['\"][^'\"]*['\"]/release = '$$v'/" docs/source/conf.py; \
-		echo "Updated version to $$v in pyproject.toml and docs/source/conf.py"; \
+		sed -i '' -E "s/^__version__[[:space:]]*=[[:space:]]*[\"'\''][^\"'\'']*[\"'\'']/__version__ = \"$$v\"/" src/gatenet/__init__.py; \
+		echo "Updated version to $$v in pyproject.toml, docs/source/conf.py, and src/gatenet/__init__.py"; \
 	else \
 		echo "No version change."; \
 	fi

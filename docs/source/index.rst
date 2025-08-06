@@ -93,6 +93,7 @@
    architecture
    cli
    examples
+   sandbox
 
 .. toctree::
    :maxdepth: 2
@@ -101,3 +102,4 @@
    hardware_setup
    cli_integration_examples
    advanced_radio_usage
+   hotspot_usage

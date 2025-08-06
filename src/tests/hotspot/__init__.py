@@ -1,0 +1,3 @@
+"""
+Hotspot module tests.
+"""

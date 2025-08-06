@@ -24,6 +24,7 @@
     - [0.11.1](#0111)
     - [0.11.2](#0112)
     - [0.11.3](#0113)
+  - [0.12.0](#0120)
 
 # v0 (BETA)
 
@@ -503,3 +504,66 @@ Fixed security vulnerabilities in the ping command.
 - Host validation uses a strict allowlist (`_is_valid_host`) before any subprocess call.
 - No unchecked user input is ever passed to the command line.
 - All shell metacharacters and invalid formats are rejected before execution.
+
+## 0.12.0
+
+Fixed the package imports and CLI.
+
+Created the `gatenet.hotspot` module for comprehensive Wi-Fi access point management.
+
+- **Hotspot Management**: Complete Wi-Fi access point creation and management with cross-platform support for Linux and macOS
+  - `Hotspot` class for creating and managing Wi-Fi access points
+  - Support for WPA2, WPA3, WEP, and open security configurations
+  - Cross-platform compatibility with Linux (hostapd) and macOS (Internet Sharing)
+  - Real-time monitoring of connected devices and hotspot status
+- **DHCP Server Control**: Integrated DHCP server management for IP address assignment
+  - `DHCPServer` class with configurable IP ranges and DNS settings
+  - Platform-specific implementations using dnsmasq (Linux) and built-in services (macOS)
+  - Automatic network configuration and gateway setup
+- **Security Configuration**: Robust security options and password management
+  - `SecurityConfig` class with password validation and strength checking
+  - Automatic secure password generation with customizable length
+  - Support for multiple security types (WPA2, WPA3, WEP, Open)
+  - Password complexity validation and common pattern detection
+- **Testing Infrastructure**: Comprehensive test suite with CI/CD compatibility
+  - 59 unit and integration tests covering all hotspot functionality
+  - Subprocess mocking to prevent password prompts in automated workflows
+  - Cross-platform test coverage with platform-specific behavior validation
+  - Test isolation ensuring hotspot tests don't interfere with other modules
+
+Security improvements and test infrastructure enhancements.
+
+- **Security Hardening**: Fixed command injection vulnerabilities in ping diagnostics
+  - Host validation uses a strict allowlist (`_is_valid_host`) before any subprocess call
+  - No unchecked user input is ever passed to the command line
+  - All shell metacharacters and invalid formats are rejected before execution
+- **Dashboard Security**: Improved error handling to prevent information exposure
+  - Sanitized exception messages in FastAPI error responses
+  - Removed sensitive system information from error outputs
+- **Test Infrastructure**: Enhanced testing framework with improved isolation
+
+  - Targeted subprocess mocking for hotspot tests to prevent password prompts
+  - Preserved real subprocess calls for diagnostic tests requiring actual network operations
+  - Improved CI/CD workflow compatibility with automated testing
+
+Added comprehensive interactive sandbox and theme improvements
+
+- **Interactive Sandbox**: Created a complete browser-based playground for Gatenet features
+  - Live code editor with syntax highlighting for Python code examples
+  - Interactive HTTP client, TCP/UDP client, and service discovery demonstrations
+  - Real-time code execution simulation with formatted output display
+  - Quick start playground with pre-configured networking examples
+  - Embedded dashboard iframe for full Gatenet web interface experience
+- **Theme-Aware Design**: Complete dark/light theme support across all documentation
+  - CSS custom properties system for seamless theme switching
+  - Theme-aware code editors, output terminals, and interactive elements
+  - Consistent styling for all Sphinx admonitions (notes, warnings, tips, etc.)
+  - Mobile-responsive design with touch-friendly interfaces
+  - Smooth transitions and animations between theme modes
+- **Version Banner**: Implemented sticky navigation banner
+  - Fixed positioning at top of all documentation pages
+  - Direct linking to latest release notes in changelog
+  - Professional gradient design matching project branding
+  - Cross-platform compatibility and accessibility compliance
+
+Added an interactive sandbox page to the documentation.

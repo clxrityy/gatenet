@@ -1,0 +1,777 @@
+/* Interactive Sandbox Styling - Dark/Light Theme Support */
+
+/* CSS Custom Properties for Theme Support */
+:root {
+    /* Light theme colors */
+    --sandbox-bg: #f8f9fa;
+    --sandbox-border: #dee2e6;
+    --sandbox-shadow: rgba(0, 0, 0, 0.05);
+    --sandbox-text: #212529;
+    --sandbox-accent: #1976d2;
+
+    --code-bg: #ffffff;
+    --code-border: #e0e0e0;
+    --code-shadow: rgba(0, 0, 0, 0.1);
+    --code-textarea-bg: #f8f9fa;
+    --code-textarea-border: #ced4da;
+    --code-textarea-text: #212529;
+
+    --output-bg: #1e1e1e;
+    --output-text: #d4d4d4;
+    --output-header: #ffffff;
+
+    --playground-bg: #e3f2fd;
+    --playground-border: #90caf9;
+    --playground-accent: #0d47a1;
+    --playground-card-bg: #ffffff;
+    --playground-card-border: #e3f2fd;
+
+    --input-bg: #ffffff;
+    --input-border: #ced4da;
+    --input-text: #212529;
+
+    --result-bg: #f8f9fa;
+    --result-text: #2e7d32;
+}
+
+/* Dark theme colors */
+[data-theme="dark"],
+.theme-dark,
+html[data-theme="dark"] {
+    --sandbox-bg: #1e1e1e;
+    --sandbox-border: #404040;
+    --sandbox-shadow: rgba(0, 0, 0, 0.3);
+    --sandbox-text: #e0e0e0;
+    --sandbox-accent: #64b5f6;
+
+    --code-bg: #252525;
+    --code-border: #404040;
+    --code-shadow: rgba(0, 0, 0, 0.3);
+    --code-textarea-bg: #1e1e1e;
+    --code-textarea-border: #404040;
+    --code-textarea-text: #e0e0e0;
+
+    --output-bg: #0d1117;
+    --output-text: #c9d1d9;
+    --output-header: #f0f6fc;
+
+    --playground-bg: #1a237e;
+    --playground-border: #3949ab;
+    --playground-accent: #90caf9;
+    --playground-card-bg: #252525;
+    --playground-card-border: #404040;
+
+    --input-bg: #1e1e1e;
+    --input-border: #404040;
+    --input-text: #e0e0e0;
+
+    --result-bg: #1e1e1e;
+    --result-text: #4caf50;
+}
+
+/* Sandbox Container */
+.sandbox-container {
+    background: linear-gradient(135deg, var(--sandbox-bg) 0%, var(--sandbox-bg) 100%);
+    border-radius: 12px;
+    padding: 2rem;
+    margin: 2rem 0;
+    border: 1px solid var(--sandbox-border);
+    box-shadow: 0 4px 16px var(--sandbox-shadow);
+    transition: all 0.3s ease;
+}
+
+.sandbox-container h3 {
+    color: var(--sandbox-accent);
+    margin-top: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Code Sandbox */
+.code-sandbox {
+    background: var(--code-bg);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    border: 1px solid var(--code-border);
+    box-shadow: 0 2px 8px var(--code-shadow);
+    transition: all 0.3s ease;
+}
+
+.code-sandbox h3 {
+    color: var(--sandbox-accent);
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.code-editor {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.code-editor textarea {
+    font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
+    background: var(--code-textarea-bg);
+    border: 1px solid var(--code-textarea-border);
+    border-radius: 6px;
+    padding: 1rem;
+    font-size: 14px;
+    line-height: 1.4;
+    resize: vertical;
+    min-height: 300px;
+    color: var(--code-textarea-text);
+    transition: all 0.2s ease;
+}
+
+.code-editor textarea:focus {
+    outline: none;
+    border-color: var(--sandbox-accent);
+    box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.1);
+}
+
+.code-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.run-button,
+.reset-button {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 14px;
+}
+
+.run-button {
+    background: linear-gradient(135deg, #4caf50, #45a049);
+    color: white;
+}
+
+.run-button:hover {
+    background: linear-gradient(135deg, #45a049, #3d8b40);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
+}
+
+.reset-button {
+    background: linear-gradient(135deg, #ff9800, #f57c00);
+    color: white;
+}
+
+.reset-button:hover {
+    background: linear-gradient(135deg, #f57c00, #ef6c00);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(255, 152, 0, 0.3);
+}
+
+.code-output {
+    background: var(--output-bg);
+    border-radius: 6px;
+    padding: 1rem;
+    margin-top: 1rem;
+    transition: all 0.3s ease;
+}
+
+.code-output h4 {
+    color: var(--output-header);
+    margin: 0 0 0.5rem 0;
+    font-size: 1rem;
+}
+
+.code-output pre {
+    background: transparent;
+    color: var(--output-text);
+    margin: 0;
+    padding: 0;
+    font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
+    font-size: 13px;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+/* Playground Styling */
+.playground-container {
+    background: linear-gradient(135deg, var(--playground-bg) 0%, var(--playground-bg) 100%);
+    border-radius: 12px;
+    padding: 2rem;
+    margin: 2rem 0;
+    border: 1px solid var(--playground-border);
+    transition: all 0.3s ease;
+}
+
+.playground-container h3 {
+    color: var(--playground-accent);
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+.playground-container p {
+    color: var(--sandbox-text);
+}
+
+.playground-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.playground-card {
+    background: var(--playground-card-bg);
+    border-radius: 8px;
+    padding: 1.5rem;
+    border: 1px solid var(--playground-card-border);
+    box-shadow: 0 2px 8px var(--sandbox-shadow);
+    transition: all 0.2s ease;
+}
+
+.playground-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px var(--sandbox-shadow);
+}
+
+.playground-card h4 {
+    color: var(--sandbox-accent);
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.playground-card input,
+.playground-card select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid var(--input-border);
+    border-radius: 4px;
+    margin-bottom: 0.75rem;
+    font-size: 14px;
+    background: var(--input-bg);
+    color: var(--input-text);
+    transition: all 0.2s ease;
+}
+
+.playground-card input:focus,
+.playground-card select:focus {
+    outline: none;
+    border-color: var(--sandbox-accent);
+    box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.1);
+}
+
+.playground-button {
+    width: 100%;
+    padding: 0.75rem;
+    background: linear-gradient(135deg, var(--sandbox-accent), var(--sandbox-accent));
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 14px;
+}
+
+.playground-button:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(25, 118, 210, 0.3);
+}
+
+.playground-result {
+    margin-top: 1rem;
+    padding: 0.75rem;
+    background: var(--result-bg);
+    border-radius: 4px;
+    border-left: 4px solid var(--sandbox-accent);
+    font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
+    font-size: 13px;
+    line-height: 1.4;
+    min-height: 40px;
+    color: var(--result-text);
+    transition: all 0.3s ease;
+}
+
+/* Dashboard Embed */
+.dashboard-embed {
+    background: var(--code-bg);
+    border-radius: 8px;
+    padding: 1rem;
+    border: 1px solid var(--code-border);
+    transition: all 0.3s ease;
+}
+
+.dashboard-embed iframe {
+    width: 100%;
+    height: 600px;
+    border: none;
+    border-radius: 6px;
+}
+
+/* Loading States */
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.loading::after {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    margin: auto;
+    border: 2px solid transparent;
+    border-top-color: var(--sandbox-accent);
+    border-radius: 50%;
+    animation: spin 1s ease infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Success/Error States */
+.success {
+    color: #4caf50 !important;
+}
+
+.error {
+    color: #f44336 !important;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+
+    .sandbox-container,
+    .playground-container {
+        padding: 1rem;
+        margin: 1rem 0;
+    }
+
+    .code-sandbox {
+        padding: 1rem;
+    }
+
+    .playground-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .code-editor textarea {
+        font-size: 12px;
+        min-height: 200px;
+    }
+
+    .dashboard-embed iframe {
+        height: 400px;
+    }
+}
+
+/* Syntax Highlighting for Code Output - Theme Aware */
+[data-theme="light"] .code-output .keyword,
+.theme-light .code-output .keyword,
+:root .code-output .keyword {
+    color: #0000ff;
+}
+
+[data-theme="dark"] .code-output .keyword,
+.theme-dark .code-output .keyword {
+    color: #569cd6;
+}
+
+[data-theme="light"] .code-output .string,
+.theme-light .code-output .string,
+:root .code-output .string {
+    color: #008000;
+}
+
+[data-theme="dark"] .code-output .string,
+.theme-dark .code-output .string {
+    color: #ce9178;
+}
+
+[data-theme="light"] .code-output .number,
+.theme-light .code-output .number,
+:root .code-output .number {
+    color: #09885a;
+}
+
+[data-theme="dark"] .code-output .number,
+.theme-dark .code-output .number {
+    color: #b5cea8;
+}
+
+[data-theme="light"] .code-output .comment,
+.theme-light .code-output .comment,
+:root .code-output .comment {
+    color: #008000;
+}
+
+[data-theme="dark"] .code-output .comment,
+.theme-dark .code-output .comment {
+    color: #6a9955;
+}
+
+[data-theme="light"] .code-output .function,
+.theme-light .code-output .function,
+:root .code-output .function {
+    color: #795e26;
+}
+
+[data-theme="dark"] .code-output .function,
+.theme-dark .code-output .function {
+    color: #dcdcaa;
+}
+
+/* Sphinx Admonitions - Theme Aware Styling */
+/* Note admonitions */
+.admonition.note,
+div.admonition.note {
+    background: var(--code-bg);
+    border: 1px solid var(--sandbox-accent);
+    border-left: 4px solid var(--sandbox-accent);
+    border-radius: 6px;
+    padding: 1rem;
+    margin: 1.5rem 0;
+    transition: all 0.3s ease;
+}
+
+.admonition.note .admonition-title,
+div.admonition.note .admonition-title {
+    color: var(--sandbox-accent);
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+    font-size: 1rem;
+}
+
+.admonition.note p,
+div.admonition.note p {
+    color: var(--sandbox-text);
+    margin: 0.5rem 0;
+    line-height: 1.6;
+}
+
+.admonition.note p:last-child,
+div.admonition.note p:last-child {
+    margin-bottom: 0;
+}
+
+/* Warning admonitions */
+.admonition.warning,
+div.admonition.warning {
+    background: var(--code-bg);
+    border: 1px solid #ff9800;
+    border-left: 4px solid #ff9800;
+    border-radius: 6px;
+    padding: 1rem;
+    margin: 1.5rem 0;
+    transition: all 0.3s ease;
+}
+
+.admonition.warning .admonition-title,
+div.admonition.warning .admonition-title {
+    color: #ff9800;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+    font-size: 1rem;
+}
+
+.admonition.warning p,
+div.admonition.warning p {
+    color: var(--sandbox-text);
+    margin: 0.5rem 0;
+    line-height: 1.6;
+}
+
+/* Tip admonitions */
+.admonition.tip,
+div.admonition.tip {
+    background: var(--code-bg);
+    border: 1px solid #4caf50;
+    border-left: 4px solid #4caf50;
+    border-radius: 6px;
+    padding: 1rem;
+    margin: 1.5rem 0;
+    transition: all 0.3s ease;
+}
+
+.admonition.tip .admonition-title,
+div.admonition.tip .admonition-title {
+    color: #4caf50;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+    font-size: 1rem;
+}
+
+.admonition.tip p,
+div.admonition.tip p {
+    color: var(--sandbox-text);
+    margin: 0.5rem 0;
+    line-height: 1.6;
+}
+
+/* Important admonitions */
+.admonition.important,
+div.admonition.important {
+    background: var(--code-bg);
+    border: 1px solid #f44336;
+    border-left: 4px solid #f44336;
+    border-radius: 6px;
+    padding: 1rem;
+    margin: 1.5rem 0;
+    transition: all 0.3s ease;
+}
+
+.admonition.important .admonition-title,
+div.admonition.important .admonition-title {
+    color: #f44336;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+    font-size: 1rem;
+}
+
+.admonition.important p,
+div.admonition.important p {
+    color: var(--sandbox-text);
+    margin: 0.5rem 0;
+    line-height: 1.6;
+}
+
+/* Caution admonitions */
+.admonition.caution,
+div.admonition.caution {
+    background: var(--code-bg);
+    border: 1px solid #ff5722;
+    border-left: 4px solid #ff5722;
+    border-radius: 6px;
+    padding: 1rem;
+    margin: 1.5rem 0;
+    transition: all 0.3s ease;
+}
+
+.admonition.caution .admonition-title,
+div.admonition.caution .admonition-title {
+    color: #ff5722;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+    font-size: 1rem;
+}
+
+.admonition.caution p,
+div.admonition.caution p {
+    color: var(--sandbox-text);
+    margin: 0.5rem 0;
+    line-height: 1.6;
+}
+
+/* Attention admonitions */
+.admonition.attention,
+div.admonition.attention {
+    background: var(--code-bg);
+    border: 1px solid #9c27b0;
+    border-left: 4px solid #9c27b0;
+    border-radius: 6px;
+    padding: 1rem;
+    margin: 1.5rem 0;
+    transition: all 0.3s ease;
+}
+
+.admonition.attention .admonition-title,
+div.admonition.attention .admonition-title {
+    color: #9c27b0;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+    font-size: 1rem;
+}
+
+.admonition.attention p,
+div.admonition.attention p {
+    color: var(--sandbox-text);
+    margin: 0.5rem 0;
+    line-height: 1.6;
+}
+
+/* Danger admonitions */
+.admonition.danger,
+div.admonition.danger {
+    background: var(--code-bg);
+    border: 1px solid #e91e63;
+    border-left: 4px solid #e91e63;
+    border-radius: 6px;
+    padding: 1rem;
+    margin: 1.5rem 0;
+    transition: all 0.3s ease;
+}
+
+.admonition.danger .admonition-title,
+div.admonition.danger .admonition-title {
+    color: #e91e63;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+    font-size: 1rem;
+}
+
+.admonition.danger p,
+div.admonition.danger p {
+    color: var(--sandbox-text);
+    margin: 0.5rem 0;
+    line-height: 1.6;
+}
+
+/* Error admonitions */
+.admonition.error,
+div.admonition.error {
+    background: var(--code-bg);
+    border: 1px solid #d32f2f;
+    border-left: 4px solid #d32f2f;
+    border-radius: 6px;
+    padding: 1rem;
+    margin: 1.5rem 0;
+    transition: all 0.3s ease;
+}
+
+.admonition.error .admonition-title,
+div.admonition.error .admonition-title {
+    color: #d32f2f;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+    font-size: 1rem;
+}
+
+.admonition.error p,
+div.admonition.error p {
+    color: var(--sandbox-text);
+    margin: 0.5rem 0;
+    line-height: 1.6;
+}
+
+/* Hint admonitions */
+.admonition.hint,
+div.admonition.hint {
+    background: var(--code-bg);
+    border: 1px solid #00bcd4;
+    border-left: 4px solid #00bcd4;
+    border-radius: 6px;
+    padding: 1rem;
+    margin: 1.5rem 0;
+    transition: all 0.3s ease;
+}
+
+.admonition.hint .admonition-title,
+div.admonition.hint .admonition-title {
+    color: #00bcd4;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+    font-size: 1rem;
+}
+
+.admonition.hint p,
+div.admonition.hint p {
+    color: var(--sandbox-text);
+    margin: 0.5rem 0;
+    line-height: 1.6;
+}
+
+/* See also admonitions */
+.admonition.seealso,
+div.admonition.seealso {
+    background: var(--code-bg);
+    border: 1px solid #607d8b;
+    border-left: 4px solid #607d8b;
+    border-radius: 6px;
+    padding: 1rem;
+    margin: 1.5rem 0;
+    transition: all 0.3s ease;
+}
+
+.admonition.seealso .admonition-title,
+div.admonition.seealso .admonition-title {
+    color: #607d8b;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+    font-size: 1rem;
+}
+
+.admonition.seealso p,
+div.admonition.seealso p {
+    color: var(--sandbox-text);
+    margin: 0.5rem 0;
+    line-height: 1.6;
+}
+
+/* Generic admonition styling */
+.admonition,
+div.admonition {
+    background: var(--code-bg);
+    border: 1px solid var(--sandbox-border);
+    border-left: 4px solid var(--sandbox-accent);
+    border-radius: 6px;
+    padding: 1rem;
+    margin: 1.5rem 0;
+    transition: all 0.3s ease;
+}
+
+.admonition .admonition-title,
+div.admonition .admonition-title {
+    color: var(--sandbox-accent);
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+    font-size: 1rem;
+}
+
+.admonition p,
+div.admonition p {
+    color: var(--sandbox-text);
+    margin: 0.5rem 0;
+    line-height: 1.6;
+}
+
+.admonition p:last-child,
+div.admonition p:last-child {
+    margin-bottom: 0;
+}
+
+/* Code blocks within admonitions */
+.admonition pre,
+div.admonition pre {
+    background: var(--code-textarea-bg);
+    border: 1px solid var(--code-textarea-border);
+    border-radius: 4px;
+    padding: 0.75rem;
+    margin: 0.5rem 0;
+    font-size: 0.9em;
+    overflow-x: auto;
+}
+
+.admonition code,
+div.admonition code {
+    background: var(--code-textarea-bg);
+    border: 1px solid var(--code-textarea-border);
+    border-radius: 3px;
+    padding: 0.2rem 0.4rem;
+    font-size: 0.9em;
+    color: var(--code-textarea-text);
+}
+
+/* Links within admonitions */
+.admonition a,
+div.admonition a {
+    color: var(--sandbox-accent);
+    text-decoration: none;
+}
+
+.admonition a:hover,
+div.admonition a:hover {
+    text-decoration: underline;
+}

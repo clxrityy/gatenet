@@ -1,11 +1,21 @@
+"""
+Gatenet discovery module.
+
+Provides service discovery functionality including mDNS, UPnP, Bluetooth,
+and various service detection strategies.
+"""
+
 from .mdns import discover_mdns_services, MDNSListener
 from .upnp import discover_upnp_devices
 from .bluetooth import async_discover_bluetooth_devices, discover_bluetooth_devices
-from gatenet.service_detectors.ssh import ServiceDetector, SSHDetector
-from gatenet.service_detectors.http import HTTPDetector
-from gatenet.service_detectors.ftp import FTPDetector
-from gatenet.service_detectors.smtp import SMTPDetector
-from gatenet.service_detectors.port_mapping import PortMappingDetector
-from gatenet.service_detectors.banner_keyword import BannerKeywordDetector
-from gatenet.service_detectors.generic import GenericServiceDetector
-from gatenet.service_detectors.fallback import FallbackDetector
+from .ssh import SSHDetector, ServiceDetector
+
+__all__ = [
+    "discover_mdns_services",
+    "MDNSListener",
+    "discover_upnp_devices", 
+    "async_discover_bluetooth_devices",
+    "discover_bluetooth_devices",
+    "SSHDetector",
+    "ServiceDetector",
+]

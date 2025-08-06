@@ -10,9 +10,17 @@ Test Coverage Summary
      - Covered
      - Percent
    * - __init__.py
-     - 0
-     - 0
+     - 34
+     - 22
+     - 64.7%
+   * - cli/__init__.py
+     - 2
+     - 2
      - 100.0%
+   * - cli/__main__.py
+     - 3
+     - 0
+     - 0.0%
    * - cli/commands/__init__.py
      - 7
      - 7
@@ -41,9 +49,13 @@ Test Coverage Summary
      - 32
      - 26
      - 81.2%
+   * - cli/main.py
+     - 34
+     - 5
+     - 14.7%
    * - client/__init__.py
-     - 3
-     - 3
+     - 4
+     - 4
      - 100.0%
    * - client/base.py
      - 8
@@ -66,9 +78,9 @@ Test Coverage Summary
      - 54
      - 77.1%
    * - diagnostics/__init__.py
-     - 9
-     - 9
-     - 100.0%
+     - 10
+     - 8
+     - 80.0%
    * - diagnostics/bandwidth.py
      - 25
      - 24
@@ -82,9 +94,9 @@ Test Coverage Summary
      - 9
      - 81.8%
    * - diagnostics/ping.py
-     - 175
-     - 146
-     - 83.4%
+     - 163
+     - 134
+     - 82.2%
    * - diagnostics/port_scan.py
      - 35
      - 35
@@ -94,8 +106,8 @@ Test Coverage Summary
      - 60
      - 90.9%
    * - discovery/__init__.py
-     - 11
-     - 11
+     - 5
+     - 5
      - 100.0%
    * - discovery/bluetooth.py
      - 34
@@ -117,9 +129,25 @@ Test Coverage Summary
      - 38
      - 34
      - 89.5%
+   * - hotspot/__init__.py
+     - 4
+     - 4
+     - 100.0%
+   * - hotspot/dhcp.py
+     - 57
+     - 53
+     - 93.0%
+   * - hotspot/hotspot.py
+     - 109
+     - 81
+     - 74.3%
+   * - hotspot/security.py
+     - 65
+     - 62
+     - 95.4%
    * - http_/__init__.py
-     - 4
-     - 4
+     - 5
+     - 5
      - 100.0%
    * - http_/async_client.py
      - 29
@@ -138,8 +166,8 @@ Test Coverage Summary
      - 49
      - 83.1%
    * - mesh/__init__.py
-     - 3
-     - 3
+     - 4
+     - 4
      - 100.0%
    * - mesh/esp.py
      - 13
@@ -151,11 +179,11 @@ Test Coverage Summary
      - 100.0%
    * - mesh/radio.py
      - 70
-     - 69
-     - 98.6%
+     - 68
+     - 97.1%
    * - radio/__init__.py
-     - 1
-     - 1
+     - 4
+     - 4
      - 100.0%
    * - radio/base.py
      - 14
@@ -174,9 +202,9 @@ Test Coverage Summary
      - 24
      - 85.7%
    * - service_detectors/__init__.py
-     - 6
-     - 5
-     - 83.3%
+     - 20
+     - 19
+     - 95.0%
    * - service_detectors/banner_keyword.py
      - 9
      - 9
@@ -230,8 +258,8 @@ Test Coverage Summary
      - 14
      - 100.0%
    * - socket/__init__.py
-     - 3
-     - 3
+     - 4
+     - 4
      - 100.0%
    * - socket/base.py
      - 11
@@ -246,8 +274,8 @@ Test Coverage Summary
      - 23
      - 100.0%
    * - utils/__init__.py
-     - 3
-     - 3
+     - 4
+     - 4
      - 100.0%
    * - utils/constants.py
      - 1

@@ -16,3 +16,4 @@ gatenet
    gatenet.cli
    gatenet.mesh
    gatenet.radio
+   gatenet.hotspot
