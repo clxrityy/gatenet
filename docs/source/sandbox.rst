@@ -19,7 +19,7 @@ The Gatenet dashboard provides an interactive web interface for network diagnost
      <h3>🚀 Gatenet Live Dashboard</h3>
      <p>Experience the full Gatenet dashboard with ping, traceroute, DNS lookup, and port scanning tools.</p>
      <div class="dashboard-embed">
-       <iframe src="https://gatenet-demo.herokuapp.com" width="100%" height="600" frameborder="0" style="border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);"></iframe>
+       <iframe src="https://gatenet-demo-c27e0a76554d.herokuapp.com/" width="100%" height="600" frameborder="0" style="border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);"></iframe>
        <p style="margin-top: 10px; font-size: 0.9em; color: #666;">
          <em>Note: This is a demo instance. For full functionality, install Gatenet locally.</em>
        </p>
