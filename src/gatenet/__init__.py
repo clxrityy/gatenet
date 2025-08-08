@@ -10,7 +10,7 @@ Example usage:
     >>> from gatenet.http_.client import HTTPClient
 """
 
-__version__ = "0.12.0"
+__version__ = "0.12.1"
 __author__ = "MJ Anglin"
 __email__ = "contact@mjanglin.com"
 

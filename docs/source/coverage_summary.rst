@@ -19,16 +19,20 @@ Test Coverage Summary
      - 100.0%
    * - cli/__main__.py
      - 3
-     - 0
-     - 0.0%
+     - 2
+     - 66.7%
    * - cli/commands/__init__.py
-     - 7
-     - 7
+     - 8
+     - 8
      - 100.0%
    * - cli/commands/dns.py
      - 62
      - 39
      - 62.9%
+   * - cli/commands/hotspot.py
+     - 152
+     - 99
+     - 65.1%
    * - cli/commands/iface.py
      - 52
      - 33
@@ -50,9 +54,9 @@ Test Coverage Summary
      - 26
      - 81.2%
    * - cli/main.py
-     - 34
-     - 5
-     - 14.7%
+     - 46
+     - 46
+     - 100.0%
    * - client/__init__.py
      - 4
      - 4
@@ -139,8 +143,8 @@ Test Coverage Summary
      - 93.0%
    * - hotspot/hotspot.py
      - 109
-     - 81
-     - 74.3%
+     - 102
+     - 93.6%
    * - hotspot/security.py
      - 65
      - 62
@@ -155,8 +159,8 @@ Test Coverage Summary
      - 79.3%
    * - http_/base.py
      - 9
-     - 4
-     - 44.4%
+     - 9
+     - 100.0%
    * - http_/client.py
      - 31
      - 28
@@ -287,7 +291,7 @@ Test Coverage Summary
      - 100.0%
    * - utils/netinfo.py
      - 89
-     - 51
-     - 57.3%
+     - 84
+     - 94.4%
 
 Generated from coverage.xml.

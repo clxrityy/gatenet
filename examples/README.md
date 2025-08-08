@@ -4,6 +4,8 @@
 pip install gatenet
 ```
 
+- **CLI Tools**
+  - [Hotspot Management CLI](./cli/hotspot_example.py) - Wi-Fi hotspot creation and management
 - **HTTP**
   - [GET & POST requests](./http_/http_example.py)
   - [Timeout & retry](./http_/timeout_retry.py)

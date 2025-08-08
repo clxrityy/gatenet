@@ -8,7 +8,7 @@ Usage:
 
 
 import argparse
-from .commands import iface, wifi, trace, ping, dns, ports
+from .commands import iface, wifi, trace, ping, dns, ports, hotspot
 
 OUTPUT_FORMAT_HELP = "Output format"
 
@@ -20,6 +20,7 @@ COMMANDS = {
     "ping": ping.cmd_ping,
     "dns": dns.cmd_dns,
     "ports": ports.cmd_ports,
+    "hotspot": hotspot.cmd_hotspot,
 }
 
 
@@ -59,6 +60,21 @@ def main():
     ports_parser.add_argument("host", help="Target host for port scan")
     ports_parser.add_argument("--ports", nargs="*", type=int, default=None, help="Ports to scan (default: common)")
     ports_parser.add_argument("--output", choices=["json", "table", "plain"], default="table", help=OUTPUT_FORMAT_HELP)
+
+    hotspot_parser = subparsers.add_parser("hotspot", help="Create and manage Wi-Fi hotspots")
+    hotspot_parser.add_argument("action", choices=["start", "stop", "status", "devices", "generate-password"], 
+                               help="Action to perform")
+    hotspot_parser.add_argument("--ssid", help="SSID name for the hotspot")
+    hotspot_parser.add_argument("--password", help="Password for the hotspot")
+    hotspot_parser.add_argument("--interface", default="wlan0", help="Network interface to use (default: wlan0)")
+    hotspot_parser.add_argument("--ip-range", default="192.168.4.0/24", help="IP range for DHCP (default: 192.168.4.0/24)")
+    hotspot_parser.add_argument("--gateway", default="192.168.4.1", help="Gateway IP (default: 192.168.4.1)")
+    hotspot_parser.add_argument("--channel", type=int, default=6, help="Wi-Fi channel (default: 6)")
+    hotspot_parser.add_argument("--security", choices=["open", "wpa", "wpa2", "wpa3"], default="wpa2",
+                               help="Security type (default: wpa2)")
+    hotspot_parser.add_argument("--hidden", action="store_true", help="Create hidden SSID")
+    hotspot_parser.add_argument("--length", type=int, default=12, help="Password length for generate-password (default: 12)")
+    hotspot_parser.add_argument("--output", choices=["json", "table", "plain"], default="table", help=OUTPUT_FORMAT_HELP)
 
     import sys
     from rich.console import Console

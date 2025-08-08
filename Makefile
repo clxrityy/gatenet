@@ -24,13 +24,11 @@ install:
 	pip install -r requirements.txt
 	pip install -r docs/requirements.txt || true
 
-
 # Install test package
 install-test:
 	python3 -m pip install --index-url https://test.pypi.org/simple/ --no-deps gatenet
 
 # Run all tests
-
 test:
 	pytest
 

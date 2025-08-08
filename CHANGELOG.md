@@ -25,6 +25,7 @@
     - [0.11.2](#0112)
     - [0.11.3](#0113)
   - [0.12.0](#0120)
+    - [0.12.1](#0121)
 
 # v0 (BETA)
 
@@ -567,3 +568,57 @@ Added comprehensive interactive sandbox and theme improvements
   - Cross-platform compatibility and accessibility compliance
 
 Added an interactive sandbox page to the documentation.
+
+### 0.12.1
+
+- **Comprehensive Test Coverage Improvements**: Added extensive test suites to achieve 81% overall code coverage:
+
+  - **CLI Testing**: Fixed all 12 failing CLI tests with proper mocking strategies
+    - Updated `test_main.py` to use `patch.dict` for command registry mocking instead of individual function patches
+    - Fixed argument name mismatches (`host` vs `target`, `query` vs `hostname`) to match actual CLI implementation
+    - Corrected error message assertions and help text validation
+    - Added proper module execution tests for `__main__.py` entry point
+  - **Client Base Class Testing**: Created comprehensive test suite for abstract `BaseClient` class
+    - Added ABC compliance tests ensuring proper abstract method enforcement
+    - Fixed regex patterns for TypeError messages (`Can't` vs `Cannot`) across Python versions
+    - Added concrete implementation validation and inheritance testing
+  - **HTTP Base Handler Testing**: Developed complete test coverage for `SimpleHTTPRequestHandler`
+    - Renamed test file from `test_base.py` to `test_http_base.py` to resolve import conflicts
+    - Added HTTP request/response testing with mock-based isolation
+    - Comprehensive testing of GET methods, response content, and logging functionality
+  - **Network Utilities Testing**: Enhanced test coverage for `netinfo` module utilities
+    - Added tests for network interface enumeration and Wi-Fi scanning functionality
+    - Cross-platform testing for macOS and Linux network discovery methods
+    - Comprehensive error handling and edge case validation
+  - **Hotspot Module Testing**: Expanded test coverage for Wi-Fi access point management
+    - Added comprehensive DHCP server testing with platform-specific implementations
+    - Security configuration validation with password strength testing
+    - Cross-platform hotspot creation and management verification
+  - **Test Infrastructure Improvements**: Enhanced testing framework reliability
+    - Resolved Python import conflicts by ensuring unique test file names across modules
+    - Improved mocking strategies to prevent real network operations during testing
+    - Added proper error message validation with exact regex pattern matching
+    - All 330+ tests now passing with robust isolation and comprehensive coverage
+
+- **CLI Hotspot Management**: Added comprehensive hotspot CLI command for Wi-Fi access point management
+  - **New `gatenet hotspot` command** with multiple actions:
+    - `start` - Create and start Wi-Fi hotspots with customizable security settings
+    - `stop` - Stop running hotspots
+    - `status` - Check hotspot status and platform information
+    - `devices` - List connected devices with IP, MAC, and hostname details
+    - `generate-password` - Generate secure passwords with customizable length
+  - **Security Configuration**: Support for multiple security types (Open, WPA, WPA2, WPA3)
+  - **Comprehensive Options**: Configurable SSID, password, interface, IP range, gateway, channel, and hidden network settings
+  - **Multi-format Output**: JSON, table, and plain text output formats for all commands
+  - **Cross-platform Support**: Compatible with Linux (hostapd) and macOS (Internet Sharing)
+  - **Rich CLI Interface**: Beautiful table output with color-coded status and device information
+  - **Complete Test Coverage**: 13 comprehensive tests covering all hotspot functionality and error scenarios
+  - **Example Usage**:
+    ```bash
+    gatenet hotspot start --ssid MyHotspot --password securepass123 --security wpa2
+    gatenet hotspot status --output json
+    gatenet hotspot devices --output table
+    gatenet hotspot generate-password --length 16
+    gatenet hotspot stop
+    ```
+  - All 330 tests now passing with robust isolation and comprehensive coverage

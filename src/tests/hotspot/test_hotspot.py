@@ -230,3 +230,158 @@ class TestHotspot:
         
         devices = hotspot.get_connected_devices()
         assert isinstance(devices, list)
+
+    @patch('platform.system')
+    @patch('subprocess.run')
+    def test_hotspot_start_macos_success(self, mock_subprocess, mock_platform):
+        """Test successful hotspot start on macOS."""
+        mock_platform.return_value = "Darwin"
+        mock_subprocess.return_value = MagicMock(returncode=0)
+        
+        config = HotspotConfig(ssid="TestHotspot", password="password123")
+        hotspot = Hotspot(config)
+        
+        with patch.object(hotspot.dhcp_server, 'start', return_value=True):
+            result = hotspot.start()
+        
+        assert result is True
+        assert hotspot.is_running is True
+
+    @patch('platform.system')
+    @patch('subprocess.run')
+    def test_hotspot_start_macos_exception(self, mock_subprocess, mock_platform):
+        """Test hotspot start on macOS with exception."""
+        mock_platform.return_value = "Darwin"
+        mock_subprocess.side_effect = Exception("macOS error")
+        
+        config = HotspotConfig(ssid="TestHotspot", password="password123")
+        hotspot = Hotspot(config)
+        
+        result = hotspot.start()
+        assert result is False
+        assert hotspot.is_running is False
+
+    @patch('platform.system')
+    @patch('subprocess.run')
+    def test_hotspot_stop_macos_success(self, mock_subprocess, mock_platform):
+        """Test successful hotspot stop on macOS."""
+        mock_platform.return_value = "Darwin"
+        mock_subprocess.return_value = MagicMock(returncode=0)
+        
+        config = HotspotConfig(ssid="TestHotspot")
+        hotspot = Hotspot(config)
+        hotspot.is_running = True
+        
+        result = hotspot.stop()
+        assert result is True
+        assert hotspot.is_running is False
+
+    @patch('platform.system')
+    @patch('subprocess.run')
+    def test_hotspot_stop_macos_exception(self, mock_subprocess, mock_platform):
+        """Test hotspot stop on macOS with exception."""
+        mock_platform.return_value = "Darwin"
+        mock_subprocess.side_effect = Exception("macOS stop error")
+        
+        config = HotspotConfig(ssid="TestHotspot")
+        hotspot = Hotspot(config)
+        hotspot.is_running = True
+        
+        result = hotspot.stop()
+        assert result is False
+
+    @patch('platform.system')
+    def test_get_connected_devices_macos(self, mock_platform):
+        """Test getting connected devices on macOS."""
+        mock_platform.return_value = "Darwin"
+        
+        config = HotspotConfig(ssid="TestHotspot")
+        hotspot = Hotspot(config)
+        hotspot.is_running = True
+        
+        with patch.object(hotspot, '_get_devices_linux', return_value=[]) as mock_linux_devices:
+            devices = hotspot.get_connected_devices()
+            mock_linux_devices.assert_called_once()
+            assert devices == []
+
+    @patch('platform.system')
+    def test_get_connected_devices_unsupported_platform(self, mock_platform):
+        """Test getting connected devices on unsupported platform."""
+        mock_platform.return_value = "Windows"
+        
+        config = HotspotConfig(ssid="TestHotspot")
+        hotspot = Hotspot(config)
+        hotspot.is_running = True
+        
+        devices = hotspot.get_connected_devices()
+        assert devices == []
+
+    @patch('platform.system')
+    @patch('subprocess.run')
+    def test_get_connected_devices_linux_with_devices(self, mock_subprocess, mock_platform):
+        """Test getting connected devices on Linux with actual device data."""
+        mock_platform.return_value = "Linux"
+        mock_subprocess.return_value = MagicMock(
+            stdout="laptop (192.168.4.10) at aa:bb:cc:dd:ee:ff [ether] on wlan0\nphone (192.168.4.11) at 11:22:33:44:55:66 [ether] on wlan0\n"
+        )
+        
+        config = HotspotConfig(ssid="TestHotspot", gateway="192.168.4.1")
+        hotspot = Hotspot(config)
+        hotspot.is_running = True
+        
+        devices = hotspot.get_connected_devices()
+        assert isinstance(devices, list)
+        # The actual parsing logic is complex, just verify it doesn't crash
+
+    @patch('platform.system')
+    @patch('subprocess.run')
+    def test_get_connected_devices_linux_exception(self, mock_subprocess, mock_platform):
+        """Test getting connected devices on Linux with exception."""
+        mock_platform.return_value = "Linux"
+        mock_subprocess.side_effect = Exception("ARP table error")
+        
+        config = HotspotConfig(ssid="TestHotspot")
+        hotspot = Hotspot(config)
+        hotspot.is_running = True
+        
+        devices = hotspot.get_connected_devices()
+        assert devices == []
+
+    def test_get_connected_devices_exception_handling(self):
+        """Test exception handling in get_connected_devices."""
+        config = HotspotConfig(ssid="TestHotspot")
+        hotspot = Hotspot(config)
+        hotspot.is_running = True
+        
+        with patch.object(hotspot, '_get_devices_linux', side_effect=Exception("Device error")):
+            devices = hotspot.get_connected_devices()
+            assert devices == []
+
+    @patch('platform.system')
+    def test_stop_exception_handling(self, mock_platform):
+        """Test exception handling in stop method."""
+        mock_platform.return_value = "Linux"
+        
+        config = HotspotConfig(ssid="TestHotspot")
+        hotspot = Hotspot(config)
+        hotspot.is_running = True
+        
+        with patch.object(hotspot, '_stop_linux', side_effect=Exception("Stop error")):
+            result = hotspot.stop()
+            assert result is False
+
+    @patch('platform.system')
+    @patch('subprocess.run')
+    def test_stop_linux_exception(self, mock_subprocess, mock_platform):
+        """Test stop on Linux with exception."""
+        mock_platform.return_value = "Linux"
+        mock_subprocess.side_effect = Exception("Linux stop error")
+        
+        config = HotspotConfig(ssid="TestHotspot")
+        hotspot = Hotspot(config)
+        hotspot.is_running = True
+        
+        with patch.object(hotspot.dhcp_server, 'stop', return_value=True):
+            result = hotspot.stop()
+            # Should return False due to exception
+            assert result is False
