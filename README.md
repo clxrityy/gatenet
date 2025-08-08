@@ -8,7 +8,7 @@
 
 [![CI](https://github.com/clxrityy/gatenet/actions/workflows/test.yml/badge.svg?style=for-the-badge)](https://github.com/clxrityy/gatenet/actions/workflows/test.yml) [![codecov](https://codecov.io/gh/clxrityy/gatenet/graph/badge.svg?token=4644O5NGW9&style=for-the-badge)](https://codecov.io/gh/clxrityy/gatenet)
 
-# 🔗 Resources
+# Resources
 
 - [📚 Documentation](https://gatenet.readthedocs.io/en/latest/) - Complete guides and API reference
 - [🎮 Interactive Sandbox](https://gatenet.readthedocs.io/en/latest/sandbox.html) - Try Gatenet in your browser
@@ -367,13 +367,18 @@ make -C docs html
 
 ### **Interactive Development**
 
+<img src="https://i.gyazo.com/8f63595a15a9803866cd9f7c08563f91.gif" style="width:auto;max-height:22rem;" id="live_dashboard" alt="live dashboard" />
+
+<br />
+<br />
+
 - **[Try in Browser](https://gatenet.readthedocs.io/en/latest/sandbox.html)** - No installation required
-- **Web Dashboard** - Visual interface for all tools
+- **[Web Dashboard](https://gatenet-demo-c27e0a76554d.herokuapp.com/)** - Visual interface for all tools
 - **CLI Interface** - Command-line access to all features
 
 ---
 
-## 📚 Resources
+## 📚 Additional Resources
 
 - **[📊 API Reference](https://gatenet.readthedocs.io/en/latest/gatenet.html)**
 - **[🔄 Changelog](https://gatenet.readthedocs.io/en/latest/changelog.html)**
