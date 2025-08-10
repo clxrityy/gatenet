@@ -6,6 +6,8 @@ import platform
 import time
 from typing import Dict, List, Optional, Union
 from dataclasses import dataclass
+import tempfile
+import os
 from .security import SecurityConfig
 from .dhcp import DHCPServer
 from .backend import HotspotBackend, BackendResult
@@ -142,25 +144,34 @@ wpa_pairwise=TKIP
 rsn_pairwise=CCMP
 """
         
-        # Write hostapd config
-        with open("/tmp/hostapd.conf", "w") as f:
-            f.write(hostapd_conf)
+        # Write hostapd config securely using a temporary file
+        with tempfile.NamedTemporaryFile("w", delete=False, prefix="hostapd_", suffix=".conf") as tmpfile:
+            tmpfile.write(hostapd_conf)
+            hostapd_conf_path = tmpfile.name
         
-        # Configure interface
-        subprocess.run(["sudo", "ip", "addr", "add", f"{self.config.gateway}/24", "dev", self.config.interface], check=False)
-        subprocess.run(["sudo", "ip", "link", "set", self.config.interface, "up"], check=False)
+        try:
+            # Configure interface
+            subprocess.run(["sudo", "ip", "addr", "add", f"{self.config.gateway}/24", "dev", self.config.interface], check=False)
+            subprocess.run(["sudo", "ip", "link", "set", self.config.interface, "up"], check=False)
         
-        # Start DHCP server
-        self.dhcp_server.start()
+            # Start DHCP server
+            self.dhcp_server.start()
         
-        # Start hostapd
-        result = subprocess.run(["sudo", "hostapd", "/tmp/hostapd.conf"], 
-                              capture_output=True, text=True, check=False)
+            # Start hostapd
+            result = subprocess.run(["sudo", "hostapd", hostapd_conf_path], 
+                                  capture_output=True, text=True, check=False)
         
-        if result.returncode == 0:
-            self.is_running = True
-            return True
-        return False
+            if result.returncode == 0:
+                self.is_running = True
+                return True
+            return False
+        finally:
+            # Remove the temporary config file securely
+            if os.path.exists(hostapd_conf_path):
+                try:
+                    os.remove(hostapd_conf_path)
+                except Exception:
+                    pass
     
     def _start_macos(self) -> bool:
         """Start hotspot on macOS using built-in sharing."""
