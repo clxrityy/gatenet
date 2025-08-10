@@ -1,4 +1,5 @@
 import socket
+from gatenet.core import hooks, events
 from gatenet.client.base import BaseClient
 
 class TCPClient(BaseClient):
@@ -80,8 +81,19 @@ class TCPClient(BaseClient):
         str
             The response received from the server.
         """
+        # Hook: before send
+        try:
+            hooks.emit(events.TCP_BEFORE_SEND, data=message)
+        except Exception:
+            pass
         self._sock.sendall(message.encode())
-        return self._sock.recv(buffsize).decode()
+        data = self._sock.recv(buffsize).decode()
+        # Hook: after recv
+        try:
+            hooks.emit(events.TCP_AFTER_RECV, data=data)
+        except Exception:
+            pass
+        return data
 
     def close(self):
         """

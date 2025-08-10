@@ -4,7 +4,7 @@ gatenet
 .. toctree::
    :maxdepth: 4
 
-   gatenet
+   gatenet.cli
    gatenet.client
    gatenet.diagnostics
    gatenet.http_
@@ -13,7 +13,6 @@ gatenet
    gatenet.discovery
    gatenet.dashboard
    gatenet.service_detectors
-   gatenet.cli
    gatenet.mesh
    gatenet.radio
    gatenet.hotspot

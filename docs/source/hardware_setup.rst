@@ -1,13 +1,6 @@
 Hardware Setup
 =============
 
-.. toctree::
-   :maxdepth: 2
-
-   raspberry_pi_wifi
-   gps_module
-   sdr_radio
-
 
 Raspberry Pi Wi-Fi Scanning
 --------------------------

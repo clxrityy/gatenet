@@ -13,6 +13,54 @@ The hotspot module consists of four main components:
 3. **SecurityConfig** - Security and encryption management
 4. **DHCPServer** - DHCP server for client IP assignment
 
+Backend Extensibility
+---------------------
+
+The hotspot system supports pluggable backends. By default, it uses built-in logic for Linux (hostapd/dnsmasq) and macOS (Internet Sharing). You can inject a custom backend to support other platforms, run sandboxed tests, or integrate with specialized drivers.
+
+- HotspotBackend contract:
+  - ``start() -> BackendResult``: start AP; ``BackendResult.ok`` indicates success
+  - ``stop() -> BackendResult``: stop AP; ``BackendResult.ok`` indicates success
+  - ``devices() -> List[Dict[str, str]]``: return connected clients. Each dict should include ``ip``, ``mac``, and ``hostname`` keys
+
+Example: custom backend and injection
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+
+    from typing import List, Dict
+    from gatenet.hotspot import Hotspot, HotspotConfig, HotspotBackend, BackendResult
+
+    class DummyBackend(HotspotBackend):
+        def __init__(self):
+            self.started = False
+
+        def start(self) -> BackendResult:
+            self.started = True
+            return BackendResult(ok=True)
+
+        def stop(self) -> BackendResult:
+            self.started = False
+            return BackendResult(ok=True)
+
+        def devices(self) -> List[Dict[str, str]]:
+            if not self.started:
+                return []
+            return [{"ip": "192.168.4.2", "mac": "aa:bb:cc:dd:ee:ff", "hostname": "test-device"}]
+
+    cfg = HotspotConfig(ssid="TestNet", password="Secret123!")
+    hotspot = Hotspot(cfg, backend=DummyBackend())
+
+    hotspot.start()            # uses DummyBackend.start()
+    clients = hotspot.get_connected_devices()  # uses DummyBackend.devices()
+    hotspot.stop()             # uses DummyBackend.stop()
+
+Notes:
+
+- When a backend is supplied, ``Hotspot.is_running`` reflects backend results: it becomes ``True`` if ``start().ok`` is ``True`` and returns to ``False`` when ``stop().ok`` is ``True``.
+- If no backend is provided, Linux/macOS built-ins are used based on the host platform.
+- Backend injection is ideal for unit testing without requiring root privileges or real network interfaces.
+
 Quick Start
 -----------
 
@@ -372,7 +420,7 @@ The hotspot module integrates well with other ``gatenet`` modules:
     # Monitor clients
     devices = hotspot.get_connected_devices()
     for device in devices:
-        # Ping each connected device
-        ping_result = ping(device.ip)
-        print(f"Device {device.mac}: {ping_result.avg_rtt}ms")
+        # device is a dict with keys: ip, mac, hostname
+        ping_result = ping(device["ip"])
+        print(f"Device {device['mac']}: {ping_result.avg_rtt}ms")
 

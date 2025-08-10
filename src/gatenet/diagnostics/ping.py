@@ -176,6 +176,9 @@ def _icmp_ping_sync(host: str, count: int, timeout: int, system: str) -> Dict[st
             "raw_output": ""
         }
 
+from gatenet.core import hooks, events
+
+
 def ping(host: str, count: int = 4, timeout: int = 2, method: str = "icmp") -> Dict[str, Union[str, float, int, bool, list]]:
     """
     Ping a host and return detailed latency statistics, including jitter and all RTTs.
@@ -186,17 +189,26 @@ def ping(host: str, count: int = 4, timeout: int = 2, method: str = "icmp") -> D
         >>> print(result["rtt_avg"])
     """
     system = platform.system()
+    try:
+        hooks.emit(events.PING_BEFORE, host=host, count=count)
+    except Exception:
+        pass
     if method == "icmp":
-        return _icmp_ping_sync(host, count, timeout, system)
+        result = _icmp_ping_sync(host, count, timeout, system)
     elif method == "tcp":
-        return _tcp_ping_sync(host, count, timeout)
+        result = _tcp_ping_sync(host, count, timeout)
     else:
-        return {
+        result = {
             "host": host,
             "success": False,
             "error": f"Unknown method: {method}",
             "raw_output": ""
         }
+    try:
+        hooks.emit(events.PING_AFTER, host=host, result=result)
+    except Exception:
+        pass
+    return result
 
 async def _tcp_ping_async(host: str, count: int) -> Dict[str, Union[str, float, int, bool, list]]:
     """
@@ -291,22 +303,36 @@ async def async_ping(
     """
     system = platform.system()
     try:
+        hooks.emit(events.PING_BEFORE, host=host, count=count)
+    except Exception:
+        pass
+    try:
         async with asyncio.timeout(10):
             if method == "icmp":
-                return await _icmp_ping_async(host, count, system)
+                result = await _icmp_ping_async(host, count, system)
             elif method == "tcp":
-                return await _tcp_ping_async(host, count)
+                result = await _tcp_ping_async(host, count)
             else:
-                return {
+                result = {
                     "host": host,
                     "success": False,
                     "error": f"Unknown method: {method}",
                     "raw_output": ""
                 }
+            try:
+                hooks.emit(events.PING_AFTER, host=host, result=result)
+            except Exception:
+                pass
+            return result
     except asyncio.TimeoutError:
-        return {
+        result = {
             "host": host,
             "success": False,
             "error": "Ping operation timed out",
             "raw_output": ""
         }
+        try:
+            hooks.emit(events.PING_AFTER, host=host, result=result)
+        except Exception:
+            pass
+        return result

@@ -6,7 +6,16 @@ manage DHCP services, and control connected devices.
 """
 
 from .hotspot import Hotspot, HotspotConfig
+from .backend import HotspotBackend, BackendResult
 from .dhcp import DHCPServer
 from .security import SecurityConfig, SecurityType
 
-__all__ = ["Hotspot", "HotspotConfig", "DHCPServer", "SecurityConfig", "SecurityType"]
+__all__ = [
+	"Hotspot",
+	"HotspotConfig",
+	"DHCPServer",
+	"SecurityConfig",
+	"SecurityType",
+	"HotspotBackend",
+	"BackendResult",
+]

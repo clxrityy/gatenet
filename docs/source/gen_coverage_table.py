@@ -36,7 +36,8 @@ def write_rst(summary, out_path):
         f.write(".. list-table:: File Coverage\n   :header-rows: 1\n   :widths: 40 10 10 10\n\n")
         f.write("   * - File\n     - Statements\n     - Covered\n     - Percent\n")
         for filename, total, covered, percent in sorted(summary):
-            f.write(f"   * - {filename}\n     - {total}\n     - {covered}\n     - {percent:.1f}%\n")
+            # Wrap filenames in inline code to avoid unintended RST references (e.g., 'http_' suffix)
+            f.write(f"   * - ``{filename}``\n     - {total}\n     - {covered}\n     - {percent:.1f}%\n")
         f.write("\nGenerated from coverage.xml.\n")
 
 

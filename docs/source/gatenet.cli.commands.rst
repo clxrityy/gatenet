@@ -12,6 +12,14 @@ gatenet.cli.commands.dns module
    :show-inheritance:
    :undoc-members:
 
+gatenet.cli.commands.hotspot module
+-----------------------------------
+
+.. automodule:: gatenet.cli.commands.hotspot
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 gatenet.cli.commands.iface module
 ---------------------------------
 

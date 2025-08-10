@@ -1,6 +1,8 @@
 import json
 from http.server import HTTPServer, BaseHTTPRequestHandler
 import threading
+from typing import Optional
+from gatenet.core import Hooks, events
     
 class HTTPServerComponent:
     """
@@ -22,7 +24,7 @@ class HTTPServerComponent:
     # Now visit http://127.0.0.1:8080/status
     """
 
-    def __init__(self, host: str = "127.0.0.1", port: int = 8000):
+    def __init__(self, host: str = "127.0.0.1", port: int = 8000, hooks: Optional[Hooks] = None):
         """
         Initialize the HTTP server.
 
@@ -37,9 +39,12 @@ class HTTPServerComponent:
         self.port = port
         self._routes = {}  # (path, method) -> handler func
         self._thread = None
+        self.hooks = hooks or Hooks()
         self.server = HTTPServer((self.host, self.port), self._make_handler())
+
     def _make_handler(self):
         routes = self._routes # Closure to capture routes
+        hooks = self.hooks
         
         class RouteHTTPRequestHandler(BaseHTTPRequestHandler):
             routes = {}
@@ -60,20 +65,49 @@ class HTTPServerComponent:
                 self._handle("PATCH")
                 
             def _handle(self, method):
+                # Before-request hook
+                try:
+                    hooks.emit(events.HTTP_BEFORE_REQUEST, req=self)
+                except Exception:
+                    pass
+
                 handler = routes.get((self.path, method))
                 if handler:
                     try:
                         result = handler(self)
-                        self.send_response(200)
+                        status = 200
+                        body = json.dumps(result).encode()
+                        self.send_response(status)
                         self.send_header("Content-Type", "application/json")
                         self.end_headers()
-                        self.wfile.write(json.dumps(result).encode())
+                        self.wfile.write(body)
+                        # After-response hook
+                        try:
+                            hooks.emit(
+                                events.HTTP_AFTER_RESPONSE,
+                                req=self,
+                                status=status,
+                                headers={"Content-Type": "application/json"},
+                                body=body,
+                            )
+                        except Exception:
+                            pass
                     except Exception as e:
+                        # Exception hook
+                        try:
+                            hooks.emit(events.HTTP_EXCEPTION, req=self, exc=e)
+                        except Exception:
+                            pass
                         self.send_response(500)
                         self.end_headers()
                         self.wfile.write(b"Internal Server Error \n")
                         self.wfile.write(str(e).encode())
                 else:
+                    # Route-not-found hook
+                    try:
+                        hooks.emit(events.HTTP_ROUTE_NOT_FOUND, path=self.path, method=method)
+                    except Exception:
+                        pass
                     self.send_response(404)
                     self.end_headers()
                     self.wfile.write(json.dumps({ "code": 404, "error": "Not Found" }).encode())

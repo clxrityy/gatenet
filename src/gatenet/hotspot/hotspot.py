@@ -8,6 +8,7 @@ from typing import Dict, List, Optional, Union
 from dataclasses import dataclass
 from .security import SecurityConfig
 from .dhcp import DHCPServer
+from .backend import HotspotBackend, BackendResult
 
 
 @dataclass
@@ -35,12 +36,13 @@ class Hotspot:
         >>> hotspot.stop()
     """
     
-    def __init__(self, config: HotspotConfig):
+    def __init__(self, config: HotspotConfig, backend: Optional[HotspotBackend] = None):
         self.config = config
         self.security = SecurityConfig(config.password) if config.password else None
         self.dhcp_server = DHCPServer(config.ip_range, config.gateway)
         self.is_running = False
         self.system = platform.system()
+        self._backend = backend  # allow injection for tests or custom platforms
         
     def start(self) -> bool:
         """
@@ -54,6 +56,10 @@ class Hotspot:
             >>> success = hotspot.start()
         """
         try:
+            if self._backend:
+                result: BackendResult = self._backend.start()
+                self.is_running = result.ok
+                return result.ok
             if self.system == "Linux":
                 return self._start_linux()
             elif self.system == "Darwin":
@@ -72,6 +78,10 @@ class Hotspot:
             bool: True if stopped successfully, False otherwise
         """
         try:
+            if self._backend:
+                result: BackendResult = self._backend.stop()
+                self.is_running = not result.ok and self.is_running
+                return result.ok
             if self.system == "Linux":
                 return self._stop_linux()
             elif self.system == "Darwin":
@@ -97,6 +107,8 @@ class Hotspot:
             return []
             
         try:
+            if self._backend:
+                return self._backend.devices()
             if self.system == "Linux":
                 return self._get_devices_linux()
             elif self.system == "Darwin":

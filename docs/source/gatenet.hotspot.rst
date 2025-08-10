@@ -4,6 +4,14 @@ gatenet.hotspot package
 Submodules
 ----------
 
+gatenet.hotspot.backend module
+------------------------------
+
+.. automodule:: gatenet.hotspot.backend
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 gatenet.hotspot.dhcp module
 ---------------------------
 

@@ -10,7 +10,7 @@
 project = 'gatenet'
 copyright = '2025, MJ Anglin'
 author = 'MJ Anglin'
-release = '0.12.1'  # Update to the latest version
+release = '0.12.3'  # Update to the latest version
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -95,7 +95,6 @@ html_favicon = "_static/favicon.ico"
 html_theme_options = {
     "sidebar_hide_name": True,
     "navigation_with_keys": True,
-    "announcement": f'<a href="changelog.html#id22" style="color: white; text-decoration: none;">📦 Latest Release: v{release} - New Hotspot Module Available!</a>',
     # Add more Furo options here as needed
 }
 

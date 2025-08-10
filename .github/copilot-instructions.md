@@ -7,12 +7,16 @@ Gatenet is a modular Python networking toolkit for diagnostics, service discover
 ## Package Structure & Directory Layout
 
 - `src/gatenet/` — Main package code
+  - `cli/` — Argparse-driven CLI commands and entrypoints
   - `client/` — TCP, UDP, and HTTP clients (sync and async)
   - `socket/` — TCP and UDP socket servers (low-level, connection-oriented)
   - `http_/` — HTTP server and client (sync and async, built on `http.server`, `urllib`, and `aiohttp`)
   - `diagnostics/` — Tools for ping, traceroute, bandwidth, geo IP, DNS, port scanning
-  - `discovery/` — Service discovery using strategy and chain-of-responsibility patterns (SSH, HTTP, FTP, SMTP, mDNS, Bluetooth, UPNP, etc.)
-  - `mesh/` — Modular mesh networking (LoRa, ESP, Wi-Fi, GPS, SDR integration, encrypted messaging, topology mapping)
+    - `discovery/` — Service discovery with registry + chain-of-responsibility (SSH, HTTP, FTP, SMTP, mDNS, Bluetooth, UPNP, etc.)
+    - `service_detectors/` — Standalone, reusable protocol detectors (HTTP/SMTP/FTP/etc.)
+    - `mesh/` — Modular mesh networking (LoRa, ESP, Wi-Fi, GPS, SDR integration, encrypted messaging, topology mapping)
+    - `radio/` — Radio and RF helpers used by mesh and examples
+    - `hotspot/` — Hotspot management, DHCP, security, and pluggable backends (Linux/macOS)
   - `dashboard/` — FastAPI-based web dashboard for diagnostics and live output (SSE)
   - `utils/` — Utilities (e.g., `get_free_port()`)
 - `src/tests/` — Unit and integration tests, mirroring the main package structure
@@ -25,10 +29,15 @@ Gatenet is a modular Python networking toolkit for diagnostics, service discover
 ## Design Patterns & Extensibility
 
 - **Strategy Pattern**: Used for service detectors (e.g., SSH, HTTP, FTP, SMTP)
-- **Chain of Responsibility**: Service identification tries detectors in sequence until one succeeds
-- **Abstract Base Classes (ABC)**: For extensible interfaces (clients, servers, detectors)
+- **Chain of Responsibility + Registry**: Detector order is customizable at runtime via registry helpers
+- **Abstract Base Classes (ABC)**: For extensible interfaces (clients, servers, detectors, hotspot backends)
 - **Async/Await**: Async support for HTTP, ping, and more
 - **Method Chaining**: Fluent APIs for HTTP clients and other components
+
+Key extensibility points:
+
+- Service discovery detector registry: `register_detector`, `register_detectors`, `clear_detectors`, `get_detectors` (in `gatenet.discovery`)
+- Pluggable hotspot backends via `HotspotBackend` (in `gatenet.hotspot`)
 
 ---
 
@@ -88,26 +97,51 @@ async def main():
 asyncio.run(main())
 ```
 
-**Service Discovery:**
+**Service Discovery (registry-aware):**
 
 ```python
-from gatenet.discovery.ssh import _identify_service, SSHDetector
-service = _identify_service(22, "SSH-2.0-OpenSSH_8.9p1")
-print(service)  # Output: "OpenSSH 8.9p1"
-ssh_detector = SSHDetector()
-result = ssh_detector.detect(22, "ssh-2.0-openssh_8.9p1")
+from gatenet.discovery import (
+    SSHDetector,
+    HTTPDetector,
+    ServiceDetector,
+    register_detector,
+    get_detectors,
+)
+
+# View/modify detector chain at runtime
+detectors = get_detectors()           # list of strategies in detection order
+register_detector(HTTPDetector(), append=True)  # add to end while keeping fallback last
+
+class CustomDetector(ServiceDetector):
+    def detect(self, port: int, banner: str):
+        return "MyService" if "my-banner" in banner else None
+
+# Insert early for higher precedence
+register_detector(CustomDetector(), append=False)
 ```
 
-**Custom Service Detector:**
+**Hotspot with pluggable backend:**
 
 ```python
-from gatenet.discovery.ssh import ServiceDetector
-from typing import Optional
-class CustomDetector(ServiceDetector):
-    def detect(self, port: int, banner: str) -> Optional[str]:
-        if 'myapp' in banner:
-            return "MyCustomApp"
-        return None
+from typing import List, Dict
+from gatenet.hotspot import Hotspot, HotspotConfig, HotspotBackend, BackendResult
+
+class DummyBackend(HotspotBackend):
+    def __init__(self):
+        self.started = False
+    def start(self) -> BackendResult:
+        self.started = True
+        return BackendResult(ok=True)
+    def stop(self) -> BackendResult:
+        self.started = False
+        return BackendResult(ok=True)
+    def devices(self) -> List[Dict[str, str]]:
+        return [{"ip": "192.168.4.2", "mac": "aa:bb:cc:dd:ee:ff", "hostname": "test"}] if self.started else []
+
+hotspot = Hotspot(HotspotConfig(ssid="TestNet", password="Secret123!"), backend=DummyBackend())
+hotspot.start()
+devices = hotspot.get_connected_devices()
+hotspot.stop()
 ```
 
 **Diagnostics (ping, traceroute, bandwidth, geo, DNS, port scan):**
@@ -147,14 +181,16 @@ is_open = check_public_port("1.1.1.1", 53)
 - Mock network connections with `unittest.mock` or `pytest` fixtures
 - Test both positive and negative cases, including edge cases (timeouts, empty responses, case sensitivity)
 - Run `make test` before submitting a PR
+- For hotspot logic that requires root/platform tools, inject a dummy backend to keep tests hermetic
 
 ---
 
 ## Coverage & Documentation
 
-- Coverage is measured with `pytest-cov` and summarized in the docs (see `make docs`)
-- Sphinx docs are in `docs/` and built with `make docs`
+- Coverage is measured with `pytest-cov` and summarized in `docs/source/coverage_summary.rst` (auto-generated)
+- Sphinx docs are in `docs/` and built with `make -C docs html`
 - Examples are in `examples/` and should be kept up to date with new features
+- If you reference versions or issue numbers in the Markdown changelog, use real links or escape square brackets to avoid MyST warnings
 
 ---
 
@@ -165,6 +201,7 @@ is_open = check_public_port("1.1.1.1", 53)
 - Prefer async/await for new async features
 - Always document public APIs and provide usage examples
 - Keep tests and examples up to date with new features
+- Favor imports from package-level namespaces that are re-exported (e.g., `from gatenet.discovery import ServiceDetector`) to avoid tight coupling to module paths
 
 ---
 

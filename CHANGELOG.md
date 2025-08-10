@@ -26,6 +26,7 @@
     - [0.11.3](#0113)
   - [0.12.0](#0120)
     - [0.12.1](#0121)
+  - [0.12.3](#0123)
 
 # v0 (BETA)
 
@@ -622,3 +623,52 @@ Added an interactive sandbox page to the documentation.
     gatenet hotspot stop
     ```
   - All 330 tests now passing with robust isolation and comprehensive coverage
+
+### 0.12.3
+
+> - Internal restructuring to improve extensibility while preserving public APIs.
+> - Addition of the `gatenet.core` module for shared hooks/events.
+
+- Discovery plugin registry (non-breaking):
+
+  - Moved detector classes to `gatenet.discovery.detectors` and introduced a registry in `gatenet.discovery.ssh`.
+  - New APIs: `register_detector`, `register_detectors`, `clear_detectors`, `get_detectors` for chain-of-responsibility customization.
+  - Backward compatible: existing imports and `_identify_service()` behavior remain unchanged; defaults preserved.
+
+- Hotspot backend abstraction (non-breaking):
+
+  - Added `HotspotBackend` interface and `BackendResult` to enable pluggable platform backends.
+  - Introduced platform backends (`gatenet.hotspot.backends.linux`, `gatenet.hotspot.backends.macos`).
+  - `Hotspot` now accepts an optional `backend` for dependency injection; legacy behavior remains the default path.
+
+- Core hooks and events (non-breaking):
+
+  - New `gatenet.core` package:
+    - `Hooks`: lightweight event bus.
+    - `events`: centralized event name constants.
+    - `hooks`: shared default Hooks instance for cross-module use.
+  - HTTP server now emits lifecycle events and accepts an optional hooks instance:
+    - `HTTP_BEFORE_REQUEST`, `HTTP_AFTER_RESPONSE`, `HTTP_ROUTE_NOT_FOUND`, `HTTP_EXCEPTION`.
+  - Clients emit send/receive events:
+    - TCP: `TCP_BEFORE_SEND`, `TCP_AFTER_RECV`.
+    - UDP: `UDP_BEFORE_SEND`, `UDP_AFTER_RECV`.
+  - Discovery emits detector chain events in `_identify_service`:
+    - `DISCOVERY_BEFORE_DETECT`, `DISCOVERY_AFTER_DETECT`.
+  - Diagnostics ping emits events (sync and async):
+    - `PING_BEFORE`, `PING_AFTER`.
+
+- Docs & examples:
+
+  - Added a new "Hooks & Events" section to `docs/source/examples.rst` demonstrating HTTP, TCP/UDP, discovery, and diagnostics hook usage.
+
+- Tests:
+
+  - Added tests to verify hook emissions and behavior:
+    - Discovery before/after detect hooks.
+    - UDP and TCP client before/after hooks.
+    - Diagnostics ping before/after hooks.
+    - HTTP hooks integration test and a retry helper test mirroring the docs example.
+
+> ###### Notes:
+>
+> - The detector registry, hotspot backends, and new hooks/events are marked experimental until 1.0 and may evolve with feedback.

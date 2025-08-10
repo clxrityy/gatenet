@@ -58,6 +58,87 @@ TCP & UDP
        print(response)
        client.close()
 
+Hooks & Events
+--------------
+
+Use the lightweight hooks bus to observe and extend behavior across modules.
+
+**Basic subscription**
+
+.. code-block:: python
+
+   from gatenet.core import hooks, events
+
+   def log_send(data):
+       print("sending:", data)
+
+   hooks.on(events.TCP_BEFORE_SEND, log_send)
+
+   # Use clients/servers normally; events will fire without changing your code
+
+**HTTP server hooks**
+
+.. code-block:: python
+
+   from gatenet.http_.server import HTTPServerComponent
+   from gatenet.core import hooks, events
+
+   hooks.on(events.HTTP_BEFORE_REQUEST, lambda req: print("HTTP", req.command, req.path))
+   hooks.on(events.HTTP_AFTER_RESPONSE, lambda req, status, headers, body: print("status:", status))
+
+   server = HTTPServerComponent(host="0.0.0.0", port=8080, hooks=hooks)
+
+   @server.route("/status", method="GET")
+   def status(req):
+       return {"ok": True}
+
+   server.start()
+
+**TCP/UDP client hooks**
+
+.. code-block:: python
+
+   from gatenet.client.tcp import TCPClient
+   from gatenet.client.udp import UDPClient
+   from gatenet.core import hooks, events
+
+   hooks.on(events.TCP_AFTER_RECV, lambda data: print("tcp recv:", data))
+   hooks.on(events.UDP_AFTER_RECV, lambda data: print("udp recv:", data))
+
+   TCPClient(host="127.0.0.1", port=12345).send("ping")
+   UDPClient(host="127.0.0.1", port=12345).send("ping")
+
+**Discovery hooks**
+
+.. code-block:: python
+
+   from gatenet.discovery.ssh import _identify_service
+   from gatenet.core import hooks, events
+
+   hooks.on(events.DISCOVERY_BEFORE_DETECT, lambda port, banner: print("detecting:", port, banner))
+   hooks.on(events.DISCOVERY_AFTER_DETECT, lambda port, banner, result: print("detected:", result))
+
+   svc = _identify_service(22, "SSH-2.0-OpenSSH_8.9p1")
+   print(svc)
+
+**Diagnostics (ping) hooks**
+
+.. code-block:: python
+
+   from gatenet.diagnostics.ping import ping, async_ping
+   from gatenet.core import hooks, events
+   import asyncio
+
+   hooks.on(events.PING_BEFORE, lambda host, count: print("pinging", host, count))
+   hooks.on(events.PING_AFTER, lambda host, result: print("done", host, result.get("success")))
+
+   ping("1.1.1.1", count=2)
+
+   async def main():
+       await async_ping("8.8.8.8", count=2)
+
+   asyncio.run(main())
+
 Diagnostics
 -----------
 

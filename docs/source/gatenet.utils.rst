@@ -20,6 +20,14 @@ gatenet.utils.net module
    :show-inheritance:
    :undoc-members:
 
+gatenet.utils.netinfo module
+----------------------------
+
+.. automodule:: gatenet.utils.netinfo
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 Module contents
 ---------------
 

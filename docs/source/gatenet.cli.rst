@@ -1,52 +1,29 @@
 gatenet.cli package
 ===================
 
-.. automodule:: gatenet.cli.main 
-   :members:
-   :undoc-members:
-   :show-inheritance:
+Subpackages
+-----------
 
-Commands
+.. toctree::
+   :maxdepth: 4
+
+   gatenet.cli.commands
+
+Submodules
 ----------
 
-gatenet.cli.commands.wifi
-----------------------------
-.. automodule:: gatenet.cli.commands.wifi
-   :members:
-   :undoc-members:
-   :show-inheritance:
+gatenet.cli.main module
+-----------------------
 
-gatenet.cli.commands.trace
-----------------------------
-.. automodule:: gatenet.cli.commands.trace
+.. automodule:: gatenet.cli.main
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
-gatenet.cli.commands.ports
-----------------------------
-.. automodule:: gatenet.cli.commands.ports
-   :members:
-   :undoc-members:
-   :show-inheritance:
+Module contents
+---------------
 
-gatenet.cli.commands.dns
-----------------------------
-.. automodule:: gatenet.cli.commands.dns
+.. automodule:: gatenet.cli
    :members:
-   :undoc-members:
    :show-inheritance:
-
-gatenet.cli.commands.iface
-----------------------------
-.. automodule:: gatenet.cli.commands.iface
-   :members:
    :undoc-members:
-   :show-inheritance:
-
-gatenet.cli.commands.ping
-----------------------------
-.. automodule:: gatenet.cli.commands.ping
-   :members:
-   :undoc-members:
-   :show-inheritance:

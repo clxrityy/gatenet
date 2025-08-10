@@ -7,12 +7,18 @@ Subpackages
 .. toctree::
    :maxdepth: 4
 
+   gatenet.cli
    gatenet.client
+   gatenet.dashboard
    gatenet.diagnostics
+   gatenet.discovery
+   gatenet.hotspot
    gatenet.http_
+   gatenet.mesh
+   gatenet.radio
+   gatenet.service_detectors
    gatenet.socket
    gatenet.utils
-   gatenet.discovery
 
 Module contents
 ---------------

@@ -12,7 +12,7 @@
          </a>
          <pre class="hero-install-block" style="margin: 0.5em 0 0 0; background: #222b36; color: #fff; border-radius: 6px; padding: 0.5em 1em; font-size: 1.05em; font-family: 'Fira Mono', 'Menlo', 'Consolas', monospace; box-shadow: 0 2px 8px 0 rgba(30,40,60,0.07); border: 1px solid #232946;">pip install gatenet</pre>
        </div>
-       <div class="hero-details" style="margin-top: 1.5em; margin-bottom: 1.5em; background: linear-gradient(135deg, rgba(240,240,245,0.08) 0%, rgba(200,200,220,0.04) 100%); border-radius: 8px; padding: 1em 1.5em; box-shadow: 0 2px 8px 0 rgba(30,40,60,0.05); font-size: 1.05em; color: inherit; max-width: 700px;">
+       <div class="hero-details" style="margin-top: 1.5em; margin-bottom: 1.5em; background: linear-gradient(135deg, rgba(240,240,245,0.08) 0%, rgba(200,200,220,0.04) 100%); border-radius: 8px; padding: 1em 1.5em; box-shadow: 0 2px 8px 0 rgba(30,40,60,0.05); font-size: 0.85em; color: inherit; max-width: 700px;">
         <ul style="margin: 0; padding: 0; text-align: left;">
           <li><b>Modular architecture:</b> TCP/UDP/HTTP clients & servers, diagnostics, service discovery, mesh networking, dashboard, and utilities.</li>
           <li><b>Extensible design:</b> Strategy & chain-of-responsibility patterns, abstract base classes, and fluent APIs for easy customization.</li>
@@ -79,26 +79,26 @@
    </section>
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 4
    :caption: API Reference
 
    modules
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: Project Overview
 
-   coverage_summary
-   changelog
-   architecture
-   cli
    examples
    sandbox
+   coverage_summary
+   changelog
+   security
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Additional Resources
+   :maxdepth: 1
+   :caption: Resources
 
+   cli
    hardware_setup
    cli_integration_examples
    advanced_radio_usage

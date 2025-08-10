@@ -9,287 +9,307 @@ Test Coverage Summary
      - Statements
      - Covered
      - Percent
-   * - __init__.py
+   * - ``__init__.py``
      - 34
      - 22
      - 64.7%
-   * - cli/__init__.py
+   * - ``cli/__init__.py``
      - 2
      - 2
      - 100.0%
-   * - cli/__main__.py
+   * - ``cli/__main__.py``
      - 3
      - 2
      - 66.7%
-   * - cli/commands/__init__.py
+   * - ``cli/commands/__init__.py``
      - 8
      - 8
      - 100.0%
-   * - cli/commands/dns.py
+   * - ``cli/commands/dns.py``
      - 62
      - 39
      - 62.9%
-   * - cli/commands/hotspot.py
+   * - ``cli/commands/hotspot.py``
      - 152
      - 99
      - 65.1%
-   * - cli/commands/iface.py
+   * - ``cli/commands/iface.py``
      - 52
      - 33
      - 63.5%
-   * - cli/commands/ping.py
+   * - ``cli/commands/ping.py``
      - 34
      - 20
      - 58.8%
-   * - cli/commands/ports.py
+   * - ``cli/commands/ports.py``
      - 34
      - 24
      - 70.6%
-   * - cli/commands/trace.py
+   * - ``cli/commands/trace.py``
      - 52
      - 28
      - 53.8%
-   * - cli/commands/wifi.py
+   * - ``cli/commands/wifi.py``
      - 32
      - 26
      - 81.2%
-   * - cli/main.py
+   * - ``cli/main.py``
      - 46
      - 46
      - 100.0%
-   * - client/__init__.py
+   * - ``client/__init__.py``
      - 4
      - 4
      - 100.0%
-   * - client/base.py
+   * - ``client/base.py``
      - 8
      - 6
      - 75.0%
-   * - client/tcp.py
-     - 31
-     - 26
-     - 83.9%
-   * - client/udp.py
-     - 31
-     - 28
-     - 90.3%
-   * - dashboard/__init__.py
+   * - ``client/tcp.py``
+     - 41
+     - 32
+     - 78.0%
+   * - ``client/udp.py``
+     - 41
+     - 34
+     - 82.9%
+   * - ``core/__init__.py``
+     - 4
+     - 4
+     - 100.0%
+   * - ``core/events.py``
+     - 12
+     - 12
+     - 100.0%
+   * - ``core/hooks.py``
+     - 25
+     - 18
+     - 72.0%
+   * - ``dashboard/__init__.py``
      - 2
      - 2
      - 100.0%
-   * - dashboard/app.py
+   * - ``dashboard/app.py``
      - 70
      - 54
      - 77.1%
-   * - diagnostics/__init__.py
+   * - ``diagnostics/__init__.py``
      - 10
      - 8
      - 80.0%
-   * - diagnostics/bandwidth.py
+   * - ``diagnostics/bandwidth.py``
      - 25
      - 24
      - 96.0%
-   * - diagnostics/dns.py
+   * - ``diagnostics/dns.py``
      - 15
      - 12
      - 80.0%
-   * - diagnostics/geo.py
+   * - ``diagnostics/geo.py``
      - 11
      - 9
      - 81.8%
-   * - diagnostics/ping.py
-     - 163
-     - 134
-     - 82.2%
-   * - diagnostics/port_scan.py
+   * - ``diagnostics/ping.py``
+     - 187
+     - 148
+     - 79.1%
+   * - ``diagnostics/port_scan.py``
      - 35
      - 35
      - 100.0%
-   * - diagnostics/traceroute.py
+   * - ``diagnostics/traceroute.py``
      - 66
      - 60
      - 90.9%
-   * - discovery/__init__.py
-     - 5
-     - 5
+   * - ``discovery/__init__.py``
+     - 6
+     - 6
      - 100.0%
-   * - discovery/bluetooth.py
+   * - ``discovery/bluetooth.py``
      - 34
      - 21
      - 61.8%
-   * - discovery/mdns.py
+   * - ``discovery/detectors.py``
+     - 77
+     - 75
+     - 97.4%
+   * - ``discovery/mdns.py``
      - 49
      - 36
      - 73.5%
-   * - discovery/service_discovery.py
+   * - ``discovery/service_discovery.py``
      - 18
      - 18
      - 100.0%
-   * - discovery/ssh.py
-     - 94
-     - 87
-     - 92.6%
-   * - discovery/upnp.py
+   * - ``discovery/ssh.py``
+     - 49
+     - 39
+     - 79.6%
+   * - ``discovery/upnp.py``
      - 38
      - 34
      - 89.5%
-   * - hotspot/__init__.py
-     - 4
-     - 4
+   * - ``hotspot/__init__.py``
+     - 5
+     - 5
      - 100.0%
-   * - hotspot/dhcp.py
+   * - ``hotspot/backend.py``
+     - 8
+     - 8
+     - 100.0%
+   * - ``hotspot/dhcp.py``
      - 57
      - 53
      - 93.0%
-   * - hotspot/hotspot.py
-     - 109
-     - 102
-     - 93.6%
-   * - hotspot/security.py
+   * - ``hotspot/hotspot.py``
+     - 121
+     - 114
+     - 94.2%
+   * - ``hotspot/security.py``
      - 65
      - 62
      - 95.4%
-   * - http_/__init__.py
+   * - ``http_/__init__.py``
      - 5
      - 5
      - 100.0%
-   * - http_/async_client.py
+   * - ``http_/async_client.py``
      - 29
      - 23
      - 79.3%
-   * - http_/base.py
+   * - ``http_/base.py``
      - 9
      - 9
      - 100.0%
-   * - http_/client.py
+   * - ``http_/client.py``
      - 31
      - 28
      - 90.3%
-   * - http_/server.py
-     - 59
-     - 49
-     - 83.1%
-   * - mesh/__init__.py
+   * - ``http_/server.py``
+     - 81
+     - 68
+     - 84.0%
+   * - ``mesh/__init__.py``
      - 4
      - 4
      - 100.0%
-   * - mesh/esp.py
+   * - ``mesh/esp.py``
      - 13
      - 13
      - 100.0%
-   * - mesh/lora.py
+   * - ``mesh/lora.py``
      - 11
      - 11
      - 100.0%
-   * - mesh/radio.py
+   * - ``mesh/radio.py``
      - 70
      - 68
      - 97.1%
-   * - radio/__init__.py
+   * - ``radio/__init__.py``
      - 4
      - 4
      - 100.0%
-   * - radio/base.py
+   * - ``radio/base.py``
      - 14
      - 11
      - 78.6%
-   * - radio/esp.py
+   * - ``radio/esp.py``
      - 17
      - 14
      - 82.4%
-   * - radio/lora.py
+   * - ``radio/lora.py``
      - 17
      - 14
      - 82.4%
-   * - radio/sdr.py
+   * - ``radio/sdr.py``
      - 28
      - 24
      - 85.7%
-   * - service_detectors/__init__.py
+   * - ``service_detectors/__init__.py``
      - 20
      - 19
      - 95.0%
-   * - service_detectors/banner_keyword.py
+   * - ``service_detectors/banner_keyword.py``
      - 9
      - 9
      - 100.0%
-   * - service_detectors/coap.py
+   * - ``service_detectors/coap.py``
      - 9
      - 9
      - 100.0%
-   * - service_detectors/fallback.py
+   * - ``service_detectors/fallback.py``
      - 8
      - 8
      - 100.0%
-   * - service_detectors/ftp.py
+   * - ``service_detectors/ftp.py``
      - 13
      - 12
      - 92.3%
-   * - service_detectors/generic.py
+   * - ``service_detectors/generic.py``
      - 10
      - 10
      - 100.0%
-   * - service_detectors/http.py
+   * - ``service_detectors/http.py``
      - 15
      - 14
      - 93.3%
-   * - service_detectors/imap.py
+   * - ``service_detectors/imap.py``
      - 11
      - 11
      - 100.0%
-   * - service_detectors/mqtt.py
+   * - ``service_detectors/mqtt.py``
      - 9
      - 9
      - 100.0%
-   * - service_detectors/pop3.py
+   * - ``service_detectors/pop3.py``
      - 10
      - 10
      - 100.0%
-   * - service_detectors/port_mapping.py
+   * - ``service_detectors/port_mapping.py``
      - 6
      - 6
      - 100.0%
-   * - service_detectors/sip.py
+   * - ``service_detectors/sip.py``
      - 9
      - 9
      - 100.0%
-   * - service_detectors/smtp.py
+   * - ``service_detectors/smtp.py``
      - 14
      - 13
      - 92.9%
-   * - service_detectors/ssh.py
+   * - ``service_detectors/ssh.py``
      - 14
      - 14
      - 100.0%
-   * - socket/__init__.py
+   * - ``socket/__init__.py``
      - 4
      - 4
      - 100.0%
-   * - socket/base.py
+   * - ``socket/base.py``
      - 11
      - 9
      - 81.8%
-   * - socket/tcp.py
+   * - ``socket/tcp.py``
      - 37
      - 37
      - 100.0%
-   * - socket/udp.py
+   * - ``socket/udp.py``
      - 23
      - 23
      - 100.0%
-   * - utils/__init__.py
+   * - ``utils/__init__.py``
      - 4
      - 4
      - 100.0%
-   * - utils/constants.py
+   * - ``utils/constants.py``
      - 1
      - 1
      - 100.0%
-   * - utils/net.py
+   * - ``utils/net.py``
      - 5
      - 5
      - 100.0%
-   * - utils/netinfo.py
+   * - ``utils/netinfo.py``
      - 89
      - 84
      - 94.4%

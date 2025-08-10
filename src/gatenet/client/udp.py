@@ -1,4 +1,5 @@
 import socket
+from gatenet.core import hooks, events
 from gatenet.client.base import BaseClient
 
 class UDPClient(BaseClient):
@@ -65,9 +66,18 @@ class UDPClient(BaseClient):
             raise RuntimeError("UDPClient socket is closed")
         for _ in range(retries):
             try:
+                try:
+                    hooks.emit(events.UDP_BEFORE_SEND, data=message)
+                except Exception:
+                    pass
                 self._sock.sendto(message.encode(), (self.host, self.port))
                 data, _ = self._sock.recvfrom(buffsize)
-                return data.decode()
+                decoded = data.decode()
+                try:
+                    hooks.emit(events.UDP_AFTER_RECV, data=decoded)
+                except Exception:
+                    pass
+                return decoded
             except socket.timeout:
                 continue
         raise TimeoutError("No response received after retries")
