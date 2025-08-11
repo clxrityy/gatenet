@@ -157,14 +157,17 @@ def api_traceroute_stream(host: str = Query(..., description="Host to traceroute
 @app.get("/api/ping")
 def api_ping(host: str = Query(..., description="Host to ping"), count: int = Query(3, ge=1, le=10)):
     """Ping a host and return the result."""
+    import logging
     try:
         result = ping(host, count=count)
+        # If ping failed, never expose internal error details
+        if not result.get("success", True):
+            logging.error(f"Ping failed for host {host}: {result.get('error', '')}")
+            return {"ok": False, "error": error_message}
         return {"ok": True, "result": result}
     except Exception:
-        import logging
-        logging.error("Error in api_ping")
+        logging.error("Error in api_ping", exc_info=True)
         return {"ok": False, "error": error_message}
-
 @app.get("/api/traceroute")
 def api_traceroute(host: str = Query(..., description="Host to traceroute")):
     """Traceroute to a host and return hops."""
