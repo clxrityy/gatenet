@@ -26,7 +26,8 @@
     - [0.11.3](#0113)
   - [0.12.0](#0120)
     - [0.12.1](#0121)
-  - [0.12.3](#0123)
+    - [0.12.3](#0123)
+    - [0.12.4](#0124)
 
 # v0 (BETA)
 
@@ -672,3 +673,8 @@ Added an interactive sandbox page to the documentation.
 > ###### Notes:
 >
 > - The detector registry, hotspot backends, and new hooks/events are marked experimental until 1.0 and may evolve with feedback.
+
+### 0.12.4
+
+- Improved error handling in API endpoints to avoid exposing internal error details.
+- Fixed the `gatenet.core` module to be able to import and use the new hooks/events.

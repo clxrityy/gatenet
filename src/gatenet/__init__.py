@@ -10,7 +10,7 @@ Example usage:
     >>> from gatenet.http_.client import HTTPClient
 """
 
-__version__ = "0.12.3"
+__version__ = "0.12.4"
 __author__ = "MJ Anglin"
 __email__ = "contact@mjanglin.com"
 
@@ -21,6 +21,7 @@ from . import discovery
 from . import http_
 from . import socket
 from . import utils
+from . import core
 
 # Import optional modules if available
 try:
@@ -68,4 +69,5 @@ __all__ = [
     "radio",
     "hotspot",
     "service_detectors",
+    "core"
 ]

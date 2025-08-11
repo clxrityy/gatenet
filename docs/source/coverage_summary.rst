@@ -10,9 +10,9 @@ Test Coverage Summary
      - Covered
      - Percent
    * - ``__init__.py``
-     - 34
-     - 22
-     - 64.7%
+     - 35
+     - 23
+     - 65.7%
    * - ``cli/__init__.py``
      - 2
      - 2
@@ -90,9 +90,9 @@ Test Coverage Summary
      - 2
      - 100.0%
    * - ``dashboard/app.py``
-     - 70
-     - 54
-     - 77.1%
+     - 73
+     - 58
+     - 79.5%
    * - ``diagnostics/__init__.py``
      - 10
      - 8
@@ -162,9 +162,9 @@ Test Coverage Summary
      - 53
      - 93.0%
    * - ``hotspot/hotspot.py``
+     - 130
      - 121
-     - 114
-     - 94.2%
+     - 93.1%
    * - ``hotspot/security.py``
      - 65
      - 62
