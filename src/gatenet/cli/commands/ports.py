@@ -47,7 +47,9 @@ def cmd_ports(args):
     console = Console()
     output_format = getattr(args, "output_format", getattr(args, "output", "table"))
     host = args.host
-    ports = getattr(args, "ports", [22, 80, 443])
+    # Use provided ports, or fall back to COMMON_PORTS if none/empty provided
+    provided = getattr(args, "ports", None)
+    ports = provided if provided else COMMON_PORTS
     console.print(f"[bold blue][ports] Scanning ports on {host}...[/bold blue]")
     try:
         results = scan_ports(host, ports=ports)

@@ -28,6 +28,7 @@
     - [0.12.1](#0121)
     - [0.12.3](#0123)
     - [0.12.4](#0124)
+    - [0.12.5](#0125)
 
 # v0 (BETA)
 
@@ -678,3 +679,16 @@ Added an interactive sandbox page to the documentation.
 
 - Improved error handling in API endpoints to avoid exposing internal error details.
 - Fixed the `gatenet.core` module to be able to import and use the new hooks/events.
+
+### 0.12.5
+
+- Fixed broken CLI entry point causing `ModuleNotFoundError: No module named 'gatenet.cli'` when running the `gatenet` console script.
+  - Added `gatenet.cli` package and ensured `main` is re-exported from `gatenet.cli`.
+  - Aligned module entry (`python -m gatenet.cli`) to `sys.exit(main())` and matched function signature.
+- Hardened CLI initialization to avoid optional dependency errors at import time.
+  - Refactored CLI to lazy-load subcommand handlers (`iface`, `wifi`, `trace`, `ping`, `dns`, `ports`, `hotspot`).
+  - Made `rich` optional; help gracefully falls back to plain text when `rich` isn’t installed.
+- Added a `version` subcommand for quick version checks: `gatenet version`.
+- Verified console script on macOS with Homebrew Python and editable installs:
+  - `gatenet version` prints the package version.
+  - `gatenet ping 127.0.0.1 --output plain` executes successfully.

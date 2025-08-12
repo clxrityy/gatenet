@@ -18,9 +18,9 @@ Test Coverage Summary
      - 2
      - 100.0%
    * - ``cli/__main__.py``
+     - 4
      - 3
-     - 2
-     - 66.7%
+     - 75.0%
    * - ``cli/commands/__init__.py``
      - 8
      - 8
@@ -42,9 +42,9 @@ Test Coverage Summary
      - 20
      - 58.8%
    * - ``cli/commands/ports.py``
-     - 34
-     - 24
-     - 70.6%
+     - 35
+     - 25
+     - 71.4%
    * - ``cli/commands/trace.py``
      - 52
      - 28
@@ -54,9 +54,9 @@ Test Coverage Summary
      - 26
      - 81.2%
    * - ``cli/main.py``
-     - 46
-     - 46
-     - 100.0%
+     - 77
+     - 58
+     - 75.3%
    * - ``client/__init__.py``
      - 4
      - 4

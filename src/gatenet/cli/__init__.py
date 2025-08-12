@@ -1,8 +1,8 @@
 """
-Gatenet CLI module.
+Gatenet CLI package.
 
-This module provides command-line interface functionality for Gatenet.
-Use `python -m gatenet.cli` or the `gatenet` command to access CLI tools.
+This package exposes the CLI entry point used by the installed `gatenet` script.
+Use `python -m gatenet.cli` or `gatenet` after installing the package.
 """
 
 from .main import main

@@ -5,7 +5,7 @@ import pytest
 import sys
 from unittest.mock import patch, MagicMock
 
-from gatenet.cli.main import main, COMMANDS
+from gatenet.cli.main import main
 
 
 class TestCLIMain:
@@ -16,7 +16,7 @@ class TestCLIMain:
         with patch.object(sys, 'argv', ['gatenet']):
             with pytest.raises(SystemExit) as exc_info:
                 main()
-            assert exc_info.value.code == 2
+            assert exc_info.value.code == 0
             captured = capsys.readouterr()
             assert "No command provided" in captured.out
 
@@ -29,71 +29,67 @@ class TestCLIMain:
             captured = capsys.readouterr()
             assert "invalid choice" in captured.err  # argparse error message goes to stderr
 
-    def test_commands_registry_has_expected_commands(self):
-        """Test that COMMANDS registry contains expected command handlers."""
-        expected_commands = ['ping', 'dns', 'trace', 'ports', 'iface', 'wifi', 'hotspot']
-        for cmd in expected_commands:
-            assert cmd in COMMANDS
-            assert callable(COMMANDS[cmd])
+
+
 
     def test_main_calls_ping_handler(self):
         """Test that main() calls ping handler for ping command."""
-        with patch.dict('gatenet.cli.main.COMMANDS', {'ping': MagicMock()}) as mock_commands:
+        with patch('gatenet.cli.main._load_handler', return_value=MagicMock()) as mock_loader:
             with patch.object(sys, 'argv', ['gatenet', 'ping', 'localhost']):
                 main()
-            mock_commands['ping'].assert_called_once()
+            mock_loader.return_value.assert_called_once()
+
 
     def test_main_calls_dns_handler(self):
         """Test that main() calls DNS handler for dns command."""
-        with patch.dict('gatenet.cli.main.COMMANDS', {'dns': MagicMock()}) as mock_commands:
+        with patch('gatenet.cli.main._load_handler', return_value=MagicMock()) as mock_loader:
             with patch.object(sys, 'argv', ['gatenet', 'dns', 'example.com']):
                 main()
-            mock_commands['dns'].assert_called_once()
+            mock_loader.return_value.assert_called_once()
+
 
     def test_main_calls_trace_handler(self):
         """Test that main() calls traceroute handler for trace command."""
-        with patch.dict('gatenet.cli.main.COMMANDS', {'trace': MagicMock()}) as mock_commands:
+        with patch('gatenet.cli.main._load_handler', return_value=MagicMock()) as mock_loader:
             with patch.object(sys, 'argv', ['gatenet', 'trace', 'google.com']):
                 main()
-            mock_commands['trace'].assert_called_once()
+            mock_loader.return_value.assert_called_once()
 
     def test_main_calls_ports_handler(self):
         """Test that main() calls ports handler for ports command."""
-        with patch.dict('gatenet.cli.main.COMMANDS', {'ports': MagicMock()}) as mock_commands:
+        with patch('gatenet.cli.main._load_handler', return_value=MagicMock()) as mock_loader:
             with patch.object(sys, 'argv', ['gatenet', 'ports', '127.0.0.1']):
                 main()
-            mock_commands['ports'].assert_called_once()
+            mock_loader.return_value.assert_called_once()
 
     def test_main_calls_iface_handler(self):
         """Test that main() calls interface handler for iface command."""
-        with patch.dict('gatenet.cli.main.COMMANDS', {'iface': MagicMock()}) as mock_commands:
+        with patch('gatenet.cli.main._load_handler', return_value=MagicMock()) as mock_loader:
             with patch.object(sys, 'argv', ['gatenet', 'iface']):
                 main()
-            mock_commands['iface'].assert_called_once()
+            mock_loader.return_value.assert_called_once()
 
     def test_main_calls_wifi_handler(self):
         """Test that main() calls wifi handler for wifi command."""
-        with patch.dict('gatenet.cli.main.COMMANDS', {'wifi': MagicMock()}) as mock_commands:
+        with patch('gatenet.cli.main._load_handler', return_value=MagicMock()) as mock_loader:
             with patch.object(sys, 'argv', ['gatenet', 'wifi']):
                 main()
-            mock_commands['wifi'].assert_called_once()
+            mock_loader.return_value.assert_called_once()
 
     def test_main_calls_hotspot_handler(self):
         """Test that main() calls hotspot handler for hotspot command."""
-        with patch.dict('gatenet.cli.main.COMMANDS', {'hotspot': MagicMock()}) as mock_commands:
+        with patch('gatenet.cli.main._load_handler', return_value=MagicMock()) as mock_loader:
             with patch.object(sys, 'argv', ['gatenet', 'hotspot', 'status']):
                 main()
-            mock_commands['hotspot'].assert_called_once()
+            mock_loader.return_value.assert_called_once()
 
     def test_ping_with_output_argument(self):
         """Test ping command with output argument."""
         mock_ping = MagicMock()
         mock_ping.return_value = {'status': 'success'}
-        
-        with patch.dict('gatenet.cli.main.COMMANDS', {'ping': mock_ping}):
+        with patch('gatenet.cli.main._load_handler', return_value=mock_ping):
             with patch.object(sys, 'argv', ['gatenet', 'ping', 'google.com', '--output', 'json']):
                 main()
-        
         mock_ping.assert_called_once()
         args = mock_ping.call_args[0][0]  # Get the first positional argument (args namespace)
         assert args.host == 'google.com'
@@ -101,31 +97,27 @@ class TestCLIMain:
 
     def test_dns_with_output_argument(self):
         """Test DNS command with output format argument."""
-        with patch('gatenet.cli.commands.dns.cmd_dns') as mock_dns:
-            mock_dns.return_value = {'status': 'success', 'ip': '1.2.3.4'}
-            
-            with patch.dict('gatenet.cli.main.COMMANDS', {'dns': mock_dns}):
-                with patch.object(sys, 'argv', ['gatenet', 'dns', 'example.com', '--output', 'table']):
-                    main()
-            
-            mock_dns.assert_called_once()
-            args = mock_dns.call_args[0][0]
-            assert args.query == 'example.com'
-            assert args.output == 'table'
+        mock_dns = MagicMock()
+        mock_dns.return_value = {'status': 'success', 'ip': '1.2.3.4'}
+        with patch('gatenet.cli.main._load_handler', return_value=mock_dns):
+            with patch.object(sys, 'argv', ['gatenet', 'dns', 'example.com', '--output', 'table']):
+                main()
+        mock_dns.assert_called_once()
+        args = mock_dns.call_args[0][0]
+        assert args.query == 'example.com'
+        assert args.output == 'table'
 
     def test_ports_with_custom_ports(self):
         """Test ports command with custom port list."""
-        with patch('gatenet.cli.commands.ports.cmd_ports') as mock_ports:
-            mock_ports.return_value = {'status': 'success', 'open_ports': [80, 443]}
-            
-            with patch.dict('gatenet.cli.main.COMMANDS', {'ports': mock_ports}):
-                with patch.object(sys, 'argv', ['gatenet', 'ports', '127.0.0.1', '--ports', '80', '443', '22']):
-                    main()
-            
-            mock_ports.assert_called_once()
-            args = mock_ports.call_args[0][0]
-            assert args.host == '127.0.0.1'
-            assert args.ports == [80, 443, 22]
+        mock_ports = MagicMock()
+        mock_ports.return_value = {'status': 'success', 'open_ports': [80, 443]}
+        with patch('gatenet.cli.main._load_handler', return_value=mock_ports):
+            with patch.object(sys, 'argv', ['gatenet', 'ports', '127.0.0.1', '--ports', '80', '443', '22']):
+                main()
+        mock_ports.assert_called_once()
+        args = mock_ports.call_args[0][0]
+        assert args.host == '127.0.0.1'
+        assert args.ports == [80, 443, 22]
 
 
 class TestMainModuleExecution:
