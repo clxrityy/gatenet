@@ -164,7 +164,10 @@ def api_ping(host: str = Query(..., description="Host to ping"), count: int = Qu
         if not result.get("success", True):
             logging.error(f"Ping failed for host {host}: {result.get('error', '')}")
             return {"ok": False, "error": error_message}
-        return {"ok": True, "result": result}
+        allowed_fields = ["host", "rtt_avg", "rtt_min", "rtt_max", "jitter", "packet_loss", "success", "sent", "received", "rtt_all"]
+        sanitized_result = {k: v for k, v in result.items() if k in allowed_fields}
+        # Only expose safe output fields, exclude raw_output, error, etc.
+        return {"ok": True, "result": sanitized_result}
     except Exception:
         logging.error("Error in api_ping", exc_info=True)
         return {"ok": False, "error": error_message}

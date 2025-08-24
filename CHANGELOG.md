@@ -29,6 +29,7 @@
     - [0.12.3](#0123)
     - [0.12.4](#0124)
     - [0.12.5](#0125)
+    - [0.12.6](#0126)
 
 # v0 (BETA)
 
@@ -692,3 +693,14 @@ Added an interactive sandbox page to the documentation.
 - Verified console script on macOS with Homebrew Python and editable installs:
   - `gatenet version` prints the package version.
   - `gatenet ping 127.0.0.1 --output plain` executes successfully.
+
+### 0.12.6
+
+Fixed build and dependency issues.
+
+- Added **runtime** dependencies to `pyproject.toml`:
+- Added **optional** dependencies for platform-specific and optional features.
+- Made Bluetooth imports optional in `discovery/__init__.py`
+  - Added try/except blocks around bluetooth imports.
+  - Created stub functions that provide helpful error messages when `bleak` is not installed.
+  - Maintained the same function signatures to preserve API compatibility.

@@ -90,9 +90,9 @@ Test Coverage Summary
      - 2
      - 100.0%
    * - ``dashboard/app.py``
-     - 73
-     - 58
-     - 79.5%
+     - 75
+     - 60
+     - 80.0%
    * - ``diagnostics/__init__.py``
      - 10
      - 8
@@ -122,9 +122,9 @@ Test Coverage Summary
      - 60
      - 90.9%
    * - ``discovery/__init__.py``
-     - 6
-     - 6
-     - 100.0%
+     - 15
+     - 8
+     - 53.3%
    * - ``discovery/bluetooth.py``
      - 34
      - 21
