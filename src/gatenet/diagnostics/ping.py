@@ -7,6 +7,8 @@ from typing import Dict, Union
 import ipaddress
 import re
 import statistics
+GENERIC_ERROR_MESSAGE = "An internal error occurred."
+
 def _is_valid_host(host: str) -> bool:
     """Validate that host is a valid IPv4/IPv6 address or DNS hostname, and does not contain shell-special characters."""
     import socket
@@ -172,7 +174,7 @@ def _icmp_ping_sync(host: str, count: int, timeout: int, system: str) -> Dict[st
         return {
             "host": host,
             "success": False,
-            "error": str(e),
+            "error": GENERIC_ERROR_MESSAGE,
             "raw_output": ""
         }
 
