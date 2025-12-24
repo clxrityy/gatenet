@@ -1,6 +1,6 @@
 [project]
 name = "gatenet"
-version = "1.0.0"
+version = "0.21.0"
 authors = [{ name = "MJ Anglin", email = "contact@mjanglin.com" }]
 classifiers = [
   "Development Status :: 3 - Alpha",
