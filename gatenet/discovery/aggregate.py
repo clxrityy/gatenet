@@ -1,33 +1,22 @@
-# gatenet/discovery/aggregate.py
-
 from typing import List
 
-from gatenet.core.models import Device, Service, Port
+from gatenet.core.models import Device
+from gatenet.discovery.arp import discover_arp
 
 
 def discover_devices() -> List[Device]:
     """
     Discover devices on the local network.
 
-    NOTE:
-    This is a stub implementation used to validate
-    CLI, packaging, and output formatting.
-    """
+    This function aggregates results from all available
+    discovery mechanisms (ARP, mDNS, SSDP, etc.).
 
-    return [
-        Device(
-            ip="192.168.1.1",
-            hostname="router.local",
-            services=[
-                Service(
-                    name="http",
-                    ports=[Port(number=80)]
-                )
-            ]
-        ),
-        Device(
-            ip="192.168.1.42",
-            hostname="laptop.local",
-            services=[]
-        )
-    ]
+    Returns:
+        list[Device]: Combined list of discovered devices.
+    """
+    devices: List[Device] = []
+
+    # NOTE: For v1, only ARP is enabled.
+    devices.extend(discover_arp())
+
+    return devices

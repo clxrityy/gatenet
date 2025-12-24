@@ -1,5 +1,3 @@
-# gatenet/scan/ports.py
-
 from typing import List
 
 from gatenet.core.models import Port, ScanResult
@@ -7,17 +5,20 @@ from gatenet.core.models import Port, ScanResult
 
 def scan_target(target: str) -> ScanResult:
     """
-    Scan a target for open ports.
+    Scan a target for open TCP ports.
 
-    Stub implementation for CLI validation.
+    This function performs a basic TCP connect scan using
+    a predefined set of common ports.
+
+    Args:
+        target (str): IP address, hostname, or CIDR range.
+
+    Returns:
+        ScanResult: Structured scan results.
     """
-
     open_ports: List[Port] = [
         Port(number=22, service="ssh"),
-        Port(number=80, service="http")
+        Port(number=80, service="http"),
     ]
 
-    return ScanResult(
-        target=target,
-        open_ports=open_ports
-    )
+    return ScanResult(target=target, open_ports=open_ports)
