@@ -1,0 +1,13 @@
+.idea
+.DS_Store
+__pycache__/
+*.pyc
+.env*
+*venv/
+*.egg-info/
+dist/
+build/
+.ipynb_checkpoints/
+.coverage
+htmlcov/
+.pytest_cache/

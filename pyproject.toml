@@ -1,0 +1,42 @@
+[project]
+name = "gatenet"
+version = "1.0.0"
+authors = [{ name = "MJ Anglin", email = "contact@mjanglin.com" }]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "Intended Audience :: System Administrators",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Topic :: System :: Networking",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+]
+description = "Python-first networking observation toolkit with a thin CLI"
+readme = { content-type = "text/markdown", file = "README.md" }
+requires-python = ">=3.10"
+license = "MIT"
+license-files = ["LICENSE"]
+dependencies = ["rich>=13.4.0"]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=7.0.0",
+  "pytest-cov>=4.0.0",
+  "mypy>=1.0.0",
+  "black>=24.0.0",
+  "ruff>=0.0.300",
+]
+docs = ["mkdocs>=1.6.0", "mkdocs-material>=9.0.0"]
+
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project.scripts]
+gatenet = "cli.__main__:main"
+
+[tool.setuptools]
+packages = ["gatenet", "cli"]
