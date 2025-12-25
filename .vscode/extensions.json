@@ -3,7 +3,6 @@
         "davidanson.vscode-markdownlint",
         "ms-python.python",
         "ms-python.vscode-pylance",
-        "github.vscode-pull-request-github",
         "ms-vscode.makefile-tools",
         "editorconfig.editorconfig",
         "donjayamanne.githistory"
