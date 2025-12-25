@@ -1,0 +1,50 @@
+name: Feature Request
+description: Suggest a new feature to help us improve our project.
+title: "[FEATURE] "
+labels: ["feat"]
+type: feature
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to suggest a new feature. Please provide as much detail as possible to help us understand and evaluate your request.
+  - type: input
+    id: contact
+    attributes:
+      label: Contact Information
+      description: How can we reach you for more information?
+      placeholder: ex. email@example.com
+    validations:
+      required: false
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Describe the feature you would like to see implemented.
+      placeholder: Detailed description of the feature, its purpose, and potential use cases.
+      value: |
+        "..."
+    validations:
+      required: true
+  - type: textarea
+    id: references
+    attributes:
+      label: References
+      description: Provide any relevant links, mockups, or examples that illustrate your feature request.
+      placeholder: Links to related issues, design mockups, or similar features in other projects.
+    validations:
+      required: false
+  - type: checkboxes
+    id: guidelines
+    attributes:
+      label: Guidelines
+      description: By submitting this bug report, you agree to following our guidelines. \n[Code of Conduct](https://github.com/clxrityy/gatenet/blob/master/.github/CODE_OF_CONDUCT.md) \n[Security Policy](https://github.com/clxrityy/gatenet/blob/master/.github/SECURITY.md)
+      options:
+        - label: I have searched the existing issues to see if this feature has already been requested
+          required: true
+        - label: I have provided all relevant information to understand and evaluate the feature request
+          required: true
+        - label: I agree to follow the project's Code of Conduct
+          required: true
+        - label: I have read the Security Policy and understand how to report security vulnerabilities
+          required: true

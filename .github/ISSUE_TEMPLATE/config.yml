@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Discussions
+    url: https://github.com/clxrityy/gatenet/discussions
+    about: Ask questions and start discussions.
+  - name: Contact
+    url: mailto:contact@mjanglin.com
+    about: Contact the maintainer(s). Cases include but are not limited to security issues and private matters.

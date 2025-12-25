@@ -1,0 +1,64 @@
+name: Bug Report
+description: Report a bug
+title: "[BUG] "
+labels: ["bug"]
+type: bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report. Please provide as much detail as possible to help us understand and resolve the issue.
+  - type: input
+    id: contact
+    attributes:
+      label: Contact Information
+      description: How can we reach you for more information?
+      placeholder: ex. email@example.com
+    validations:
+      required: false
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Describe the bug in detail.
+      placeholder: Expected behavior vs. actual behavior, etc.
+      value: |
+        "..."
+    validations:
+      required: true
+  - type: input
+    id: os
+    attributes:
+      label: Operating System
+      description: What operating system are you using? (e.g., Windows 10, macOS 11.2, Ubuntu 20.04)
+      placeholder: ex. Fedora Linux 43
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      description: List the steps needed to reproduce the bug.
+      placeholder: 1. Step one\n2. Step two\n3. Step three
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs or error messages
+      description: Please copy and paste any relevant log output. This will be automatically formatted as code.
+      render: shell
+  - type: checkboxes
+    id: guidelines
+    attributes:
+      label: Guidelines
+      description: By submitting this bug report, you agree to following our guidelines. \n[Code of Conduct](https://github.com/clxrityy/gatenet/blob/master/.github/CODE_OF_CONDUCT.md) \n[Security Policy](https://github.com/clxrityy/gatenet/blob/master/.github/SECURITY.md)
+      options:
+        - label: I have searched the existing issues to see if this bug has already been reported
+          required: true
+        - label: I have provided all relevant information to reproduce and understand the bug
+          required: true
+        - label: I agree to follow the project's Code of Conduct
+          required: true
+        - label: I have read the Security Policy and understand how to report security vulnerabilities
+          required: true
