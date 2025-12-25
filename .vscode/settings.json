@@ -1,0 +1,30 @@
+{
+  // Keep project files consistent on Linux/macOS/CI
+  "files.eol": "\n",
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+
+  // Don’t let VS Code guess indentation (it can “learn” spaces from other files)
+  "editor.detectIndentation": false,
+
+  // Default preference for most files (adjust if you personally prefer tabs everywhere)
+  "editor.insertSpaces": true,
+  "editor.tabSize": 4,
+
+  // Makefile-specific: recipe lines MUST start with a literal tab
+  "[makefile]": {
+    "editor.insertSpaces": false,
+    "editor.tabSize": 4,
+
+    // Helps visually confirm tabs are tabs
+    "editor.renderWhitespace": "all",
+    "editor.renderControlCharacters": true
+  },
+
+  // (Optional) Ensure Makefile is treated as makefile language mode
+  "files.associations": {
+    "Makefile": "makefile",
+    "makefile": "makefile",
+    "*.mk": "makefile"
+  }
+}
