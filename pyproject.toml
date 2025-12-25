@@ -2,6 +2,7 @@
 name = "gatenet"
 version = "0.21.0"
 authors = [{ name = "MJ Anglin", email = "contact@mjanglin.com" }]
+maintainers = [{ name = "MJ Anglin", email = "contact@mjanglin.com" }]
 classifiers = [
   "Development Status :: 3 - Alpha",
   "Intended Audience :: Developers",
