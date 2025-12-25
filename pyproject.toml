@@ -41,3 +41,15 @@ gatenet = "gatenet.cli.__main__:main"
 
 [tool.setuptools]
 packages = ["gatenet"]
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+addopts = [
+  "-ra",
+  "--strict-markers",
+  "--cov=gatenet",
+  "--cov-report=term-missing",
+  "--cov-report=html",
+  "--cov-report=json",
+]
+testpaths = ["tests"]
