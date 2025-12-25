@@ -1,7 +1,7 @@
 # cli/scan.py
 
 from gatenet.scan.ports import scan_target
-from cli.format import print_output
+from .format import print_output
 
 
 def run_scan(target: str, json_output: bool = False) -> None:

@@ -1,7 +1,7 @@
 # cli/discover.py
 
 from gatenet.discovery.aggregate import discover_devices
-from cli.format import print_output
+from .format import print_output
 
 
 def run_discover(json_output: bool = False) -> None:

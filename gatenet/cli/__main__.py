@@ -3,8 +3,8 @@
 import argparse
 import sys
 
-from cli.discover import run_discover
-from cli.scan import run_scan
+from .discover import run_discover
+from .scan import run_scan
 
 
 def build_parser() -> argparse.ArgumentParser:
