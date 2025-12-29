@@ -1,3 +1,11 @@
+"""
+Port scanning utilities.
+
+This module provides functions for identifying open network ports on
+a given target. Implementations are designed to be simple, explicit,
+and safe by default.
+"""
+
 from typing import List
 
 from gatenet.core.models import Port, ScanResult
@@ -7,14 +15,15 @@ def scan_target(target: str) -> ScanResult:
     """
     Scan a target for open TCP ports.
 
-    This function performs a basic TCP connect scan using
-    a predefined set of common ports.
+    This function performs a basic TCP connect scan against a predefined
+    set of common ports. It is intended as a minimal, synchronous
+    implementation and may be extended or replaced in future versions.
 
     Args:
-        target (str): IP address, hostname, or CIDR range.
+        target: IP address, hostname, or CIDR range to scan.
 
     Returns:
-        ScanResult: Structured scan results.
+        Structured scan results for the target.
     """
     open_ports: List[Port] = [
         Port(number=22, service="ssh"),
