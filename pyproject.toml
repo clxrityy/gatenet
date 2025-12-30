@@ -27,7 +27,6 @@ dev = [
   "pytest>=7.0.0",
   "pytest-cov>=4.0.0",
   "mypy>=1.0.0",
-  "black>=24.0.0",
   "ruff>=0.0.300",
 ]
 docs = ["mkdocs>=1.6.0", "mkdocs-material>=9.0.0"]
@@ -39,8 +38,8 @@ build-backend = "setuptools.build_meta"
 [project.scripts]
 gatenet = "gatenet.cli.__main__:main"
 
-[tool.setuptools]
-packages = ["gatenet"]
+[tool.setuptools.packages.find]
+where = ["."]
 
 [tool.pytest.ini_options]
 minversion = "8.0"
@@ -55,8 +54,13 @@ addopts = [
 testpaths = ["tests"]
 
 [tool.ruff]
+# Global Ruff settings can live here if needed
+# (line-length, target-version, etc.)
+
+[tool.ruff.lint]
 select = ["D"]
 ignore = ["D100", "D104", "D203", "D213"]
 
-[tool.ruff.pydocstyle]
+[tool.ruff.lint.pydocstyle]
 convention = "google"
+
