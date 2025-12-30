@@ -8,6 +8,6 @@ __pycache__/
 dist/
 build/
 .ipynb_checkpoints/
-.coverage
 htmlcov/
 *cache
+*coverage*
