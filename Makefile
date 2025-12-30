@@ -1,6 +1,12 @@
 # Gatenet development Makefile
 
-.PHONY: help venv install install-dev gatenet test test-cov clean
+.PHONY: help venv install install-dev gatenet test test-cov clean lint format
+
+PYTHON := venv/bin/python
+PIP := venv/bin/pip
+RUFF := venv/bin/ruff
+PYTEST := venv/bin/pytest
+GATENET := venv/bin/gatenet
 
 help:
 	@echo "Available targets:"
@@ -11,6 +17,8 @@ help:
 	@echo "  test    - Run tests using pytest"
 	@echo "  test-cov - Run tests with coverage reporting"
 	@echo "  clean   - Remove virtual environment and temporary files"
+	@echo "  lint    - Check code style with ruff"
+	@echo "  format  - Format code with ruff"
 
 # Create a Python virtual environment
 venv:
@@ -19,23 +27,23 @@ venv:
 
 # Install the package in editable mode
 install: venv
-	venv/bin/pip install -e .
+	$(PIP) install -e .
 
 # Install the package with development dependencies
 install-dev: venv
-	venv/bin/pip install -e ".[dev]"
+	$(PIP) install -e ".[dev]"
 
 # Run the gatenet CLI with passed arguments
 gatenet:
-	@venv/bin/gatenet $(filter-out $@,$(MAKECMDGOALS))
+	@$(GATENET) $(filter-out $@,$(MAKECMDGOALS))
 
 # Run tests using pytest
 test:
-	@venv/bin/pytest
+	@$(PYTEST)
 
 # Run tests with coverage and fail on low coverage
 test-cov:
-	@venv/bin/pytest --cov=gatenet --cov-report=term-missing --cov-report=html --cov-fail-under=80 --maxfail=1 --disable-warnings -f
+	@$(PYTEST) --cov=gatenet --cov-report=term-missing --cov-report=html --cov-fail-under=80 --maxfail=1 --disable-warnings -f
 
 # Clean up the virtual environment and temporary files
 clean:
@@ -45,6 +53,14 @@ clean:
 	@rm -rf .pytest_cache
 	@rm -rf *.egg-info
 	@rm -rf *coverage* .coverage htmlcov *cache
+
+# Check code style with ruff
+lint:
+	@$(RUFF) check
+
+# Format code with ruff
+format:
+	@$(RUFF) format
 
 # Ignore other targets
 %:
