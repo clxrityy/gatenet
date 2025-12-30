@@ -2,11 +2,13 @@
 
 .PHONY: help venv install install-dev gatenet test test-cov clean lint format
 
-PYTHON := venv/bin/python
-PIP := venv/bin/pip
-RUFF := venv/bin/ruff
-PYTEST := venv/bin/pytest
-GATENET := venv/bin/gatenet
+BIN := venv/bin
+PYTHON := $(BIN)/python
+PIP := $(BIN)/pip
+RUFF := $(BIN)/ruff
+PYTEST := $(BIN)/pytest
+GATENET := $(BIN)/gatenet
+PRE-COMMIT := $(BIN)/pre-commit
 
 help:
 	@echo "Available targets:"
@@ -33,6 +35,7 @@ install: venv
 # Install the package with development dependencies
 install-dev: venv
 	$(PIP) install -e ".[dev]"
+	$(PRE-COMMIT) install
 
 # Run the gatenet CLI with passed arguments
 gatenet:
