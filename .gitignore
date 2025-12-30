@@ -10,4 +10,4 @@ build/
 .ipynb_checkpoints/
 .coverage
 htmlcov/
-.pytest_cache/
+*cache
