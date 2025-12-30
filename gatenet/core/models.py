@@ -1,5 +1,4 @@
-"""
-Core data models used throughout gatenet.
+"""Core data models used throughout gatenet.
 
 This module defines lightweight, immutable-by-convention data structures
 that represent network entities such as devices, services, ports, and scan
@@ -15,8 +14,7 @@ from typing import List, Optional
 
 @dataclass
 class Port:
-    """
-    Represents a network port exposed by a device or service.
+    """Represents a network port exposed by a device or service.
 
     A Port describes the transport-level endpoint and any known service
     metadata associated with it. It does not imply that the port is open
@@ -35,8 +33,7 @@ class Port:
 
 @dataclass
 class Service:
-    """
-    Represents a logical network service.
+    """Represents a logical network service.
 
     A Service groups one or more ports under a single human-readable name.
     This is useful for higher-level discovery layers (e.g. mDNS, UPnP)
@@ -53,8 +50,7 @@ class Service:
 
 @dataclass
 class Device:
-    """
-    Represents a network-connected device.
+    """Represents a network-connected device.
 
     A Device aggregates identity information (IP, hostname) along with any
     discovered services. It may be partially populated depending on the
@@ -73,8 +69,7 @@ class Device:
 
 @dataclass
 class ScanResult:
-    """
-    Represents the result of a network scan operation.
+    """Represents the result of a network scan operation.
 
     ScanResult captures the outcome of scanning a single target, including
     any open ports that were identified. It is intended to be a read-only

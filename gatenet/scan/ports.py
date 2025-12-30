@@ -1,5 +1,4 @@
-"""
-Port scanning utilities.
+"""Port scanning utilities.
 
 This module provides functions for identifying open network ports on
 a given target. Implementations are designed to be simple, explicit,
@@ -12,8 +11,7 @@ from gatenet.core.models import Port, ScanResult
 
 
 def scan_target(target: str) -> ScanResult:
-    """
-    Scan a target for open TCP ports.
+    """Scan a target for open TCP ports.
 
     This function performs a basic TCP connect scan against a predefined
     set of common ports. It is intended as a minimal, synchronous

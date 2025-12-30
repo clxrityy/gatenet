@@ -4,8 +4,7 @@ from gatenet.core.models import Device
 
 
 def discover_arp() -> List[Device]:
-    """
-    Discover devices using ARP-based techniques.
+    """Discover devices using ARP-based techniques.
 
     This function is currently a placeholder implementation and returns
     static example data. It will be replaced with a real ARP discovery

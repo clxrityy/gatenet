@@ -5,8 +5,7 @@ from gatenet.discovery.arp import discover_arp
 
 
 def discover_devices() -> List[Device]:
-    """
-    Discover devices on the local network using available methods.
+    """Discover devices on the local network using available methods.
 
     This function aggregates results from all enabled discovery
     mechanisms (e.g. ARP, mDNS, SSDP) into a single device list.

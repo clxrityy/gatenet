@@ -1,5 +1,4 @@
-"""
-Command-line interface entrypoint for gatenet.
+"""Command-line interface entrypoint for gatenet.
 
 This module defines the argparse-based CLI used to invoke gatenet's
 network discovery and scanning capabilities. It is a thin wrapper
@@ -14,8 +13,7 @@ from .scan import run_scan
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """
-    Construct the argument parser for the gatenet CLI.
+    """Construct the argument parser for the gatenet CLI.
 
     This function defines all supported commands, subcommands, and
     flags exposed to end users.
@@ -63,8 +61,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main() -> None:
-    """
-    CLI entrypoint for gatenet.
+    """CLI entrypoint for gatenet.
 
     Parses command-line arguments and dispatches execution to the
     appropriate command handler.

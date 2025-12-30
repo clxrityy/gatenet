@@ -1,5 +1,4 @@
-"""
-CLI handler for network device discovery.
+"""CLI handler for network device discovery.
 
 This module connects the gatenet discovery library to the command-line
 interface. It performs no discovery logic itself and is responsible
@@ -11,8 +10,7 @@ from .format import print_output
 
 
 def run_discover(json_output: bool = False) -> None:
-    """
-    Execute the `gatenet discover` command.
+    """Execute the `gatenet discover` command.
 
     Runs available device discovery mechanisms and prints the results
     to standard output in either human-readable or JSON format.

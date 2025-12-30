@@ -1,5 +1,4 @@
-"""
-Network discovery mechanisms for gatenet.
+"""Network discovery mechanisms for gatenet.
 
 The discovery package contains passive and active techniques for
 identifying devices and services on a local network. Each discovery
