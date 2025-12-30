@@ -10,6 +10,7 @@ help:
 	@echo "  gatenet - Run the gatenet CLI"
 	@echo "  test    - Run tests using pytest"
 	@echo "  test-cov - Run tests with coverage reporting"
+	@echo "  clean   - Remove virtual environment and temporary files"
 
 # Create a Python virtual environment
 venv:
@@ -43,7 +44,7 @@ clean:
 	@find . -type d -name '__pycache__' -delete
 	@rm -rf .pytest_cache
 	@rm -rf *.egg-info
-	@rm -rf *coverage* .coverage htmlcov
+	@rm -rf *coverage* .coverage htmlcov *cache
 
 # Ignore other targets
 %:
