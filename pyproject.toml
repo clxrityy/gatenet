@@ -53,3 +53,10 @@ addopts = [
   "--cov-report=json",
 ]
 testpaths = ["tests"]
+
+[tool.ruff]
+select = ["D"]
+ignore = ["D100", "D104", "D203", "D213"]
+
+[tool.ruff.pydocstyle]
+convention = "google"
