@@ -18,6 +18,7 @@ help:
 	@echo "  test-cov - Run tests with coverage reporting"
 	@echo "  clean   - Remove virtual environment and temporary files"
 	@echo "  lint    - Check code style with ruff"
+	@echo "  lint-fix - Fix code style issues with ruff"
 	@echo "  format  - Format code with ruff"
 
 # Create a Python virtual environment
@@ -57,6 +58,10 @@ clean:
 # Check code style with ruff
 lint:
 	@$(RUFF) check
+
+# Fix code style issues with ruff
+lint-fix:
+	@$(RUFF) check --fix
 
 # Format code with ruff
 format:
