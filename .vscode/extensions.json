@@ -5,6 +5,7 @@
         "ms-python.vscode-pylance",
         "ms-vscode.makefile-tools",
         "editorconfig.editorconfig",
-        "donjayamanne.githistory"
+        "donjayamanne.githistory",
+        "ms-vscode.live-server"
     ]
 }
