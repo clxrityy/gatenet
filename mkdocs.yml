@@ -1,0 +1,54 @@
+site_name: gatenet
+site_description: Python-first networking observation toolkit
+site_url: https://clxrityy.github.io/gatenet
+
+repo_name: clxrityy/gatenet
+repo_url: https://github.com/clxrityy/gatenet
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.instant
+    - navigation.sections
+    - content.code.copy
+
+markdown_extensions:
+  - admonition
+  - toc:
+      permalink: true
+  - pymdownx.superfences
+  - pymdownx.highlight
+
+plugins:
+  - search
+  - gen-files:
+      scripts:
+        - scripts/gen_api_docs.py
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            docstring_style: google
+            show_root_heading: true
+            show_source: true
+            merge_init_into_class: true
+
+nav:
+  - Home: index.md
+  - API:
+      - api/index.md
+      - gatenet:
+          - cli:
+              - api/gatenet/cli/__main__.md
+              - api/gatenet/cli/discover.md
+              - api/gatenet/cli/format.md
+              - api/gatenet/cli/scan.md
+          - core:
+              - api/gatenet/core/models.md
+          - discovery:
+              - api/gatenet/discovery/aggregate.md
+              - api/gatenet/discovery/arp.md
+          - scan:
+              - api/gatenet/scan/ports.md

@@ -11,3 +11,4 @@ build/
 htmlcov/
 *cache
 *coverage*
+site/
