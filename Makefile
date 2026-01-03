@@ -62,6 +62,7 @@ clean:
 # Check code style with ruff
 lint:
 	@$(RUFF) check
+	@$(PYTHON) scripts/lint_docs.py
 
 # Fix code style issues with ruff
 lint-fix:
