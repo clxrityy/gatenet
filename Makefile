@@ -1,6 +1,6 @@
 # Gatenet development Makefile
 
-.PHONY: help venv install install-dev gatenet test test-cov clean lint format
+.PHONY: help venv install install-dev gatenet test test-cov clean lint format build
 
 BIN := venv/bin
 PYTHON := $(BIN)/python
@@ -57,7 +57,7 @@ clean:
 	@find . -type d -name '__pycache__' -delete
 	@rm -rf .pytest_cache
 	@rm -rf *.egg-info
-	@rm -rf *coverage* .coverage htmlcov *cache
+	@rm -rf *coverage* .coverage htmlcov *cache site/ .ruff_cache
 
 # Check code style with ruff
 lint:
@@ -70,6 +70,10 @@ lint-fix:
 # Format code with ruff
 format:
 	@$(RUFF) format
+
+# Build the documentation using mkdocs
+build:
+	@mkdocs build
 
 # Ignore other targets
 %:
