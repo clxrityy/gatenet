@@ -35,6 +35,7 @@ install: venv
 # Install the package with development dependencies
 install-dev: venv
 	$(PIP) install -e ".[dev]"
+	$(PIP) install -e ".[docs]"
 	$(PRE-COMMIT) install
 
 # Run the gatenet CLI with passed arguments
