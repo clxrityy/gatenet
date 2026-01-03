@@ -51,6 +51,7 @@ where = ["."]
 minversion = "8.0"
 addopts = [
   "-ra",
+  "--doctest-modules",
   "--strict-markers",
   "--cov=gatenet",
   "--cov-report=term-missing",
@@ -62,6 +63,7 @@ testpaths = ["tests"]
 [tool.ruff]
 # Global Ruff settings can live here if needed
 # (line-length, target-version, etc.)
+exclude = ["scripts"]
 
 [tool.ruff.lint]
 select = ["E", "F", "D", "B"]
