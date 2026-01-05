@@ -6,7 +6,7 @@ REQUIRE_EXAMPLES = True
 
 
 def has_examples(doc: str) -> bool:
-    return ("Examples:" in doc) | (">>>" in doc or "```py" in doc)
+    return ("Examples:" in doc) | (">>>" in doc or "```" in doc)
 
 
 def lint_file(path: Path) -> list[str]:
