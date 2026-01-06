@@ -9,6 +9,7 @@ RUFF := $(BIN)/ruff
 PYTEST := $(BIN)/pytest
 GATENET := $(BIN)/gatenet
 PRE-COMMIT := $(BIN)/pre-commit
+DOCS := $(BIN)/mkdocs
 
 help:
 	@echo "Available targets:"
@@ -74,7 +75,7 @@ format:
 
 # Build the documentation using mkdocs
 build:
-	@mkdocs build
+	@$(DOCS) build
 
 # Ignore other targets
 %:
