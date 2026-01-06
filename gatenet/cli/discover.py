@@ -17,6 +17,11 @@ def run_discover(json_output: bool = False) -> None:
 
     Args:
         json_output: If True, output results as JSON.
+
+    ```py
+    from gatenet.cli.discover import run_discover
+    run_discover(json_output=True)
+    ```
     """
     devices = discover_devices()
     print_output(devices, json_output=json_output)

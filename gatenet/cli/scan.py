@@ -18,6 +18,11 @@ def run_scan(target: str, json_output: bool = False) -> None:
     Args:
         target: IP address, hostname, or CIDR range to scan.
         json_output: If True, output results as JSON.
+
+    ```py
+    from gatenet.cli.scan import run_scan
+    run_scan("example.com", json_output=True)
+    ```
     """
     result = scan_target(target)
     print_output(result, json_output=json_output)

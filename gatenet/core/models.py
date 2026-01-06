@@ -24,6 +24,10 @@ class Port:
         number: The port number (1–65535).
         protocol: Transport protocol used by the port (e.g. "tcp", "udp").
         service: Optional well-known or inferred service name.
+
+    ```py
+    port = Port(number=80, protocol="tcp", service="http")
+    ```
     """
 
     number: int
@@ -42,6 +46,12 @@ class Service:
     Attributes:
         name: Human-readable service name.
         ports: Ports associated with this service.
+
+    ```py
+    service = Service(name="http",
+              ports=[Port(number=80),
+              Port(number=8080)])
+    ```
     """
 
     name: str
@@ -60,6 +70,12 @@ class Device:
         ip: IPv4 or IPv6 address of the device.
         hostname: Resolved hostname, if available.
         services: Services discovered on the device.
+
+    ```py
+    device = Device(ip="192.168.1.42",
+             hostname="laptop.local",
+             services=[])
+    ```
     """
 
     ip: str
@@ -78,6 +94,12 @@ class ScanResult:
     Attributes:
         target: Scan target (IP address, hostname, or CIDR range).
         open_ports: Open ports discovered on the target.
+
+    ```py
+    result = ScanResult(target="example.com",
+                      open_ports=[Port(number=80,
+                      service="http")])
+    ```
     """
 
     target: str

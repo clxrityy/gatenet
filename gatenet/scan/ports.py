@@ -22,6 +22,10 @@ def scan_target(target: str) -> ScanResult:
 
     Returns:
         Structured scan results for the target.
+
+    ```py
+    result = scan_target("example.com")
+    ```
     """
     open_ports: List[Port] = [
         Port(number=22, service="ssh"),

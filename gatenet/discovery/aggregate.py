@@ -15,6 +15,13 @@ def discover_devices() -> List[Device]:
 
     Returns:
         A combined list of discovered devices.
+
+    ```py
+    from gatenet.discovery.aggregate import discover_devices
+    devices = discover_devices()
+    for device in devices:
+        print(device)
+    ```
     """
     devices: List[Device] = []
 

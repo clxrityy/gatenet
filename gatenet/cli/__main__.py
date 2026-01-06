@@ -20,6 +20,10 @@ def build_parser() -> argparse.ArgumentParser:
 
     Returns:
         An initialized ArgumentParser instance.
+
+    ```py
+    parser = build_parser()
+    ```
     """
     parser = argparse.ArgumentParser(
         prog="gatenet",
@@ -65,6 +69,11 @@ def main() -> None:
 
     Parses command-line arguments and dispatches execution to the
     appropriate command handler.
+
+    ```py
+    if __name__ == "__main__":
+        main()
+    ```
     """
     parser = build_parser()
     args = parser.parse_args()

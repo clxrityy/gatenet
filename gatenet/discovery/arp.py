@@ -12,6 +12,10 @@ def discover_arp() -> List[Device]:
 
     Returns:
         Devices discovered via ARP.
+
+    ```py
+    devices = discover_arp()
+    ```
     """
     return [
         Device(ip="192.168.1.1", hostname="router.local", services=[]),

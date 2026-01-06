@@ -23,6 +23,10 @@ def print_output(data: Any, json_output: bool = False) -> None:
     Args:
         data: The data to output.
         json_output: If True, output data as formatted JSON.
+
+    ```py
+    print_output(devices, json_output=True)
+    ```
     """
     if json_output:
         print(json.dumps(data, default=_serialize, indent=2))
@@ -42,6 +46,10 @@ def _serialize(obj: Any):
 
     Returns:
         A JSON-serializable representation of the object.
+
+    ```py
+    _serialize(device_instance)
+    ```
     """
     if hasattr(obj, "__dict__"):
         return obj.__dict__
@@ -57,6 +65,10 @@ def _print_human(data: Any) -> None:
 
     Args:
         data: The data to render.
+
+    ```py
+    _print_human(["device1", "device2", "device3"])
+    ```
     """
     if isinstance(data, list):
         table = Table(show_header=True, header_style="bold")
