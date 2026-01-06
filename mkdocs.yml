@@ -7,19 +7,42 @@ repo_url: https://github.com/clxrityy/gatenet
 edit_uri: edit/main/docs/
 
 theme:
+  font:
+    text: Inter
+    code: JetBrains Mono
   name: material
+  logo: assets/logo.svg
+  favicon: assets/favicon.ico
+  manifest: assets/site.webmanifest
+  palette:
+    - scheme: slate
+      primary: indigo
+      accent: cyan
+    - scheme: default
+      primary: indigo
+      accent: cyan
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
   features:
     - navigation.tabs
-    - navigation.instant
     - navigation.sections
+    - navigation.indexes
+    - navigation.instant
+    - navigation.expand
     - content.code.copy
+    - content.action.edit
 
 markdown_extensions:
   - admonition
   - toc:
       permalink: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
   - pymdownx.superfences
-  - pymdownx.highlight
+  - pymdownx.snippets
+  - pymdownx.tabbed
 
 plugins:
   - search
@@ -32,23 +55,26 @@ plugins:
           options:
             docstring_style: google
             show_root_heading: true
-            show_source: true
             merge_init_into_class: true
+            show_signature_annotations: true
+            show_source: false
+            heading_level: 2
+            separate_signature: true
 
 nav:
   - Home: index.md
   - API:
-      - api/index.md
-      - gatenet:
-          - cli:
-              - api/gatenet/cli/__main__.md
-              - api/gatenet/cli/discover.md
-              - api/gatenet/cli/format.md
-              - api/gatenet/cli/scan.md
-          - core:
-              - api/gatenet/core/models.md
-          - discovery:
-              - api/gatenet/discovery/aggregate.md
-              - api/gatenet/discovery/arp.md
-          - scan:
-              - api/gatenet/scan/ports.md
+      - Overview: api/index.md
+      - Reference:
+        - cli:
+            - api/gatenet/cli/__main__.md
+            - api/gatenet/cli/discover.md
+            - api/gatenet/cli/format.md
+            - api/gatenet/cli/scan.md
+        - core:
+            - api/gatenet/core/models.md
+        - discovery:
+            - api/gatenet/discovery/aggregate.md
+            - api/gatenet/discovery/arp.md
+        - scan:
+            - api/gatenet/scan/ports.md
