@@ -16,14 +16,9 @@ theme:
   manifest: assets/site.webmanifest
   palette:
     - scheme: slate
-      primary: indigo
-      accent: cyan
-    - scheme: default
-      primary: indigo
-      accent: cyan
-      toggle:
-        icon: material/weather-night
-        name: Switch to dark mode
+      primary: blue gray
+      accent: deep purple
+
   features:
     - navigation.tabs
     - navigation.sections
@@ -35,6 +30,9 @@ theme:
 
 markdown_extensions:
   - admonition
+  - pymdownx.details
+  - attr_list
+  - md_in_html
   - toc:
       permalink: true
   - pymdownx.highlight:
@@ -43,6 +41,9 @@ markdown_extensions:
   - pymdownx.superfences
   - pymdownx.snippets
   - pymdownx.tabbed
+
+extra_css:
+  - assets/stylesheets/extra.css
 
 plugins:
   - search
@@ -63,6 +64,7 @@ plugins:
 
 nav:
   - Home: index.md
+  - Test Coverage: tests.md
   - API:
       - Overview: api/index.md
       - Reference:
