@@ -1,0 +1,19 @@
+.md-typeset .tagline {
+  font-size: 1.15rem;
+  font-weight: 600;
+  line-height: 1.4;
+  margin: 0.25rem 0 1.25rem;
+  max-width: 52rem;
+
+  /* Material-ish look */
+  color: var(--md-default-fg-color);
+  opacity: 0.85;
+
+  /* Optional: subtle accent bar */
+  padding-left: 0.75rem;
+  border-left: 0.25rem solid var(--md-accent-fg-color);
+}
+
+.md-footer {
+  display: none;
+}
