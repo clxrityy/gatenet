@@ -23,6 +23,7 @@ help:
 	@echo "  lint    - Check code style with ruff"
 	@echo "  lint-fix - Fix code style issues with ruff"
 	@echo "  format  - Format code with ruff"
+	@echo "  build   - Build the documentation using mkdocs"
 
 # Create a Python virtual environment
 venv:
@@ -75,7 +76,7 @@ format:
 	@$(RUFF) format
 
 # Build the documentation using mkdocs
-build:
+build: test
 	@$(DOCS) build
 
 # Ignore other targets
