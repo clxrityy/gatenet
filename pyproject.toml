@@ -47,6 +47,12 @@ gatenet = "gatenet.cli.__main__:main"
 [tool.setuptools.packages.find]
 where = ["."]
 
+[tool.coverage.run]
+omit = ["gatenet/cli/__main__.py"]
+
+[tool.coverage.report]
+omit = ["gatenet/cli/__main__.py"]
+
 [tool.pytest.ini_options]
 minversion = "8.0"
 addopts = [
@@ -55,7 +61,7 @@ addopts = [
   "--strict-markers",
   "--cov=gatenet",
   "--cov-report=term-missing",
-  "--cov-report=html",
+  "--cov-report=html:docs/coverage",
   "--cov-report=json",
 ]
 testpaths = ["tests"]
