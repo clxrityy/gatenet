@@ -54,5 +54,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install -e ".[docs]"
 
+      - name: Obtain coverage
+        run: |
+          pytest --cov=gatenet --cov-report=html:coverage/index.html
+
       - name: Build Docs
         run: mkdocs build --strict
