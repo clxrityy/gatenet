@@ -46,6 +46,7 @@ gatenet:
 # Run tests using pytest
 test:
 	@$(PYTEST)
+	@$(PYTHON) scripts/coverage_summary.py
 
 # Run tests with coverage and fail on low coverage
 test-cov:
