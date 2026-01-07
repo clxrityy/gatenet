@@ -12,3 +12,5 @@ htmlcov/
 *cache
 *coverage*
 site/
+!docs/coverage.md
+!scripts/coverage_summary.py
