@@ -1,0 +1,105 @@
+.md-typeset .tagline {
+  font-size: 1.15rem;
+  font-weight: 600;
+  line-height: 1.4;
+  margin: 0.25rem 0 1.25rem;
+  max-width: 52rem;
+
+  /* Material-ish look */
+  color: var(--md-default-fg-color);
+  opacity: 0.85;
+
+  /* Optional: subtle accent bar */
+  padding-left: 0.75rem;
+  border-left: 0.25rem solid var(--md-accent-fg-color);
+}
+
+.md-footer {
+  display: none;
+}
+
+/* Coverage stats "dashboard" */
+.md-typeset .stats-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 0.9rem;
+  margin: 1rem 0 1.25rem;
+}
+
+.md-typeset .stat-card {
+  grid-column: span 12;
+  padding: 1rem 1rem 0.9rem;
+  border-radius: 0.85rem;
+  border: 1px solid color-mix(in srgb, var(--md-default-fg-color) 12%, transparent);
+  background: color-mix(in srgb, var(--md-default-bg-color) 94%, var(--md-default-fg-color) 6%);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+}
+
+@media (min-width: 720px) {
+  .md-typeset .stat-card {
+    grid-column: span 4;
+  }
+}
+
+.md-typeset .stat-label {
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.75;
+  margin-bottom: 0.25rem;
+}
+
+.md-typeset .stat-value {
+  font-size: 2rem;
+  font-weight: 850;
+  line-height: 1.05;
+  margin: 0.1rem 0 0.45rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.md-typeset .stat-sub {
+  font-size: 0.85rem;
+  opacity: 0.75;
+  margin-top: 0.55rem;
+}
+
+.md-typeset .stat-bar {
+  height: 0.6rem;
+  border-radius: 999px;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--md-default-fg-color) 14%, transparent);
+}
+
+.md-typeset .stat-bar>span {
+  display: block;
+  height: 100%;
+  width: var(--pct, 0%);
+  border-radius: 999px;
+  background: linear-gradient(90deg,
+      var(--md-accent-fg-color),
+      color-mix(in srgb, var(--md-accent-fg-color) 55%, white));
+}
+
+.md-typeset .stat-card--warn {
+  border-color: color-mix(in srgb, #e53935 45%, transparent);
+}
+
+.md-typeset .stat-card--warn .stat-value {
+  color: #ff6b6b;
+}
+
+.md-typeset .stats-panel {
+  padding: 1rem;
+  border-radius: 0.85rem;
+  border: 1px solid color-mix(in srgb, var(--md-default-fg-color) 12%, transparent);
+  background: color-mix(in srgb, var(--md-default-bg-color) 97%, var(--md-default-fg-color) 3%);
+}
+
+.md-typeset .stats-panel__title {
+  font-weight: 750;
+  margin-bottom: 0.5rem;
+}
+
+.md-typeset .stats-actions {
+  margin-top: 0.85rem;
+}
