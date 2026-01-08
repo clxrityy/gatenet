@@ -28,6 +28,10 @@ jobs:
           venv/bin/pip install --upgrade pip
           venv/bin/pip install -e ".[docs,dev]"
 
+      - name: Activate venv for PATH
+        run: |
+          echo "$(pwd)/venv/bin" >> $GITHUB_PATH
+
       - name: Determine docs version
         id: version
         run: |
