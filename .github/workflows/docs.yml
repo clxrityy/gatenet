@@ -32,6 +32,11 @@ jobs:
         run: |
           echo "$(pwd)/venv/bin" >> $GITHUB_PATH
 
+      - name: Configure git user
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
       - name: Determine docs version
         id: version
         run: |
