@@ -1,0 +1,69 @@
+name: Docs
+
+on:
+  push:
+    branches:
+      - dev
+      - master
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # REQUIRED for mike
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m venv venv
+          venv/bin/pip install --upgrade pip
+          venv/bin/pip install -e ".[docs,dev]"
+
+      - name: Determine docs version
+        id: version
+        run: |
+          if [[ "${GITHUB_REF}" == "refs/heads/dev" ]]; then
+            echo "DOCS_VERSION=dev" >> $GITHUB_ENV
+            echo "UPDATE_ALIASES=false" >> $GITHUB_ENV
+          elif [[ "${GITHUB_REF}" == "refs/heads/master" ]]; then
+            echo "DOCS_VERSION=latest" >> $GITHUB_ENV
+            echo "UPDATE_ALIASES=false" >> $GITHUB_ENV
+          elif [[ "${GITHUB_REF}" == refs/tags/v* ]]; then
+            VERSION=$(python - <<EOF
+          import tomllib
+          print(tomllib.load(open("pyproject.toml","rb"))["project"]["version"])
+          EOF
+          )
+            echo "DOCS_VERSION=v$VERSION" >> $GITHUB_ENV
+            echo "UPDATE_ALIASES=true" >> $GITHUB_ENV
+          fi
+
+
+      - name: Check version consistency (tags only)
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          venv/bin/python scripts/check_version.py
+
+      - name: Deploy docs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [[ "$UPDATE_ALIASES" == "true" ]]; then
+            venv/bin/mike deploy --push --update-aliases "$DOCS_VERSION" latest
+          else
+            venv/bin/mike deploy --push "$DOCS_VERSION"
+          fi
+
+      - name: Set default version (tags only)
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          venv/bin/mike set-default latest --push
