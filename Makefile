@@ -1,6 +1,6 @@
 # Gatenet development Makefile
 
-.PHONY: help venv install install-dev gatenet test test-cov clean lint format build
+.PHONY: help venv install install-dev gatenet test test-cov clean lint format docs-build docs-deploy-version docs-deploy-dev docs-set-default check-version
 
 BIN := venv/bin
 PYTHON := $(BIN)/python
@@ -10,20 +10,27 @@ PYTEST := $(BIN)/pytest
 GATENET := $(BIN)/gatenet
 PRE-COMMIT := $(BIN)/pre-commit
 DOCS := $(BIN)/mkdocs
+MIKE := $(BIN)/mike
+PRINTF_FORMAT := "  %-25s %s\n"
+PYPROJECT := pyproject.toml
 
 help:
 	@echo "Available targets:"
-	@echo "  venv    - Create & source a Python virtual environment"
-	@echo "  install - Install the package in the virtual environment"
-	@echo "  install-dev - Install the development dependencies"
-	@echo "  gatenet - Run the gatenet CLI"
-	@echo "  test    - Run tests using pytest"
-	@echo "  test-cov - Run tests with coverage reporting"
-	@echo "  clean   - Remove virtual environment and temporary files"
-	@echo "  lint    - Check code style with ruff"
-	@echo "  lint-fix - Fix code style issues with ruff"
-	@echo "  format  - Format code with ruff"
-	@echo "  build   - Build the documentation using mkdocs"
+	@printf $(PRINTF_FORMAT) "venv" "Create & source a Python virtual environment"
+	@printf $(PRINTF_FORMAT) "install" "Install the package in the virtual environment"
+	@printf $(PRINTF_FORMAT) "install-dev" "Install the development dependencies"
+	@printf $(PRINTF_FORMAT) "gatenet" "Run the gatenet CLI"
+	@printf $(PRINTF_FORMAT) "test" "Run tests using pytest"
+	@printf $(PRINTF_FORMAT) "test-cov" "Run tests with coverage reporting"
+	@printf $(PRINTF_FORMAT) "clean" "Remove virtual environment and temporary files"
+	@printf $(PRINTF_FORMAT) "lint" "Check code style with ruff"
+	@printf $(PRINTF_FORMAT) "lint-fix" "Fix code style issues with ruff"
+	@printf $(PRINTF_FORMAT) "format" "Format code with ruff"
+	@printf $(PRINTF_FORMAT) "docs-build" "Build the documentation"
+	@printf $(PRINTF_FORMAT) "docs-deploy-version" "Deploy documentation for the current version"
+	@printf $(PRINTF_FORMAT) "docs-deploy-dev" "Deploy documentation to the 'dev' version"
+	@printf $(PRINTF_FORMAT) "docs-set-default" "Set the default documentation version to 'latest'"
+	@printf $(PRINTF_FORMAT) "check-version" "Check if Git tag version matches pyproject.toml version"
 
 # Create a Python virtual environment
 venv:
@@ -75,9 +82,33 @@ lint-fix:
 format:
 	@$(RUFF) format
 
+# Local dev docs preview
+docs-dev: test
+	@$(DOCS) serve
+
+# Build the documentation for dev version
+docs-dev-build:
+	@$(DOCS) build --site-dir site-dev
+
 # Build the documentation using mkdocs
-build: test
+docs-build: test
 	@$(DOCS) build
+
+# Deploy the documentation for the current version
+docs-deploy-version:
+	@$(MIKE) deploy --update-aliases $(VERSION) latest
+
+# Deploy the documentation to the 'dev' version
+docs-deploy-dev:
+	@$(MIKE) deploy --push dev
+
+# Set the default documentation version to 'latest'
+docs-set-default:
+	@$(MIKE) set-default latest
+
+# Check if Git tag version matches pyproject.toml version
+check-version:
+	@$(PYTHON) scripts/check_version.py
 
 # Ignore other targets
 %:
