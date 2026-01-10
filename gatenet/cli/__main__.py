@@ -45,6 +45,11 @@ def build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="Output results as JSON",
     )
+    discover_parser.add_argument(
+        "--resolve",
+        action="store_true",
+        help="Resolve hostnames via reverse DNS",
+    )
 
     # scan command
     scan_parser = subparsers.add_parser(
@@ -79,7 +84,7 @@ def main() -> None:
     args = parser.parse_args()
 
     if args.command == "discover":
-        run_discover(json_output=args.json)
+        run_discover(json_output=args.json, resolve_names=args.resolve)
     elif args.command == "scan":
         run_scan(target=args.target, json_output=args.json)
     else:
