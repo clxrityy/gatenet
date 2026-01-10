@@ -49,7 +49,7 @@ install-dev: venv
 
 # Run the gatenet CLI with passed arguments
 gatenet:
-	@$(GATENET) $(filter-out $@,$(MAKECMDGOALS))
+	@$(GATENET) $(ARGS) || true
 
 # Run tests using pytest
 test:

@@ -11,7 +11,8 @@
 
 ```bash
 make install # Install the package in a virtual environment
-make gatenet discover # Discover devices on the local network
+make gatenet ARGS=--help # Run the gatenet CLI with --help
+make gatenet ARGS="discover --resolve" # Discover devices on the local network & resolve hostnames
 ```
 
 ```bash
