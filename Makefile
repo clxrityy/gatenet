@@ -67,7 +67,7 @@ clean:
 	@find . -type d -name '__pycache__' -delete
 	@rm -rf .pytest_cache
 	@rm -rf *.egg-info
-	@rm -rf *coverage* .coverage htmlcov *cache site/ .ruff_cache
+	@rm -rf coverage.json .coverage htmlcov *cache site/ .ruff_cache
 
 # Check code style with ruff
 lint:
