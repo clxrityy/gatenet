@@ -39,3 +39,9 @@ This Code of Conduct applies within all project spaces, and also applies when an
 Instances of abusive, harassing, or otherwise unacceptable behavior may be reported by contacting the maintainers at [contact@mjanglin.com](mailto:contact@mjanglin.com). All complaints will be reviewed and investigated promptly and fairly.
 
 All project maintainers are obligated to respect the privacy and security of the reporter of any incident.
+
+---
+
+This Code of Conduct is adapted from the
+[Contributor Covenant](https://www.contributor-covenant.org),
+version 2.1.

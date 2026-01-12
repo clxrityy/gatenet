@@ -1,25 +1,51 @@
-# Pull Request Template
+# Pull Request
 
-Include any relevant extra relevant or introductory information about the pull request here.
+Thank you for contributing to gatenet. Please ensure this PR follows the project workflow and guidelines.
 
 ---
 
-## Description of Changes
+## Summary
 
-Please include a summary of the change and which issue is fixed. Also include relevant motivation and context. List any dependencies and/or applicable references/issues.
+Briefly describe **what** this PR does and **why** it exists.
+Link relevant issues if applicable.
+
+---
+
+## Type of Change
+
+Select all that apply:
+
+- [ ] Bug fix
+- [ ] New feature
+- [ ] Refactor (no behavior change)
+- [ ] Documentation update
+- [ ] Test improvements
+- [ ] Dependency update
+
+---
+
+## Branching Confirmation (Required)
+
+- [ ] This PR targets the **`dev`** branch
+- [ ] I understand that **`master` is release-only**
+- [ ] I understand that merging `dev → master` triggers a release
+
+> ⚠️ PRs targeting `master` directly will be closed.
+
+---
 
 ## Checklist
 
-- [ ] I've read the [contributing guidelines](./CONTRIBUTING.md).
-- [ ] This pull request doesn't violate the [security policy](./SECURITY.md).
-- [ ] My code follows the project's coding style and conventions.
-- [ ] I've included docstrings and comments where necessary.
-- [ ] If applicable, I've added tests to cover my changes.
-- [ ] All new and existing tests pass.
-- [ ] Tested locally to ensure no existing functionality is broken.
+- [ ] I’ve read the [Contributing Guidelines](./CONTRIBUTING.md)
+- [ ] This change does not violate the [Security Policy](./SECURITY.md)
+- [ ] Code follows project style and conventions
+- [ ] Docstrings/comments were added or updated where needed
+- [ ] Tests were added or updated where applicable
+- [ ] All tests pass locally
+- [ ] No unrelated changes are included
 
 ---
 
-## Other Relevant Information (optional)
+## Additional Context (optional)
 
-Any other relevant information about the pull request here, such as screenshots, code snippets, or additional instructions.
+Anything else reviewers should know (screenshots, follow-ups, tradeoffs, etc.).
