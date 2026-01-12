@@ -1217,15 +1217,17 @@ and safe by default.</p>
 
 
 <a href="#gatenet.scan.ports.scan_target" class="headerlink" title="Permanent link">&para;</a></h3>
-<div class="doc-signature highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">scan_target</span><span class="p">(</span><span class="n">target</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ScanResult</span>
+<div class="doc-signature highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">scan_target</span><span class="p">(</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n">target</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">ports</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ScanResult</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
 
-        <p>Scan a target for open TCP ports.</p>
-<p>This function performs a basic TCP connect scan against a predefined
-set of common ports. It is intended as a minimal, synchronous
-implementation and may be extended or replaced in future versions.</p>
+        <p>Scan a target for open TCP ports using a connect scan.</p>
+<p>This function attempts to establish TCP connections against a
+predefined or user-supplied set of ports. It does not perform
+banner grabbing or service fingerprinting.</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -1248,11 +1250,27 @@ implementation and may be extended or replaced in future versions.</p>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>IP address, hostname, or CIDR range to scan.</p>
+                <p>IP address or hostname to scan.</p>
               </div>
             </td>
             <td>
                 <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>ports</code>
+            </td>
+            <td>
+                  <code><span title="typing.Iterable">Iterable</span>[<span title="int">int</span>] | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Optional iterable of TCP ports to scan.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
             </td>
           </tr>
       </tbody>
@@ -1285,7 +1303,12 @@ implementation and may be extended or replaced in future versions.</p>
           </tr>
       </tbody>
     </table>
-        <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">result</span> <span class="o">=</span> <span class="n">scan_target</span><span class="p">(</span><span class="s2">&quot;example.com&quot;</span><span class="p">)</span>
+        <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">gatenet.scan.ports</span><span class="w"> </span><span class="kn">import</span> <span class="n">scan_target</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">result</span> <span class="o">=</span> <span class="n">scan_target</span><span class="p">(</span><span class="s2">&quot;example.com&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="k">for</span> <span class="n">port</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">open_ports</span><span class="p">:</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">port</span><span class="o">.</span><span class="n">number</span><span class="p">,</span> <span class="n">port</span><span class="o">.</span><span class="n">service</span><span class="p">)</span>
 </code></pre></div>
 
 
