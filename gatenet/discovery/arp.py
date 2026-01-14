@@ -1,8 +1,54 @@
+from typing import Iterable, List
 import platform
 import subprocess
-from typing import List
 
 from gatenet.core.models import Device
+from gatenet.discovery.base import DiscoveryProvider
+
+
+class ArpDiscovery(DiscoveryProvider):
+    """Discover devices on the local network using ARP.
+
+    This provider executes the ARP command to retrieve the list of devices
+    currently known to the system.
+
+    ```py
+    arp_discovery = ArpDiscovery()
+    ```
+    """
+
+    name = "arp"
+
+    def discover(self) -> Iterable[Device]:
+        """Discover devices using the ARP command.
+
+        Returns:
+            An iterable of Device instances discovered via ARP.
+
+        ```py
+        devices = arp_discovery.discover()
+        ```
+        """
+        system = platform.system().lower()
+        if system == "darwin":
+            cmd = ["arp", "-a"]
+        elif system == "linux":
+            cmd = ["ip", "neigh"]
+        else:
+            # Windows or unsupported OS
+            return []
+
+        try:
+            result = subprocess.run(
+                cmd,
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+        except OSError:
+            return []
+
+        return _parse_arp_output(result.stdout)
 
 
 def _parse_arp_output(output: str) -> List[Device]:
@@ -34,38 +80,3 @@ def _parse_arp_output(output: str) -> List[Device]:
         devices.append(Device(ip=ip, hostname=None, services=[]))
 
     return devices
-
-
-def discover_arp() -> List[Device]:
-    """Discover devices using ARP-based techniques.
-
-    This reads the local ARP table and converts known entries into
-    Device objects. This method is passive and does not emit packets.
-
-    Returns:
-        Devices discovered via ARP.
-
-    ```py
-    devices = discover_arp()
-    ```
-    """
-    system = platform.system().lower()
-    if system == "darwin":
-        cmd = ["arp", "-a"]
-    elif system == "linux":
-        cmd = ["ip", "neigh"]
-    else:
-        # Windows or unsupported OS
-        return []
-
-    try:
-        result = subprocess.run(
-            cmd,
-            capture_output=True,
-            text=True,
-            check=False,
-        )
-    except OSError:
-        return []
-
-    return _parse_arp_output(result.stdout)

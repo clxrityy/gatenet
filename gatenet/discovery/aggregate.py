@@ -1,73 +1,80 @@
-from typing import Dict, List
+from typing import Iterable, List
 
 from gatenet.core.models import Device
-from gatenet.discovery.arp import discover_arp
+from gatenet.discovery.base import DiscoveryProvider
+from gatenet.discovery.arp import ArpDiscovery
 from gatenet.discovery.resolve import resolve_hostnames
 
 
-def _deduplicate(devices: List[Device]) -> List[Device]:
-    """Deduplice devices by IP address.
+DEFAULT_PROVIDERS: list[DiscoveryProvider] = [
+    ArpDiscovery(),
+]
 
-    If multiple Device objects share the same IP, their data is merged.
-    Hostnames and services are preserved when available.
+
+def _deduplicate(devices: Iterable[Device]) -> list[Device]:
+    """Deduplicate devices based on their IP addresses.
+
+    If multiple devices share the same IP, their information is merged.
+    Hostnames and services are preserved where possible.
+
+    Args:
+        devices: An iterable of Device instances to deduplicate.
 
     Returns:
-        A list of unique devices keyed by IP.
+        A list of unique Device instances.
 
     ```py
-    devices = [
-      Device(ip="192.168.1.1", hostname=None, services=[]),
-      Device(ip="192.168.1.1", hostname="router.local", services=[]),
-    ]
-
-    unique = _deduplicate(devices)
-    assert len(unique) == 1
-    assert unique[0].hostname == "router.local"
+    unique_devices = _deduplicate(devices)
     ```
     """
-    unique: Dict[str, Device] = {}
+    unique: dict[str, Device] = {}
 
     for device in devices:
+        if not device.ip:
+            # Non-IP devices (e.g. Bluetooth) are not deduped here yet
+            unique[str(id(device))] = device
+            continue
+
         if device.ip not in unique:
             unique[device.ip] = device
             continue
 
         existing = unique[device.ip]
 
-        # Prefer non-null hostname
         if not existing.hostname and device.hostname:
             existing.hostname = device.hostname
 
-        # Merge services (naive but safe)
         existing.services.extend(device.services)
 
     return list(unique.values())
 
 
-def discover_devices(resolve_names: bool = False) -> List[Device]:
-    """Discover devices on the local network.
-
-    Aggregates results from all enabled discovery mechanisms and
-    optionally resolves hostnames via reverse DNS.
+def discover_devices(
+    *,
+    resolve_names: bool = False,
+    providers: Iterable[DiscoveryProvider] | None = None,
+) -> List[Device]:
+    """Discover devices using all configured discovery providers.
 
     Args:
-        resolve_names: Whether to perform reverse DNS lookups.
+        resolve_names: Whether to resolve hostnames for discovered devices.
+        providers: An optional iterable of DiscoveryProvider instances to use.
 
     Returns:
-        A deduplicated list of discovered devices.
+        A list of discovered Device instances.
 
     ```py
-    from gatenet.discovery import discover_devices
-
-    devices = discover_devices(resolve_names=True)
-    for device in devices:
-        print(device.ip, device.hostname)
+    devices = discover_devices()
     ```
     """
-    devices: List[Device] = []
+    devices: list[Device] = []
 
-    # v1 discovery sources
-    devices.extend(discover_arp())
+    for provider in providers or DEFAULT_PROVIDERS:
+        try:
+            devices.extend(provider.discover())
+        except Exception:
+            # Discovery must never be fatal
+            continue
 
     devices = _deduplicate(devices)
 
