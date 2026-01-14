@@ -9,7 +9,7 @@ The models are intentionally simple and contain no networking logic.
 """
 
 from dataclasses import dataclass, field
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 
 
 @dataclass
@@ -67,9 +67,13 @@ class Device:
     discovery or scanning method used.
 
     Attributes:
+        id: Stable identifier for the device, if available.
+        kind: Type of device (e.g. "ip", "bluetooth", "upnp").
+        transport: Discovery or transport method (e.g. "arp", "ble", "mdns").
         ip: IPv4 or IPv6 address of the device.
         hostname: Resolved hostname, if available.
         services: Services discovered on the device.
+        metadata: Additional raw metadata from discovery providers.
 
     ```py
     device = Device(ip="192.168.1.42",
@@ -78,9 +82,20 @@ class Device:
     ```
     """
 
-    ip: str
+    # Identity
+    id: Optional[str] = None  # Stable identifier, if available
+    kind: str = "unknown"  # ip | bluetooth | mdns | upnp | etc.
+    transport: Optional[str] = None  # arp | ble | mdns | tcp | udp
+
+    # IP-centrric fields (optional)
+    ip: Optional[str] = None
     hostname: Optional[str] = None
+
+    # Capabilities / observations
     services: List[Service] = field(default_factory=list)
+
+    # Arbitrary provider-specific metadata
+    metadata: Dict[str, Any] = field(default_factory=dict)
 
 
 @dataclass
