@@ -1,6 +1,6 @@
 # Gatenet development Makefile
 
-.PHONY: help venv install install-dev gatenet test test-cov clean lint format docs-build docs-deploy-version docs-deploy-dev docs-set-default check-version
+.PHONY: help venv install install-dev install-bluetooth gatenet test test-cov clean lint format docs-build docs-deploy-version docs-deploy-dev docs-set-default check-version
 
 BIN := venv/bin
 PYTHON := $(BIN)/python
@@ -19,6 +19,7 @@ help:
 	@printf $(PRINTF_FORMAT) "venv" "Create & source a Python virtual environment"
 	@printf $(PRINTF_FORMAT) "install" "Install the package in the virtual environment"
 	@printf $(PRINTF_FORMAT) "install-dev" "Install the development dependencies"
+	@printf $(PRINTF_FORMAT) "install-bluetooth" "Install the Bluetooth dependencies"
 	@printf $(PRINTF_FORMAT) "gatenet" "Run the gatenet CLI"
 	@printf $(PRINTF_FORMAT) "test" "Run tests using pytest"
 	@printf $(PRINTF_FORMAT) "test-cov" "Run tests with coverage reporting"
@@ -46,6 +47,10 @@ install-dev: venv
 	$(PIP) install -e ".[dev]"
 	$(PIP) install -e ".[docs]"
 	$(PRE-COMMIT) install
+
+# Install the package with Bluetooth dependencies
+install-bluetooth: venv
+	$(PIP) install -e ".[bluetooth]"
 
 # Run the gatenet CLI with passed arguments
 gatenet:

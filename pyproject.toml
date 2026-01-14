@@ -38,6 +38,8 @@ docs = [
   "mike>=2.0.0",
 ]
 
+bluetooth = ["bleak>=0.21.0"]
+
 [build-system]
 requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
