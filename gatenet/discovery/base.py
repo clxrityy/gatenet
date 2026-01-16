@@ -47,3 +47,38 @@ class DiscoveryProvider(ABC):
         ```
         """
         raise NotImplementedError
+
+
+class AsyncDiscoveryProvider(DiscoveryProvider):
+    """Base class for async-capable discovery providers.
+
+    A discovery provider that supports asynchronous operation should
+    inherit from this class instead of the base DiscoveryProvider.
+
+    ```py
+    class MyAsyncProvider(AsyncDiscoveryProvider):
+        name = "My Async Provider"
+        async_capable = True
+
+        async def discover_async(self) -> Iterable[Device]:
+            # Async implementation of discovery logic
+            yield Device(ip="192.168.1.1")
+
+    provider = MyAsyncProvider()
+    ```
+    """
+
+    async_capable: bool = True
+
+    @abstractmethod
+    async def discover_async(self) -> Iterable[Device]:
+        """Async discovery entry point.
+
+        Returns:
+            An iterable of Device objects representing discovered devices.
+
+        ```py
+        devices = await provider.discover_async()
+        ```
+        """
+        raise NotImplementedError
