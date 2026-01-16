@@ -1049,6 +1049,34 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#gatenet.discovery.base.AsyncDiscoveryProvider" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AsyncDiscoveryProvider
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="AsyncDiscoveryProvider">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gatenet.discovery.base.AsyncDiscoveryProvider.discover_async" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        discover_async
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#gatenet.discovery.base.DiscoveryProvider" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1134,6 +1162,121 @@
 
 
 
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="gatenet.discovery.base.AsyncDiscoveryProvider" class="doc doc-heading">
+            <span class="doc doc-object-name doc-class-name">AsyncDiscoveryProvider</span>
+
+
+<a href="#gatenet.discovery.base.AsyncDiscoveryProvider" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="DiscoveryProvider (gatenet.discovery.base.DiscoveryProvider)" href="#gatenet.discovery.base.DiscoveryProvider">DiscoveryProvider</a></code></p>
+
+
+
+        <p>Base class for async-capable discovery providers.</p>
+<p>A discovery provider that supports asynchronous operation should
+inherit from this class instead of the base DiscoveryProvider.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">MyAsyncProvider</span><span class="p">(</span><span class="n">AsyncDiscoveryProvider</span><span class="p">):</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;My Async Provider&quot;</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">async_capable</span> <span class="o">=</span> <span class="kc">True</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">discover_async</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Device</span><span class="p">]:</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>        <span class="c1"># Async implementation of discovery logic</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>        <span class="k">yield</span> <span class="n">Device</span><span class="p">(</span><span class="n">ip</span><span class="o">=</span><span class="s2">&quot;192.168.1.1&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="n">provider</span> <span class="o">=</span> <span class="n">MyAsyncProvider</span><span class="p">()</span>
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="gatenet.discovery.base.AsyncDiscoveryProvider.discover_async" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">discover_async</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+<a href="#gatenet.discovery.base.AsyncDiscoveryProvider.discover_async" class="headerlink" title="Permanent link">&para;</a></h4>
+<div class="doc-signature highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">discover_async</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Device</span><span class="p">]</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Async discovery entry point.</p>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="typing.Iterable">Iterable</span>[<a class="autorefs autorefs-internal" title="Device
+
+
+  
+      dataclass
+   (gatenet.core.models.Device)" href="../../core/models/#gatenet.core.models.Device">Device</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>An iterable of Device objects representing discovered devices.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+        <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">devices</span> <span class="o">=</span> <span class="k">await</span> <span class="n">provider</span><span class="o">.</span><span class="n">discover_async</span><span class="p">()</span>
+</code></pre></div>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
 
 <div class="doc doc-object doc-class">
 
