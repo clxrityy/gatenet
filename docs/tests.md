@@ -4,10 +4,10 @@
 
 <div class="stats-grid">
 
-  <div class="stat-card" style="--pct: 73%;">
+  <div class="stat-card" style="--pct: 61%;">
     <div class="stat-label">Total Coverage</div>
-    <div class="stat-value">73%</div>
-    <div class="stat-bar" role="img" aria-label="Total coverage 73 percent">
+    <div class="stat-value">61%</div>
+    <div class="stat-bar" role="img" aria-label="Total coverage 61 percent">
       <span></span>
     </div>
     <div class="stat-sub">Generated from <code>coverage.json</code></div>
@@ -15,13 +15,13 @@
 
   <div class="stat-card">
     <div class="stat-label">Statements</div>
-    <div class="stat-value">170</div>
+    <div class="stat-value">220</div>
     <div class="stat-sub">Tracked executable statements</div>
   </div>
 
   <div class="stat-card stat-card--warn">
     <div class="stat-label">Missing</div>
-    <div class="stat-value">46</div>
+    <div class="stat-value">85</div>
     <div class="stat-sub">Statements not covered</div>
   </div>
 
