@@ -77,6 +77,15 @@ def _parse_arp_output(output: str) -> List[Device]:
         if "." not in ip:
             continue
 
-        devices.append(Device(ip=ip, hostname=None, services=[]))
+        devices.append(
+            Device(
+                id=ip,
+                kind="ip",
+                transport="arp",
+                ip=ip,
+                hostname=None,
+                services=[],
+            )
+        )
 
     return devices
